@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    
+<page:list id="pl_edu_mit_cci_simulation_model_DefaultVariable" items="${defaultvariables}" z="i1VJ7fCstHYKl/ZE68TboGcaEOg=">
+        <table:table data="${defaultvariables}" id="l_edu_mit_cci_simulation_model_DefaultVariable" path="/variables" z="nfG1SxehjemghzGOWJZfLbIUq2I=">
+            <table:column id="c_edu_mit_cci_simulation_model_DefaultVariable_options" property="options" z="pEmwXaK/CGVVVwxc3uctGTUoAR8="/>
+            <table:column id="c_edu_mit_cci_simulation_model_DefaultVariable_name" property="name" z="dSpgU/6fy/STHJArB8z0eZfWLuI="/>
+            <table:column id="c_edu_mit_cci_simulation_model_DefaultVariable_description" property="description" z="Ie/XaZOSdNDzV78Txm9trX9wW50="/>
+            <table:column id="c_edu_mit_cci_simulation_model_DefaultVariable_arity" property="arity" z="Qf0ItDib/7GupvNWdN1JXMtrxkw="/>
+            <table:column id="c_edu_mit_cci_simulation_model_DefaultVariable_dataType" property="dataType" z="Z8gPn+SQNSj9jS1LRcy9JPrdwFs="/>
+            <table:column id="c_edu_mit_cci_simulation_model_DefaultVariable_precision_" property="precision_" z="aM8uDYJX0aYzpqNIPAi5YOnCacc="/>
+        </table:table>
+    </page:list>
+</div>
