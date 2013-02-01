@@ -1,6 +1,7 @@
 package edu.mit.cci.roma.util;
 
-import edu.mit.cci.roma.model.SimulationException;
+
+import edu.mit.cci.roma.api.SimulationException;
 
 /**
  * User: jintrone

@@ -1,7 +1,7 @@
 package edu.mit.cci.roma.api;
 
 import edu.mit.cci.roma.impl.Tuple;
-import edu.mit.cci.roma.model.SimulationException;
+
 import edu.mit.cci.roma.util.SimulationJAXBAdapter;
 
 import javax.xml.bind.annotation.XmlRootElement;

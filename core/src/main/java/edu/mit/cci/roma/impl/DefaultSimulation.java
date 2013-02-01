@@ -1,10 +1,11 @@
 package edu.mit.cci.roma.impl;
 
+
 import edu.mit.cci.roma.api.Scenario;
 import edu.mit.cci.roma.api.Simulation;
+import edu.mit.cci.roma.api.SimulationException;
 import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.jaxb.JaxbCollection;
-import edu.mit.cci.roma.model.SimulationException;
 import org.apache.log4j.Logger;
 import org.springframework.format.annotation.DateTimeFormat;
 

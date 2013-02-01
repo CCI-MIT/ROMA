@@ -1,4 +1,4 @@
-package edu.mit.cci.roma.model;
+package edu.mit.cci.roma.api;
 
 /**
  * User: jintrone

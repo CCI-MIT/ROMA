@@ -2,10 +2,9 @@ package edu.mit.cci.roma.util;
 
 import edu.mit.cci.roma.api.DataType;
 import edu.mit.cci.roma.api.Variable;
-import edu.mit.cci.roma.excel.server.ExcelSimulation;
 import edu.mit.cci.roma.impl.Tuple;
 import org.apache.log4j.Logger;
-import org.apache.poi.ss.util.AreaReference;
+
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,16 +19,7 @@ public class Validation {
 
     public static Logger log = Logger.getLogger(Validation.class);
 
-    public static void validateExcelCoordinates(String cellRange) throws SimulationValidationException {
-        AreaReference ref = new AreaReference(cellRange);
 
-        int width = 1 + ref.getLastCell().getCol() - ref.getFirstCell().getCol();
-        int height = 1 + ref.getLastCell().getRow() - ref.getLastCell().getRow();
-
-        if (width == 0 || height == 0 || (width > 1 && height > 1)) {
-            throw new SimulationValidationException("Cell range must be at least one in both dimensions, but not greater than one in both");
-        }
-    }
 
     public static void notNull(Object o, String objectName) throws SimulationValidationException {
         if (o == null) throw new SimulationValidationException(objectName + " cannot be null");
@@ -47,12 +37,7 @@ public class Validation {
             throw new SimulationValidationException("Data is longer than specified arity of " + v.getArity());
     }
 
-    public static void excelUrl(String url) throws SimulationValidationException {
-        if (!url.startsWith(ExcelSimulation.EXCEL_URL)) {
-            throw new SimulationValidationException("Url for built-in excel models should begin with /excel/");
-        }
-        //To change body of created methods use File | Settings | File Templates.
-    }
+
 
     public static void isComplete(Variable v) throws SimulationValidationException {
         if (v == null) {

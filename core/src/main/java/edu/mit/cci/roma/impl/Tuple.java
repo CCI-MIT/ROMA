@@ -1,6 +1,8 @@
 package edu.mit.cci.roma.impl;
 
-import edu.mit.cci.roma.api.*;
+import edu.mit.cci.roma.api.DataType;
+import edu.mit.cci.roma.api.TupleStatus;
+import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.jaxb.JaxbReference;
 import edu.mit.cci.roma.util.SimulationValidationException;
 import edu.mit.cci.roma.util.U;
@@ -115,18 +117,18 @@ public class Tuple {
         return "" + getId();
     }
 
-    public static Tuple copy(Tuple t) {
-        Tuple result = new Tuple();
-        result.setVar(t.getVar());
-        try {
-            result.setValue_(t.getValue_());
-        } catch (SimulationValidationException e) {
-            throw new RuntimeException("Encountered an invalid tuple on copy", e);
-        }
-
-        result.persist();
-        return result;
-    }
+//    public static Tuple copy(Tuple t) {
+//        Tuple result = new Tuple();
+//        result.setVar(t.getVar());
+//        try {
+//            result.setValue_(t.getValue_());
+//        } catch (SimulationValidationException e) {
+//            throw new RuntimeException("Encountered an invalid tuple on copy", e);
+//        }
+//
+//        result.persist();
+//        return result;
+//    }
 
 
     private Long id;
