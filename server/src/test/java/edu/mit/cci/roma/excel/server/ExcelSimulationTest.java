@@ -2,6 +2,7 @@ package edu.mit.cci.roma.excel.server;
 
 
 
+import edu.mit.cci.roma.excel.ExcelSimulation;
 import org.codehaus.plexus.util.IOUtil;
 import org.junit.Assert;
 import org.junit.Test;

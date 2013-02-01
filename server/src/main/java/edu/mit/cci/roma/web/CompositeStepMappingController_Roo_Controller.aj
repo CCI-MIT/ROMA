@@ -4,8 +4,8 @@
 package edu.mit.cci.roma.web;
 
 
-import edu.mit.cci.roma.model.CompositeServerSimulation;
-import edu.mit.cci.roma.model.CompositeStepMapping;
+import edu.mit.cci.roma.server.CompositeServerSimulation;
+import edu.mit.cci.roma.server.CompositeStepMapping;
 import edu.mit.cci.roma.impl.DefaultVariable;
 
 import java.io.UnsupportedEncodingException;

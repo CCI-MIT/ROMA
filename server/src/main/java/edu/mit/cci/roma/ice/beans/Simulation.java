@@ -8,12 +8,11 @@ import java.util.Date;
 import javax.faces.event.ActionEvent;
 
 import edu.mit.cci.roma.api.DataType;
+import edu.mit.cci.roma.excel.ExcelSimulation;
+import edu.mit.cci.roma.excel.ExcelVariable;
 import edu.mit.cci.roma.impl.DefaultSimulation;
 import edu.mit.cci.roma.impl.DefaultVariable;
 import org.apache.commons.io.IOUtils;
-
-import edu.mit.cci.roma.excel.server.ExcelSimulation;
-import edu.mit.cci.roma.excel.server.ExcelVariable;
 
 public class Simulation {
 

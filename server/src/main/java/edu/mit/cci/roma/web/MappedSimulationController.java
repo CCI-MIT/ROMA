@@ -1,7 +1,7 @@
 package edu.mit.cci.roma.web;
 
 
-import edu.mit.cci.roma.model.MappedServerSimulation;
+import edu.mit.cci.roma.server.MappedServerSimulation;
 import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

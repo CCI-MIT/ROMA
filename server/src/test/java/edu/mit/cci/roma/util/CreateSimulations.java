@@ -3,15 +3,15 @@ package edu.mit.cci.roma.util;
 import edu.mit.cci.roma.api.DataType;
 import edu.mit.cci.roma.api.Simulation;
 import edu.mit.cci.roma.api.Variable;
-import edu.mit.cci.roma.excel.server.ExcelSimulation;
-import edu.mit.cci.roma.excel.server.ExcelVariable;
+import edu.mit.cci.roma.excel.ExcelSimulation;
+import edu.mit.cci.roma.excel.ExcelVariable;
 
-import edu.mit.cci.roma.model.CompositeStepMapping;
+import edu.mit.cci.roma.server.CompositeStepMapping;
 
 import edu.mit.cci.roma.impl.DefaultVariable;
-import edu.mit.cci.roma.model.ManyToOneMapping;
-import edu.mit.cci.roma.model.Step;
-import edu.mit.cci.roma.model.*;
+import edu.mit.cci.roma.server.ManyToOneMapping;
+import edu.mit.cci.roma.server.Step;
+import edu.mit.cci.roma.server.*;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;

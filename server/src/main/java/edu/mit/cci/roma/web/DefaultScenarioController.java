@@ -2,7 +2,6 @@ package edu.mit.cci.roma.web;
 
 import edu.mit.cci.roma.impl.DefaultScenario;
 import edu.mit.cci.roma.util.ConcreteSerializableCollection;
-import edu.mit.cci.roma.util.U;
 import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +32,7 @@ public class DefaultScenarioController {
     @RequestMapping(method = RequestMethod.GET, headers = "accept=text/xml")
     @ResponseBody
     public ConcreteSerializableCollection listXml(Model model) {
-       return U.wrap(DefaultScenario.findAllDefaultScenarios());
+       return edu.mit.cci.roma.server.util.U.wrap(DefaultScenario.findAllDefaultScenarios());
 
     }
 

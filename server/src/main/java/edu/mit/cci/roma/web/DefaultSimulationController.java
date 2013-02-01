@@ -3,7 +3,6 @@ package edu.mit.cci.roma.web;
 import edu.mit.cci.roma.impl.DefaultSimulation;
 import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.util.ConcreteSerializableCollection;
-import edu.mit.cci.roma.util.U;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
 import org.springframework.stereotype.Controller;
@@ -57,7 +56,7 @@ public class DefaultSimulationController {
     @RequestMapping(method = RequestMethod.GET, headers = "accept=text/xml")
     @ResponseBody
     public ConcreteSerializableCollection listXml(Model model) {
-        return U.wrap(DefaultSimulation.findAllDefaultSimulations());
+        return edu.mit.cci.roma.server.util.U.wrap(DefaultSimulation.findAllDefaultSimulations());
 
     }
 

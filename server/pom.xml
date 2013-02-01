@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.mit.cci.roma</groupId>
-    <artifactId>roma</artifactId>
+    <artifactId>roma-server</artifactId>
     <packaging>war</packaging>
     <version>0.1.0.BUILD-SNAPSHOT</version>
     <name>roma-server</name>
@@ -382,13 +382,13 @@
             <version>1.5</version>
         </dependency>
 
-<!-- 
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>catalina</artifactId>
-            <version>6.0.29</version>
-        </dependency>
-         -->
+        <!--
+       <dependency>
+           <groupId>org.apache.tomcat</groupId>
+           <artifactId>catalina</artifactId>
+           <version>6.0.29</version>
+       </dependency>
+        -->
         <dependency>
             <groupId>com.sun.jersey.contribs</groupId>
             <artifactId>jersey-simple-server</artifactId>
@@ -434,13 +434,13 @@
           <version>1.2.2</version>
           <optional>false</optional>
       </dependency>  -->
-      
-      <!-- Icefaces -->
-  <dependency>
-    <groupId>commons-digester</groupId>
-    <artifactId>commons-digester</artifactId>
-    <version>1.8</version>
-  </dependency>
+
+        <!-- Icefaces -->
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+            <version>1.8</version>
+        </dependency>
 
         <dependency>
             <groupId>org.icefaces</groupId>
@@ -471,15 +471,15 @@
             <version>2.3</version>
             <scope>provided</scope>
         </dependency>
-        
-    <!-- JSF Dependencies -->
-    <!--
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
-        </dependency>
--->
+
+        <!-- JSF Dependencies -->
+        <!--
+                <dependency>
+                    <groupId>javax.servlet.jsp</groupId>
+                    <artifactId>jsp-api</artifactId>
+                    <version>2.1</version>
+                </dependency>
+        -->
         <dependency>
             <groupId>com.sun.el</groupId>
             <artifactId>el-ri</artifactId>
@@ -487,21 +487,25 @@
             <scope>provided</scope>
         </dependency>
 
-    <dependency>
-      <groupId>javax.faces</groupId>
-      <artifactId>jsf-api</artifactId>
-      <version>1.2</version>
-      <scope>compile</scope>
-    </dependency>
+        <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>1.2</version>
+            <scope>compile</scope>
+        </dependency>
 
-    <dependency>
-      <groupId>javax.faces</groupId>
-      <artifactId>jsf-impl</artifactId>
-      <version>1.2-b19</version>
-      <scope>compile</scope>
-    </dependency>
-      
+        <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>1.2-b19</version>
+            <scope>compile</scope>
+        </dependency>
 
+        <dependency>
+            <groupId>edu.mit.cci.roma</groupId>
+            <artifactId>roma-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
     <build>
@@ -511,7 +515,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.1</version>
                 <configuration>
-                <!--
+                    <!--
                      <excludes>
                         <exclude>**/web/*</exclude>
                         <exclude>**/excel/*</exclude>
@@ -546,7 +550,7 @@
                 </dependencies>
                 <executions>
                     <execution>
-                    
+
                         <goals>
                             <goal>compile</goal>
                             <goal>test-compile</goal>
@@ -556,7 +560,7 @@
                 <configuration>
                     <outxml>true</outxml>
                     <verbose>true</verbose>
-                    
+
                     <aspectLibraries>
                         <aspectLibrary>
                             <groupId>org.springframework</groupId>
@@ -664,6 +668,6 @@
                 </configuration>
             </plugin>
         </plugins>
-        
+
     </build>
 </project>

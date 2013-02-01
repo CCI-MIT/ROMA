@@ -2,7 +2,6 @@ package edu.mit.cci.roma.web;
 
 import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.util.ConcreteSerializableCollection;
-import edu.mit.cci.roma.util.U;
 import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +32,7 @@ public class VariableController {
     @RequestMapping(method = RequestMethod.GET, headers = "accept=text/xml")
     @ResponseBody
     public ConcreteSerializableCollection list(Model model) {
-        return U.wrap(DefaultVariable.findAllDefaultVariables());
+        return edu.mit.cci.roma.server.util.U.wrap(DefaultVariable.findAllDefaultVariables());
     }
 
     @RequestMapping(method = RequestMethod.GET, headers = "accept=text/html")

@@ -2,8 +2,8 @@ package edu.mit.cci.roma.impl;
 
 import edu.mit.cci.roma.api.Scenario;
 import edu.mit.cci.roma.api.Variable;
-import edu.mit.cci.roma.model.DefaultServerSimulation;
-import edu.mit.cci.roma.model.SimulationException;
+import edu.mit.cci.roma.server.DefaultServerSimulation;
+import edu.mit.cci.roma.server.SimulationException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;

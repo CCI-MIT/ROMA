@@ -3,11 +3,11 @@
 
 package edu.mit.cci.roma.web;
 
-import edu.mit.cci.roma.model.CompositeScenario;
+import edu.mit.cci.roma.server.CompositeScenario;
 import edu.mit.cci.roma.impl.DefaultSimulation;
-import edu.mit.cci.roma.model.DefaultServerSimulation;
-import edu.mit.cci.roma.model.ScenarioList;
-import edu.mit.cci.roma.model.Step;
+import edu.mit.cci.roma.server.DefaultServerSimulation;
+import edu.mit.cci.roma.server.ScenarioList;
+import edu.mit.cci.roma.server.Step;
 import edu.mit.cci.roma.impl.Tuple;
 
 import java.io.UnsupportedEncodingException;

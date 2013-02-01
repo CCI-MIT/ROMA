@@ -4,7 +4,7 @@
 package edu.mit.cci.roma.web;
 
 import edu.mit.cci.roma.impl.DefaultSimulation;
-import edu.mit.cci.roma.model.Step;
+import edu.mit.cci.roma.server.Step;
 import java.io.UnsupportedEncodingException;
 import java.lang.Integer;
 import java.lang.Long;

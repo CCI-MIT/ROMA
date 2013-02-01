@@ -5,7 +5,7 @@ import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.impl.DefaultScenario;
 import edu.mit.cci.roma.impl.DefaultSimulation;
 import edu.mit.cci.roma.impl.Tuple;
-import edu.mit.cci.roma.model.*;
+import edu.mit.cci.roma.server.*;
 import org.codehaus.plexus.util.IOUtil;
 import org.junit.Assert;
 import org.junit.Test;

@@ -37,7 +37,7 @@ public class DumpDbToFiles {
 
            JAXBContext context = JAXBContext.newInstance(ConcreteSerializableCollection.class, DefaultSimulation.class, DefaultScenario.class);
            Collection<DefaultSimulation> sims = DefaultSimulation.findAllDefaultSimulations();
-           ConcreteSerializableCollection wrapper = U.wrap(sims);
+           ConcreteSerializableCollection wrapper = edu.mit.cci.roma.server.util.U.wrap(sims);
            Marshaller m = context.createMarshaller();
            StringWriter writer = new StringWriter();
            m.marshal(wrapper,writer);
@@ -61,7 +61,7 @@ public class DumpDbToFiles {
            }
 
            Collection<DefaultScenario> scenarios = DefaultScenario.findAllDefaultScenarios();
-           wrapper = U.wrap(scenarios);
+           wrapper = edu.mit.cci.roma.server.util.U.wrap(scenarios);
            writer = new StringWriter();
            m.marshal(wrapper,writer);
            data.put("DefaultScenarios",writer.toString());

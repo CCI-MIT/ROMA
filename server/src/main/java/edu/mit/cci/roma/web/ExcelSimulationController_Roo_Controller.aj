@@ -3,8 +3,8 @@
 
 package edu.mit.cci.roma.web;
 
-import edu.mit.cci.roma.excel.server.ExcelSimulation;
-import edu.mit.cci.roma.excel.server.ExcelVariable;
+import edu.mit.cci.roma.excel.ExcelSimulation;
+import edu.mit.cci.roma.excel.ExcelVariable;
 import edu.mit.cci.roma.impl.DefaultSimulation;
 
 import java.io.UnsupportedEncodingException;

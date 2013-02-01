@@ -5,7 +5,7 @@ package edu.mit.cci.roma.web;
 
 import edu.mit.cci.roma.api.DataType;
 import edu.mit.cci.roma.impl.DefaultScenario;
-import edu.mit.cci.roma.model.ScenarioList;
+import edu.mit.cci.roma.server.ScenarioList;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.Integer;

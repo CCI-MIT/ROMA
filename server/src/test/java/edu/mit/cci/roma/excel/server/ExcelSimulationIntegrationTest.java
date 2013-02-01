@@ -1,5 +1,6 @@
 package edu.mit.cci.roma.excel.server;
 
+import edu.mit.cci.roma.excel.ExcelSimulation;
 import org.junit.Test;
 import org.springframework.roo.addon.test.RooIntegrationTest;
 

@@ -5,8 +5,8 @@ package edu.mit.cci.roma.web;
 
 
 import edu.mit.cci.roma.impl.DefaultVariable;
-import edu.mit.cci.roma.model.DefaultServerSimulation;
-import edu.mit.cci.roma.model.ManyToOneMapping;
+import edu.mit.cci.roma.server.DefaultServerSimulation;
+import edu.mit.cci.roma.server.ManyToOneMapping;
 
 
 import java.io.UnsupportedEncodingException;

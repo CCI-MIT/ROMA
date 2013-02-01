@@ -3,18 +3,17 @@
 
 package edu.mit.cci.roma.web;
 
-import edu.mit.cci.roma.excel.server.ExcelSimulation;
-import edu.mit.cci.roma.excel.server.ExcelVariable;
-import edu.mit.cci.roma.impl.*;
+import edu.mit.cci.roma.excel.ExcelSimulation;
+import edu.mit.cci.roma.excel.ExcelVariable;
 import edu.mit.cci.roma.impl.Tuple;
 import java.lang.String;
 
-import edu.mit.cci.roma.model.CompositeScenario;
-import edu.mit.cci.roma.model.CompositeServerSimulation;
-import edu.mit.cci.roma.model.CompositeStepMapping;
-import edu.mit.cci.roma.model.MappedServerSimulation;
-import edu.mit.cci.roma.model.ScenarioList;
-import edu.mit.cci.roma.model.Step;
+import edu.mit.cci.roma.server.CompositeScenario;
+import edu.mit.cci.roma.server.CompositeServerSimulation;
+import edu.mit.cci.roma.server.CompositeStepMapping;
+import edu.mit.cci.roma.server.MappedServerSimulation;
+import edu.mit.cci.roma.server.ScenarioList;
+import edu.mit.cci.roma.server.Step;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
 

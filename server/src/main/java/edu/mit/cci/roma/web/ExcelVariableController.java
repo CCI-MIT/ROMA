@@ -1,6 +1,6 @@
 package edu.mit.cci.roma.web;
 
-import edu.mit.cci.roma.excel.server.ExcelVariable;
+import edu.mit.cci.roma.excel.ExcelVariable;
 import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

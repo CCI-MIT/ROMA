@@ -4,8 +4,8 @@
 package edu.mit.cci.roma.web;
 
 
-import edu.mit.cci.roma.model.CompositeStepMapping;
-import edu.mit.cci.roma.model.Step;
+import edu.mit.cci.roma.server.CompositeStepMapping;
+import edu.mit.cci.roma.server.Step;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.Integer;

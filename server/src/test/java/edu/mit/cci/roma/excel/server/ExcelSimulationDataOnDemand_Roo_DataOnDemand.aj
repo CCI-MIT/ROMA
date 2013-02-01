@@ -5,6 +5,8 @@ package edu.mit.cci.roma.excel.server;
 
 import java.util.List;
 import java.util.Random;
+
+import edu.mit.cci.roma.excel.ExcelSimulation;
 import org.springframework.stereotype.Component;
 
 privileged aspect ExcelSimulationDataOnDemand_Roo_DataOnDemand {
@@ -16,7 +18,7 @@ privileged aspect ExcelSimulationDataOnDemand_Roo_DataOnDemand {
     private List<ExcelSimulation> ExcelSimulationDataOnDemand.data;
     
     public ExcelSimulation ExcelSimulationDataOnDemand.getNewTransientExcelSimulation(int index) {
-        edu.mit.cci.roma.excel.server.ExcelSimulation obj = new edu.mit.cci.roma.excel.server.ExcelSimulation();
+        ExcelSimulation obj = new ExcelSimulation();
         obj.setCreation(new java.util.GregorianCalendar(java.util.Calendar.getInstance().get(java.util.Calendar.YEAR), java.util.Calendar.getInstance().get(java.util.Calendar.MONTH), java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH), java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY), java.util.Calendar.getInstance().get(java.util.Calendar.MINUTE), java.util.Calendar.getInstance().get(java.util.Calendar.SECOND) + new Double(Math.random() * 1000).intValue()).getTime());
         obj.setSimulation(null);
         obj.setFile(null);
@@ -42,15 +44,15 @@ privileged aspect ExcelSimulationDataOnDemand_Roo_DataOnDemand {
     }
     
     public void ExcelSimulationDataOnDemand.init() {
-        data = edu.mit.cci.roma.excel.server.ExcelSimulation.findExcelSimulationEntries(0, 10);
+        data = ExcelSimulation.findExcelSimulationEntries(0, 10);
         if (data == null) throw new IllegalStateException("Find entries implementation for 'ExcelSimulation' illegally returned null");
         if (!data.isEmpty()) {
             return;
         }
         
-        data = new java.util.ArrayList<edu.mit.cci.roma.excel.server.ExcelSimulation>();
+        data = new java.util.ArrayList<ExcelSimulation>();
         for (int i = 0; i < 10; i++) {
-            edu.mit.cci.roma.excel.server.ExcelSimulation obj = getNewTransientExcelSimulation(i);
+            ExcelSimulation obj = getNewTransientExcelSimulation(i);
             obj.persist();
             obj.flush();
             data.add(obj);

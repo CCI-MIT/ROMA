@@ -14,12 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.mit.cci.roma.api.Variable;
 
-import edu.mit.cci.roma.model.CompositeServerSimulation;
-import edu.mit.cci.roma.model.CompositeStepMapping;
+import edu.mit.cci.roma.server.CompositeServerSimulation;
+import edu.mit.cci.roma.server.CompositeStepMapping;
 import edu.mit.cci.roma.impl.DefaultSimulation;
 import edu.mit.cci.roma.impl.DefaultVariable;
-import edu.mit.cci.roma.model.DefaultServerSimulation;
-import edu.mit.cci.roma.model.Step;
+import edu.mit.cci.roma.server.DefaultServerSimulation;
+import edu.mit.cci.roma.server.Step;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import edu.mit.cci.roma.model.SimulationCreationException;
+import edu.mit.cci.roma.server.SimulationCreationException;
 import edu.mit.cci.roma.web.beans.CompositeSimulationBean;
 import edu.mit.cci.roma.web.beans.MappingBean;
 import edu.mit.cci.roma.web.beans.StepBean;

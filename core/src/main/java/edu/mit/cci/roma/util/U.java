@@ -42,10 +42,10 @@ import java.util.regex.Pattern;
  */
 public class U {
 
-    private static String VAL_SEP = ";";
-    private static String VAR_SEP = "&";
-    private static String VAR_VAL_SEP = "=";
-    private static String NULL_VAL = "<null/>";
+    public static String VAL_SEP = ";";
+       public static String VAR_SEP = "&";
+       public static String VAR_VAL_SEP = "=";
+       public static String NULL_VAL = "<null/>";
 
     private static Logger log = Logger.getLogger(U.class);
 
