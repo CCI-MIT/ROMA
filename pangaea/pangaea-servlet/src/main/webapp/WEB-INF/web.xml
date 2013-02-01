@@ -16,7 +16,7 @@
   <filter>
     <display-name>FirefoxFlexAdapter</display-name>
     <filter-name>FirefoxFlexAdapter</filter-name>
-    <filter-class>edu.mit.cci.simulation.pangaea.servlet.FirefoxFlexAdapter</filter-class>
+    <filter-class>edu.mit.cci.roma.pangaea.servlet.FirefoxFlexAdapter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>FirefoxFlexAdapter</filter-name>

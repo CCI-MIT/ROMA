@@ -13,6 +13,6 @@
 	<import resource="test-db.xml" />
 
 	<tx:annotation-driven />
-	<context:component-scan base-package="edu.mit.cci.simulation.ice" />	
+	<context:component-scan base-package="edu.mit.cci.roma.ice" />
 
 </beans>
