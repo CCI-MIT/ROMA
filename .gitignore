@@ -1,8 +1,8 @@
 target/
 .settings/
 *.class
-.ipr
-.iws
-.iml
+*.ipr
+*.iws
+*.iml
 .classpath
 .project
