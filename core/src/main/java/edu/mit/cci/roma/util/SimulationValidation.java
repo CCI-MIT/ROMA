@@ -15,9 +15,9 @@ import java.util.List;
  * Date: 3/8/11
  * Time: 8:29 PM
  */
-public class Validation {
+public class SimulationValidation {
 
-    public static Logger log = Logger.getLogger(Validation.class);
+    public static Logger log = Logger.getLogger(SimulationValidation.class);
 
 
 

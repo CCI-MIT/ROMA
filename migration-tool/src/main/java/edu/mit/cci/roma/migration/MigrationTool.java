@@ -34,13 +34,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
-import edu.mit.cci.roma.model.CompositeSimulation;
-import edu.mit.cci.roma.model.DefaultScenario;
-import edu.mit.cci.roma.model.DefaultSimulation;
-import edu.mit.cci.roma.model.DefaultVariable;
-import edu.mit.cci.roma.model.Scenario;
-import edu.mit.cci.roma.model.SimulationException;
-import edu.mit.cci.roma.model.Tuple;
+import edu.mit.cci.roma.server.CompositeSimulation;
+import edu.mit.cci.roma.server.DefaultScenario;
+import edu.mit.cci.roma.server.DefaultSimulation;
+import edu.mit.cci.roma.server.DefaultVariable;
+import edu.mit.cci.roma.server.Scenario;
+import edu.mit.cci.roma.server.SimulationException;
+import edu.mit.cci.roma.server.Tuple;
 import edu.mit.cci.roma.util.SimulationValidationException;
 
 @Component("migrationTool")

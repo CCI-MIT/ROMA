@@ -1,13 +1,15 @@
 package edu.mit.cci.roma.excel;
 
 import edu.mit.cci.roma.api.DataType;
+import edu.mit.cci.roma.api.SimulationException;
 import edu.mit.cci.roma.api.TupleStatus;
 import edu.mit.cci.roma.api.Variable;
-import edu.mit.cci.roma.impl.DefaultSimulation;
 import edu.mit.cci.roma.impl.Tuple;
 import edu.mit.cci.roma.server.*;
 import edu.mit.cci.roma.util.SimulationComputationException;
-import edu.mit.cci.roma.util.Validation;
+
+import edu.mit.cci.roma.util.SimulationValidation;
+import edu.mit.cci.roma.util.U;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -30,17 +32,17 @@ import java.util.Map;
  */
 public class ExcelRunnerStrategy implements RunStrategy {
 
-    private DefaultSimulation sim;
+    private DefaultServerSimulation sim;
     private static Logger log = Logger.getLogger(ExcelRunnerStrategy.class);
 
 
-    public ExcelRunnerStrategy(DefaultSimulation sim) {
+    public ExcelRunnerStrategy(DefaultServerSimulation sim) {
         this.sim = sim;
         sim.setRunStrategy(this);
     }
 
     public String run(String url, List<Tuple> params) throws SimulationException {
-        Validation.excelUrl(url);
+        ExcelValidation.excelUrl(url);
 
         Long id = Long.parseLong(url.substring(ExcelSimulation.EXCEL_URL.length()));
         ExcelSimulation esim = ExcelSimulation.findExcelSimulation(id);
@@ -87,14 +89,14 @@ public class ExcelRunnerStrategy implements RunStrategy {
             }
         }
 
-        return edu.mit.cci.roma.server.util.U.createStringRepresentation(result);
+        return U.createStringRepresentation(result);
     }
 
     public void writeInput(ExcelVariable v, String[] data, HSSFWorkbook workbook) throws SimulationException {
         HSSFSheet sheet = workbook.getSheet(v.getWorksheetName());
-        Validation.equalsArity(v.getSimulationVariable(), data.length);
-        Validation.notNull(sheet, "Worksheet");
-        Validation.validateExcelCoordinates(v.getCellRange());
+        SimulationValidation.equalsArity(v.getSimulationVariable(), data.length);
+        SimulationValidation.notNull(sheet, "Worksheet");
+        ExcelValidation.validateExcelCoordinates(v.getCellRange());
 
         AreaReference area = new AreaReference(v.getCellRange());
 
@@ -158,8 +160,8 @@ public class ExcelRunnerStrategy implements RunStrategy {
 
     public Object[] readOutput(ExcelVariable ev, HSSFWorkbook workbook, String cellRange) throws SimulationException {
         HSSFSheet sheet = workbook.getSheet(ev.getWorksheetName());
-        Validation.notNull(sheet, "Worksheet");
-        Validation.validateExcelCoordinates(cellRange);
+        SimulationValidation.notNull(sheet, "Worksheet");
+        ExcelValidation.validateExcelCoordinates(cellRange);
 
         AreaReference area = new AreaReference(cellRange);
 
@@ -172,7 +174,7 @@ public class ExcelRunnerStrategy implements RunStrategy {
         int dx = width == 1 ? 0 : 1;
         int dy = height == 1 ? 0 : 1;
 
-        Validation.equalsArity(ev.getSimulationVariable(), Math.max(width, height));
+        SimulationValidation.equalsArity(ev.getSimulationVariable(), Math.max(width, height));
         Object[] result = new Object[ev.getSimulationVariable().getArity()];
         for (int i = 0; i < Math.max(width, height); i++) {
             try {

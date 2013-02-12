@@ -8,7 +8,7 @@ import org.apache.poi.ss.util.AreaReference;
  * Date: 2/1/13
  * Time: 10:36 AM
  */
-public class Validation {
+public class ExcelValidation {
 
     public static void validateExcelCoordinates(String cellRange) throws SimulationValidationException {
         AreaReference ref = new AreaReference(cellRange);

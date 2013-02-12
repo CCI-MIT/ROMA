@@ -5,7 +5,7 @@ import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.impl.Tuple;
 import edu.mit.cci.roma.util.SimulationComputationException;
-import edu.mit.cci.roma.util.Validation;
+import edu.mit.cci.roma.util.SimulationValidation;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.ss.usermodel.Cell;
@@ -29,7 +29,7 @@ public class U {
 
     public static String getCellValueAsString(HSSFSheet worksheet, int rowCounter, int colCounter,
                                                  String defaultValue) throws SimulationException {
-           Validation.notNull(worksheet, "worksheet");
+           SimulationValidation.notNull(worksheet, "worksheet");
 
            Row row = worksheet.getRow(rowCounter);
            if (row == null) {

@@ -6,7 +6,7 @@ import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.jaxb.JaxbReference;
 import edu.mit.cci.roma.util.SimulationValidationException;
 import edu.mit.cci.roma.util.U;
-import edu.mit.cci.roma.util.Validation;
+import edu.mit.cci.roma.util.SimulationValidation;
 import org.apache.log4j.Logger;
 
 
@@ -67,10 +67,10 @@ public class Tuple {
     }
 
     private void _setValues(String[] values) throws SimulationValidationException {
-        Validation.isComplete(var);
-        Validation.atMostArity(var, values.length);
+        SimulationValidation.isComplete(var);
+        SimulationValidation.atMostArity(var, values.length);
         for (int i = 0; i < values.length; i++) {
-            Validation.checkDataType(var, values[i], true);
+            SimulationValidation.checkDataType(var, values[i], true);
             if (values[i] == null) continue;
             TupleStatus status = statuses.get(i);
             if (status != null) continue;

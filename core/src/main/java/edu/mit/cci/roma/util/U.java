@@ -100,7 +100,7 @@ public class U {
                         String tmp = URLDecoder.decode(val, "UTF-8");
                         if (precision!=null) {
                             Double num = Double.valueOf(tmp);
-                            Validation.notNull(num, "Parsed value from tuple");
+                            SimulationValidation.notNull(num, "Parsed value from tuple");
                             result.add(String.format("%." + precision + "f", num));
                         } else result.add(tmp);
                     }

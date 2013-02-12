@@ -6,7 +6,6 @@ import edu.mit.cci.roma.client.Simulation;
 import edu.mit.cci.roma.client.Variable;
 import edu.mit.cci.roma.client.comm.RepositoryManager;
 import edu.mit.cci.roma.impl.Tuple;
-import edu.mit.cci.roma.impl.Tuple;
 
 import java.util.ArrayList;
 import java.util.Date;
