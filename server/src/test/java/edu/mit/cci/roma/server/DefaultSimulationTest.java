@@ -1,11 +1,14 @@
 package edu.mit.cci.roma.server;
 
 import edu.mit.cci.roma.api.Scenario;
+import edu.mit.cci.roma.api.SimulationException;
 import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.impl.DefaultSimulation;
 import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.impl.Tuple;
+
 import edu.mit.cci.roma.util.MockHttpServer;
+import edu.mit.cci.roma.util.U;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +33,7 @@ public class DefaultSimulationTest {
     public void testRunSimulation() throws IOException, SimulationException {
 
 
-        DefaultSimulation sim = new DefaultSimulation();
+        DefaultServerSimulation sim = new DefaultServerSimulation();
         sim.setSimulationVersion(1l);
 
 
@@ -78,7 +81,7 @@ public class DefaultSimulationTest {
         Map<Variable,Object[]> m = new HashMap<Variable,Object[]>();
         m.put(three,threev);
         m.put(four,fourv);
-        String expect = edu.mit.cci.roma.server.util.U.createStringRepresentation(m);
+        String expect = U.createStringRepresentation(m);
         MockHttpServer server = new MockHttpServer();
         server.setCannedResponse(expect);
         Closeable c = server.run("http://localhost:8080/");

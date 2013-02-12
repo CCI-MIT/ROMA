@@ -1,6 +1,7 @@
 package edu.mit.cci.roma.server;
 
 import edu.mit.cci.roma.api.DataType;
+import edu.mit.cci.roma.api.SimulationException;
 import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.excel.ExcelRunnerStrategy;
 import edu.mit.cci.roma.excel.ExcelSimulation;
@@ -10,6 +11,7 @@ import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.impl.DelegatingSim;
 
 import edu.mit.cci.roma.impl.Tuple;
+import edu.mit.cci.roma.util.U;
 import org.junit.runner.RunWith;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
@@ -79,7 +81,7 @@ public class SimulationMockFactory {
                         Map<Variable, Object[]> data = new HashMap<Variable, Object[]>();
                         Variable v = getOutputs().iterator().next();
                         data.put(v, new String[]{output + ""});
-                        return edu.mit.cci.roma.server.util.U.createStringRepresentation(data);
+                        return U.createStringRepresentation(data);
                     }
                 });
             }
@@ -108,7 +110,7 @@ public class SimulationMockFactory {
                                 data.put(v, output);
                             }
                         }
-                        return edu.mit.cci.roma.server.util.U.createStringRepresentation(data);
+                        return U.createStringRepresentation(data);
                     }
                 });
             }

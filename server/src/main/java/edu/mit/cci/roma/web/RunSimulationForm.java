@@ -1,11 +1,13 @@
 package edu.mit.cci.roma.web;
 
 import edu.mit.cci.roma.api.Scenario;
+import edu.mit.cci.roma.api.SimulationException;
 import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.impl.DefaultScenario;
 import edu.mit.cci.roma.impl.DefaultSimulation;
 import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.impl.Tuple;
+import edu.mit.cci.roma.server.DefaultServerSimulation;
 import org.apache.log4j.Logger;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
@@ -47,7 +49,7 @@ public class RunSimulationForm  {
 
     @RequestMapping(method = RequestMethod.GET)
     public String setupForm(@PathVariable("simid") long simId, Model model) {
-        DefaultSimulation sim = DefaultSimulation.findDefaultSimulation(simId);
+        DefaultSimulation sim = DefaultServerSimulation.findDefaultServerSimulation(simId);
         model.addAttribute("roma", sim);
         this.simid = sim.getId();
         model.addAttribute("form", this);
@@ -63,7 +65,7 @@ public class RunSimulationForm  {
         Map<String,String> linputs;
         String userid = null;
         if (this.simid == null) {
-            sim = DefaultSimulation.findDefaultSimulation(simId);
+            sim = DefaultServerSimulation.findDefaultServerSimulation(simId);
             linputs = new HashMap<String,String>();
             for (Object key:request.getParameterMap().keySet()) {
                 String skey = key.toString();
@@ -76,7 +78,7 @@ public class RunSimulationForm  {
             }
 
         } else {
-            sim = DefaultSimulation.findDefaultSimulation(simid);
+            sim = DefaultServerSimulation.findDefaultServerSimulation(simid);
             userid = form.userId;
             linputs = form.inputs;
         }

@@ -5,6 +5,7 @@ import edu.mit.cci.roma.api.TupleStatus;
 import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.impl.Tuple;
 import edu.mit.cci.roma.util.SimulationValidationException;
+import edu.mit.cci.roma.util.U;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -94,11 +95,11 @@ public class TupleTest {
         map.put(1,TupleStatus.ERR_CALC);
         String[] test = new String[] {"2","3","4",null,"&;&;><","<ERR_OOB/>"};
         String[] expect = new String[] {"2",null,null,null,"&;&;><","<ERR_OOB/>"};
-        String str = edu.mit.cci.roma.server.util.U.escape(test, map);
+        String str = U.escape(test, map);
 
         System.err.println(str);
        Map<Integer,TupleStatus> rmap = new HashMap<Integer,TupleStatus>();
-        String[] result = edu.mit.cci.roma.server.util.U.unescape(str, rmap, null);
+        String[] result = U.unescape(str, rmap, null);
         Assert.assertArrayEquals(expect,result);
         Assert.assertEquals(map,rmap);
     }

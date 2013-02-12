@@ -3,6 +3,7 @@ package edu.mit.cci.roma.util;
 import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.impl.DefaultScenario;
 import edu.mit.cci.roma.impl.DefaultSimulation;
+import edu.mit.cci.roma.server.DefaultServerSimulation;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -36,8 +37,8 @@ public class DumpDbToFiles {
            Map<String,String> data = new HashMap<String,String>();
 
            JAXBContext context = JAXBContext.newInstance(ConcreteSerializableCollection.class, DefaultSimulation.class, DefaultScenario.class);
-           Collection<DefaultSimulation> sims = DefaultSimulation.findAllDefaultSimulations();
-           ConcreteSerializableCollection wrapper = edu.mit.cci.roma.server.util.U.wrap(sims);
+           Collection<DefaultServerSimulation> sims = DefaultServerSimulation.findAllDefaultServerSimulations();
+           ConcreteSerializableCollection wrapper = U.wrap(sims);
            Marshaller m = context.createMarshaller();
            StringWriter writer = new StringWriter();
            m.marshal(wrapper,writer);
@@ -61,7 +62,7 @@ public class DumpDbToFiles {
            }
 
            Collection<DefaultScenario> scenarios = DefaultScenario.findAllDefaultScenarios();
-           wrapper = edu.mit.cci.roma.server.util.U.wrap(scenarios);
+           wrapper = U.wrap(scenarios);
            writer = new StringWriter();
            m.marshal(wrapper,writer);
            data.put("DefaultScenarios",writer.toString());

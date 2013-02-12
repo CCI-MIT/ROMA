@@ -2,6 +2,7 @@ package edu.mit.cci.roma.util;
 
 import edu.mit.cci.roma.api.DataType;
 import edu.mit.cci.roma.api.Simulation;
+import edu.mit.cci.roma.api.SimulationCreationException;
 import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.excel.ExcelSimulation;
 import edu.mit.cci.roma.excel.ExcelVariable;

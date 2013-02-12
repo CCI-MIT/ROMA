@@ -2,6 +2,8 @@ package edu.mit.cci.roma.server;
 
 import edu.mit.cci.roma.api.DataType;
 
+import edu.mit.cci.roma.api.SimulationCreationException;
+import edu.mit.cci.roma.api.SimulationException;
 import edu.mit.cci.roma.impl.DefaultScenario;
 import edu.mit.cci.roma.impl.DefaultSimulation;
 import edu.mit.cci.roma.impl.DefaultVariable;
@@ -94,28 +96,16 @@ public class CompositeSimulationTest {
 
         Assert.assertTrue(csim.getStepMapping().contains(mapping));
 
-        try {
-            mapping.addLink(v_in,v_in_1);
-            Assert.fail();
-        } catch (SimulationCreationException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        mapping.addLink(v_in,v_in_1);
+        Assert.fail();
 
 
-        try {
-            mapping.addLink(v_out,v_in_1);
-            Assert.fail();
-        } catch (SimulationCreationException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        mapping.addLink(v_out,v_in_1);
+        Assert.fail();
 
 
-        try {
-            mapping.addLink(v_out,v_in_2);
-            Assert.fail();
-        } catch (SimulationCreationException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        mapping.addLink(v_out,v_in_2);
+        Assert.fail();
 
 
         mapping.addLink(v_out,v_in_3);
@@ -136,7 +126,7 @@ public class CompositeSimulationTest {
 
 
 
-        DefaultSimulation sim1 =  SimulationMockFactory.configurePassThruStrategy(new DefaultSimulation());
+        DefaultSimulation sim1 =  SimulationMockFactory.configurePassThruStrategy(new DefaultServerSimulation());
 
         DefaultVariable v_in = factory.getVariable(1,"TestInput1",DataType.NUM,0);
         DefaultVariable v_out = factory.getVariable(1,"TestOutput1",DataType.NUM,0);
@@ -147,7 +137,7 @@ public class CompositeSimulationTest {
 
 
 
-        DefaultSimulation sim2 = SimulationMockFactory.configurePassThruStrategy(new DefaultSimulation());
+        DefaultSimulation sim2 = SimulationMockFactory.configurePassThruStrategy(new DefaultServerSimulation());
         DefaultVariable v_in_3 = factory.getVariable(1,"TestInput4",DataType.NUM,0);
         DefaultVariable v_out_1 = factory.getVariable(2,"TestOutput2", DataType.NUM,0);
         sim2.getInputs().add(v_in_3);

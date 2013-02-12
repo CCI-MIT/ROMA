@@ -1,6 +1,7 @@
 package edu.mit.cci.roma.server;
 
 import edu.mit.cci.roma.api.Scenario;
+import edu.mit.cci.roma.api.SimulationException;
 import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.excel.ExcelRunnerStrategy;
 import edu.mit.cci.roma.excel.ExcelSimulation;
@@ -77,7 +78,7 @@ public class DefaultServerSimulation extends DefaultSimulation {
      * @return
      * @throws SimulationException
      */
-    public Set<Tuple> runRaw(Collection<Tuple> siminputs) throws SimulationException {
+    public Set<Tuple> runRaw(Collection<Tuple> siminputs) throws SimulationException, SimulationException {
         Set<Variable> mine = new HashSet<Variable>(getInputs());
         Set<Tuple> result = new HashSet<Tuple>();
 

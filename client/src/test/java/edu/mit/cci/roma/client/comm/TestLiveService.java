@@ -8,7 +8,6 @@ import edu.mit.cci.roma.client.Variable;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.persistence.TupleElement;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;

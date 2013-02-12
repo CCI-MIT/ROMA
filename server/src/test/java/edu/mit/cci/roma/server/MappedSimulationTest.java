@@ -2,6 +2,7 @@ package edu.mit.cci.roma.server;
 
 import edu.mit.cci.roma.api.DataType;
 import edu.mit.cci.roma.api.Scenario;
+import edu.mit.cci.roma.api.SimulationException;
 import edu.mit.cci.roma.api.TupleStatus;
 import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.impl.DefaultVariable;

@@ -1,5 +1,6 @@
 package edu.mit.cci.roma.server;
 
+import edu.mit.cci.roma.api.SimulationException;
 import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.impl.Tuple;
 import org.junit.Assert;

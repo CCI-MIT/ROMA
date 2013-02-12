@@ -1,5 +1,6 @@
 package edu.mit.cci.roma.util;
 
+import edu.mit.cci.roma.api.SimulationException;
 import edu.mit.cci.roma.api.TupleStatus;
 import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.impl.DefaultVariable;
@@ -37,7 +38,7 @@ public class UTest {
 
     @Test
     public void unescape() {
-       Assert.assertEquals("5", edu.mit.cci.roma.server.util.U.unescape("5;", null, null)[0]);
+       Assert.assertEquals("5", U.unescape("5;", null, null)[0]);
     }
 
     @Test
@@ -51,7 +52,7 @@ public class UTest {
         Map<String,String> params = new HashMap<String,String>();
         params.put("a","b");
         params.put("c","d");
-        List<String> result = Arrays.asList(edu.mit.cci.roma.server.util.U.executePost("http://localhost:8080/echo", params).split("&"));
+        List<String> result = Arrays.asList(U.executePost("http://localhost:8080/echo", params).split("&"));
         c.close();
 
         org.junit.Assert.assertTrue(result.containsAll(expect));
@@ -66,10 +67,10 @@ public class UTest {
         two.persist();
         StringBuilder builder = new StringBuilder();
         String[] vals1 = {"4", "5", "6"};
-        builder.append(one.getId()).append("=").append(edu.mit.cci.roma.server.util.U.escape(vals1, null));
+        builder.append(one.getId()).append("=").append(U.escape(vals1, null));
         builder.append("&");
         String[] vals2 = {"7", "8", "9"};
-        builder.append(two.getId()).append("=").append(edu.mit.cci.roma.server.util.U.escape(vals2, null));
+        builder.append(two.getId()).append("=").append(U.escape(vals2, null));
 
         Map<DefaultVariable,String[]> expected = new HashMap<DefaultVariable,String[]>();
         expected.put(one,vals1);
@@ -103,7 +104,7 @@ public class UTest {
         expected.put(two,t2);
 
 
-        String result = edu.mit.cci.roma.server.util.U.createStringRepresentationFromTuple(expected);
+        String result = U.createStringRepresentationFromTuple(expected);
         List<Tuple> tester = edu.mit.cci.roma.server.util.U.parseVariableMap(result, null);
 
         for (Tuple t:tester) {
@@ -117,8 +118,8 @@ public class UTest {
        Map<String,String> m = new HashMap<String,String>();
        m.put("alsfkjh","as;dfjk");
        m.put("@#)$(%*","W}EOPT{}][><");
-       String s = edu.mit.cci.roma.server.util.U.stringifyMap(m);
-       Map<String,String> m2 = edu.mit.cci.roma.server.util.U.mapifyString(s);
+       String s = U.stringifyMap(m);
+       Map<String,String> m2 = U.mapifyString(s);
 
 
         for (Map.Entry<String,String> ent:m.entrySet()) {
@@ -136,7 +137,7 @@ public class UTest {
         Tuple t1 = new Tuple(new DefaultVariable("Test","test",5));
         t1.setValue_("4;5;6;");
 
-        edu.mit.cci.roma.server.util.U.copyRange(t, t1, 1, 6);
+        U.copyRange(t, t1, 1, 6);
 
         Assert.assertArrayEquals(expect,t1.getValues());
 
@@ -152,7 +153,7 @@ public class UTest {
         Tuple t1 = new Tuple(new DefaultVariable("Test","test",3));
         t1.setValue_("4;5;6;");
 
-        edu.mit.cci.roma.server.util.U.join(t, t1);
+        U.join(t, t1);
 
         Assert.assertArrayEquals(expect,t.getValues());
 
@@ -162,14 +163,14 @@ public class UTest {
     public void addToMap() throws Exception {
         String map = "foo=bar&baz=foo&foobaz=barfoo";
 
-        String test = edu.mit.cci.roma.server.util.U.updateStringMap("s", "r", map);
+        String test = U.updateStringMap("s", "r", map);
         Assert.assertEquals(map+"&s=r",test);
-        test = edu.mit.cci.roma.server.util.U.updateStringMap("s", "f", test);
+        test =U.updateStringMap("s", "f", test);
         Assert.assertEquals(map+"&s=f",test);
-        test= edu.mit.cci.roma.server.util.U.updateStringMap("foo", "brr", map);
+        test= U.updateStringMap("foo", "brr", map);
         Assert.assertEquals("foo=brr&baz=foo&foobaz=barfoo",test);
 
-        test= edu.mit.cci.roma.server.util.U.updateStringMap("baz", "brr", map);
+        test= U.updateStringMap("baz", "brr", map);
         Assert.assertEquals("foo=bar&baz=brr&foobaz=barfoo",test);
     }
 
@@ -181,11 +182,11 @@ public class UTest {
         map.put(1,TupleStatus.ERR_CALC);
         String[] test = new String[] {"2","3","4",null,"&;&;><","<ERR_OOB/>"};
         String[] expect = new String[] {"2",null,null,null,"&;&;><","<ERR_OOB/>"};
-        String str = edu.mit.cci.roma.server.util.U.escape(test, map);
+        String str = U.escape(test, map);
 
         System.err.println(str);
        Map<Integer,TupleStatus> rmap = new HashMap<Integer,TupleStatus>();
-        String[] result = edu.mit.cci.roma.server.util.U.unescape(str, rmap, null);
+        String[] result = U.unescape(str, rmap, null);
         Assert.assertArrayEquals(expect,result);
         Assert.assertEquals(map,rmap);
 

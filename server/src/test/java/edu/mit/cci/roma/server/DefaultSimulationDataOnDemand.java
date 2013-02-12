@@ -5,8 +5,8 @@ import org.springframework.roo.addon.dod.RooDataOnDemand;
 
 @RooDataOnDemand(entity = DefaultSimulation.class)
 public class DefaultSimulationDataOnDemand {
-      public DefaultSimulation getNewTransientDefaultSimulation(int index) {
-        DefaultSimulation obj = new DefaultSimulation();
+      public DefaultServerSimulation getNewTransientDefaultSimulation(int index) {
+        DefaultServerSimulation obj = new DefaultServerSimulation();
         obj.setInputs(null);
         obj.setOutputs(null);
         obj.setCreated(null);

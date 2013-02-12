@@ -7,7 +7,7 @@ import edu.mit.cci.roma.client.Simulation;
 import edu.mit.cci.roma.client.model.impl.ClientMetaData;
 import edu.mit.cci.roma.client.model.impl.ClientScenario;
 import edu.mit.cci.roma.client.model.impl.ClientSimulation;
-import edu.mit.cci.roma.web.RunSimulationForm;
+
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -104,7 +104,7 @@ public class ClientRepository {
             params.put(input.getId() + "", val == null ? null : val.toString());
         }
 
-        params.put(RunSimulationForm.USER_PARAM,userid+"");
+        params.put("userId",userid+"");
 
         Object o = manager.getAdaptor(deserializingConnector.post(ModelAccessPoint.RUN_MODEL_URL, params, String.valueOf(s.getId())));
         if (o instanceof Scenario) return (Scenario) o;

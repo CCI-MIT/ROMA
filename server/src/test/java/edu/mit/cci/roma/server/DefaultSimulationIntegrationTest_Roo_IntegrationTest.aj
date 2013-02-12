@@ -25,7 +25,7 @@ privileged aspect DefaultSimulationIntegrationTest_Roo_IntegrationTest {
     @Test
     public void DefaultSimulationIntegrationTest.testCountDefaultSimulations() {
         org.junit.Assert.assertNotNull("Data on demand for 'DefaultSimulation' failed to initialize correctly", dod.getRandomDefaultSimulation());
-        long count = DefaultSimulation.countDefaultSimulations();
+        long count = DefaultServerSimulation.countDefaultServerSimulations();
         org.junit.Assert.assertTrue("Counter for 'DefaultSimulation' incorrectly reported there were no entries", count > 0);
     }
     
@@ -35,7 +35,7 @@ privileged aspect DefaultSimulationIntegrationTest_Roo_IntegrationTest {
         org.junit.Assert.assertNotNull("Data on demand for 'DefaultSimulation' failed to initialize correctly", obj);
         java.lang.Long id = obj.getId();
         org.junit.Assert.assertNotNull("Data on demand for 'DefaultSimulation' failed to provide an identifier", id);
-        obj = DefaultSimulation.findDefaultSimulation(id);
+        obj = DefaultServerSimulation.findDefaultServerSimulation(id);
         org.junit.Assert.assertNotNull("Find method for 'DefaultSimulation' illegally returned null for id '" + id + "'", obj);
         org.junit.Assert.assertEquals("Find method for 'DefaultSimulation' returned the incorrect identifier", id, obj.getId());
     }
@@ -43,9 +43,9 @@ privileged aspect DefaultSimulationIntegrationTest_Roo_IntegrationTest {
     @Test
     public void DefaultSimulationIntegrationTest.testFindAllDefaultSimulations() {
         org.junit.Assert.assertNotNull("Data on demand for 'DefaultSimulation' failed to initialize correctly", dod.getRandomDefaultSimulation());
-        long count = DefaultSimulation.countDefaultSimulations();
+        long count = DefaultServerSimulation.countDefaultServerSimulations();
         org.junit.Assert.assertTrue("Too expensive to perform a find all test for 'DefaultSimulation', as there are " + count + " entries; set the findAllMaximum to exceed this value or set findAll=false on the integration test annotation to disable the test", count < 250);
-        java.util.List<DefaultSimulation> result = DefaultSimulation.findAllDefaultSimulations();
+        java.util.List<DefaultServerSimulation> result = DefaultServerSimulation.findAllDefaultServerSimulations();
         org.junit.Assert.assertNotNull("Find all method for 'DefaultSimulation' illegally returned null", result);
         org.junit.Assert.assertTrue("Find all method for 'DefaultSimulation' failed to return any data", result.size() > 0);
     }
@@ -53,20 +53,20 @@ privileged aspect DefaultSimulationIntegrationTest_Roo_IntegrationTest {
     @Test
     public void DefaultSimulationIntegrationTest.testFindDefaultSimulationEntries() {
         org.junit.Assert.assertNotNull("Data on demand for 'DefaultSimulation' failed to initialize correctly", dod.getRandomDefaultSimulation());
-        long count = DefaultSimulation.countDefaultSimulations();
+        long count = DefaultServerSimulation.countDefaultServerSimulations();
         if (count > 20) count = 20;
-        java.util.List<DefaultSimulation> result = DefaultSimulation.findDefaultSimulationEntries(0, (int) count);
+        java.util.List<DefaultServerSimulation> result = DefaultServerSimulation.findDefaultServerSimulationEntries(0, (int) count);
         org.junit.Assert.assertNotNull("Find entries method for 'DefaultSimulation' illegally returned null", result);
         org.junit.Assert.assertEquals("Find entries method for 'DefaultSimulation' returned an incorrect number of entries", count, result.size());
     }
     
     @Test
     public void DefaultSimulationIntegrationTest.testFlush() {
-        DefaultSimulation obj = dod.getRandomDefaultSimulation();
+        DefaultServerSimulation obj = dod.getRandomDefaultSimulation();
         org.junit.Assert.assertNotNull("Data on demand for 'DefaultSimulation' failed to initialize correctly", obj);
         java.lang.Long id = obj.getId();
         org.junit.Assert.assertNotNull("Data on demand for 'DefaultSimulation' failed to provide an identifier", id);
-        obj = DefaultSimulation.findDefaultSimulation(id);
+        obj = DefaultServerSimulation.findDefaultServerSimulation(id);
         org.junit.Assert.assertNotNull("Find method for 'DefaultSimulation' illegally returned null for id '" + id + "'", obj);
         boolean modified =  dod.modifyDefaultSimulation(obj);
         java.lang.Integer currentVersion = obj.getVersion();
@@ -76,11 +76,11 @@ privileged aspect DefaultSimulationIntegrationTest_Roo_IntegrationTest {
     
     @Test
     public void DefaultSimulationIntegrationTest.testMerge() {
-        DefaultSimulation obj = dod.getRandomDefaultSimulation();
+        DefaultServerSimulation obj = dod.getRandomDefaultSimulation();
         org.junit.Assert.assertNotNull("Data on demand for 'DefaultSimulation' failed to initialize correctly", obj);
         java.lang.Long id = obj.getId();
         org.junit.Assert.assertNotNull("Data on demand for 'DefaultSimulation' failed to provide an identifier", id);
-        obj = DefaultSimulation.findDefaultSimulation(id);
+        obj = DefaultServerSimulation.findDefaultServerSimulation(id);
         boolean modified =  dod.modifyDefaultSimulation(obj);
         java.lang.Integer currentVersion = obj.getVersion();
         DefaultSimulation merged = (DefaultSimulation) obj.merge();
@@ -92,7 +92,7 @@ privileged aspect DefaultSimulationIntegrationTest_Roo_IntegrationTest {
     @Test
     public void DefaultSimulationIntegrationTest.testPersist() {
         org.junit.Assert.assertNotNull("Data on demand for 'DefaultSimulation' failed to initialize correctly", dod.getRandomDefaultSimulation());
-        DefaultSimulation obj = dod.getNewTransientDefaultSimulation(Integer.MAX_VALUE);
+        DefaultServerSimulation obj = dod.getNewTransientDefaultSimulation(Integer.MAX_VALUE);
         org.junit.Assert.assertNotNull("Data on demand for 'DefaultSimulation' failed to provide a new transient entity", obj);
         org.junit.Assert.assertNull("Expected 'DefaultSimulation' identifier to be null", obj.getId());
         obj.persist();
@@ -102,14 +102,14 @@ privileged aspect DefaultSimulationIntegrationTest_Roo_IntegrationTest {
     
     @Test
     public void DefaultSimulationIntegrationTest.testRemove() {
-        DefaultSimulation obj = dod.getRandomDefaultSimulation();
+        DefaultServerSimulation obj = dod.getRandomDefaultSimulation();
         org.junit.Assert.assertNotNull("Data on demand for 'DefaultSimulation' failed to initialize correctly", obj);
         java.lang.Long id = obj.getId();
         org.junit.Assert.assertNotNull("Data on demand for 'DefaultSimulation' failed to provide an identifier", id);
-        obj = DefaultSimulation.findDefaultSimulation(id);
+        obj = DefaultServerSimulation.findDefaultServerSimulation(id);
         obj.remove();
         obj.flush();
-        org.junit.Assert.assertNull("Failed to remove 'DefaultSimulation' with identifier '" + id + "'", DefaultSimulation.findDefaultSimulation(id));
+        org.junit.Assert.assertNull("Failed to remove 'DefaultSimulation' with identifier '" + id + "'", DefaultServerSimulation.findDefaultServerSimulation(id));
     }
     
 }
