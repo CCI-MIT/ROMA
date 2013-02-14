@@ -33,10 +33,10 @@ public class ClientRepository {
 
     private static ClientRepository instance;
 
-    public static ClientRepository instance(String hostname, int port) throws IOException {
+    public static ClientRepository instance(String context) throws IOException {
         if (instance == null) {
             instance = new ClientRepository();
-            instance.deserializingConnector = new BasicConnector(hostname, port);
+            instance.deserializingConnector = new BasicConnector(context);
             instance.manager = new RepositoryManager(instance.deserializingConnector);
             instance.manager.refreshSimulations();
         }

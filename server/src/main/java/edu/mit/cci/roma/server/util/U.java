@@ -4,6 +4,8 @@ import edu.mit.cci.roma.api.SimulationException;
 import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.impl.Tuple;
+import edu.mit.cci.roma.server.DefaultServerVariable;
+import edu.mit.cci.roma.server.ServerTuple;
 import edu.mit.cci.roma.util.SimulationComputationException;
 import edu.mit.cci.roma.util.SimulationValidation;
 import org.apache.log4j.Logger;
@@ -69,10 +71,10 @@ public class U {
 
 
         for (Map.Entry<String, String> ent : params.entrySet()) {
-            Variable v = DefaultVariable.findDefaultVariable(Long.parseLong(ent.getKey()));
+            Variable v = DefaultServerVariable.findDefaultVariable(Long.parseLong(ent.getKey()));
             if (v == null)
                 throw new SimulationException("Variable for id:" + ent.getKey() + " could not be identified");
-            Tuple t = new Tuple(v);
+            Tuple t = new ServerTuple(v);
             t.setValue_(ent.getValue());
 
             result.put(v, t);
@@ -112,7 +114,7 @@ public class U {
             } catch (NumberFormatException e) {
                //do nothing
             }
-            Variable v = lid!=null? DefaultVariable.findDefaultVariable(lid):null;
+            Variable v = lid!=null? DefaultServerVariable.findDefaultVariable(lid):null;
             if (v == null) {
                 log.warn("Could not identify variable in response: " + varval[0]);
                 continue;
@@ -120,7 +122,7 @@ public class U {
                 log.info("Found variable "+v.getName()+" but not looking for it");
                 continue;
             }
-            Tuple t = new Tuple(v);
+            Tuple t = new ServerTuple(v);
             t.setValue_(varval[1]);
 
             result.add(t);

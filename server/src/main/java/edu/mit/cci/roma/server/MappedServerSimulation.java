@@ -1,12 +1,16 @@
 package edu.mit.cci.roma.server;
 
+import edu.mit.cci.roma.api.SimulationException;
 import edu.mit.cci.roma.api.TupleStatus;
 import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.impl.DefaultSimulation;
 import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.impl.Tuple;
 import edu.mit.cci.roma.util.SimulationComputationException;
+import edu.mit.cci.roma.util.U;
+import org.springframework.beans.factory.annotation.Configurable;
 
+import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -22,6 +26,9 @@ import java.util.Set;
  * Date: 1/29/13
  * Time: 11:43 AM
  */
+
+@Configurable
+@Entity
 public class MappedServerSimulation extends DefaultServerSimulation {
 
      @ManyToOne
@@ -57,9 +64,9 @@ public class MappedServerSimulation extends DefaultServerSimulation {
                     thisrun.clear();
 
                     for (Variable input : executorSimulation.getInputs()) {
-                        Tuple t = new Tuple(input);
+                        Tuple t = new ServerTuple(input);
                         Tuple values = inputs.get(getVariableMap().get(input));
-                        edu.mit.cci.roma.server.util.U.copyRange(values, t, i * input.getArity(), (i + 1) * input.getArity());
+                        U.copyRange(values, t, i * input.getArity(), (i + 1) * input.getArity());
                         thisrun.add(t);
                     }
 
@@ -68,7 +75,7 @@ public class MappedServerSimulation extends DefaultServerSimulation {
                     for (Tuple t : results) {
                         String s = t.getValue_();
                         if (mergedresults.containsKey(t.getVar())) {
-                           s = edu.mit.cci.roma.server.util.U.join(mergedresults.get(t.getVar()), s);
+                           s = U.join(mergedresults.get(t.getVar()), s);
                         }
                         mergedresults.put(t.getVar(), s);
 
@@ -80,10 +87,10 @@ public class MappedServerSimulation extends DefaultServerSimulation {
                 //remap results
                 Map<Variable, Tuple> results = new HashMap<Variable, Tuple>();
                 for (Map.Entry<Variable,String> ent:mergedresults.entrySet()) {
-                    Tuple t = new Tuple(getVariableMap().get(ent.getKey()));
+                    Tuple t = new ServerTuple(getVariableMap().get(ent.getKey()));
                     if (manyToOne != null) {
                         try {
-                            t.setValues(new String[]{manyToOne.reduce(edu.mit.cci.roma.server.util.U.unescape(ent.getValue(), null, null))});
+                            t.setValues(new String[]{manyToOne.reduce(U.unescape(ent.getValue(), null, null))});
                         } catch (SimulationComputationException ex) {
                             t.setValues(new String[] {null});
                             t.setStatus(0, TupleStatus.ERR_CALC);
@@ -95,26 +102,26 @@ public class MappedServerSimulation extends DefaultServerSimulation {
                 }
 
 
-                return edu.mit.cci.roma.server.util.U.createStringRepresentationFromTuple(results);
+                return U.createStringRepresentationFromTuple(results);
             }
         });
     }
 
     public void setManyToOne(ManyToOneMapping mapping) {
-        boolean b = !edu.mit.cci.roma.server.util.U.equals(manyToOne, mapping);
+        boolean b = !U.equals(manyToOne, mapping);
         manyToOne = mapping;
         if (b) updateMappings();
     }
 
     public void setReplication(Integer r) {
-        boolean b = !edu.mit.cci.roma.server.util.U.equals(replication, r);
+        boolean b = !U.equals(replication, r);
         replication = r;
         if (b) updateMappings();
     }
 
     public void setSamplingFrequency(Integer s) {
         if (s == null || s.intValue() == 0) s = 1;
-        boolean b = !edu.mit.cci.roma.server.util.U.equals(s, samplingFrequency);
+        boolean b = !U.equals(s, samplingFrequency);
         samplingFrequency = s;
         if (b) updateMappings();
     }
@@ -151,21 +158,21 @@ public class MappedServerSimulation extends DefaultServerSimulation {
         getVariableMap().clear();
         DefaultSimulation esim = getExecutorSimulation();
         for (Variable mappedInput : esim.getInputs()) {
-            DefaultVariable v = new DefaultVariable();
-            ((DefaultVariable)v).persist();
+            DefaultServerVariable v = new DefaultServerVariable();
+            v.persist();
             getInputs().add(v);
             getVariableMap().put((DefaultVariable)mappedInput, v);
-            edu.mit.cci.roma.server.util.U.copy(mappedInput, v);
+            U.copy(mappedInput, v);
             v.setArity(replication * mappedInput.getArity());
         }
         int count =  (int) Math.ceil((double) replication / (double) samplingFrequency);
         int outputArity = manyToOne == null ? count : 1;
         for (Variable mo : esim.getOutputs()) {
-            DefaultVariable v = new DefaultVariable();
+            DefaultServerVariable v = new DefaultServerVariable();
 
             getOutputs().add(v);
             getVariableMap().put((DefaultVariable)mo, v);
-            edu.mit.cci.roma.server.util.U.copy(mo, v);
+            U.copy(mo, v);
             v.setArity(mo.getArity() * outputArity);
             if (getManyToOne() == ManyToOneMapping.SUM) {
                 v.setMax_(mo.getMax_()*count);
@@ -176,7 +183,7 @@ public class MappedServerSimulation extends DefaultServerSimulation {
 
         for (Variable mo : getOutputs()) {
             mo.setIndexingVariable(variableMap.get(mo.getIndexingVariable()));
-            ((DefaultVariable)mo).persist();
+            ((DefaultServerVariable)mo).persist();
         }
 
         updateIndexVariable();
@@ -212,6 +219,25 @@ public class MappedServerSimulation extends DefaultServerSimulation {
 
     public Variable getIndexingVariable() {
         return this.indexingVariable;
+    }
+
+
+    public static MappedServerSimulation findMappedSimulation(Long id) {
+        if (id == null) return null;
+        return DefaultServerSimulation.entityManager().find(MappedServerSimulation.class, id);
+    }
+
+    public static List<MappedServerSimulation> findMappedSimulationEntries(int firstResult, int maxResults) {
+        return DefaultServerSimulation.entityManager().createQuery("select o from MappedServerSimulation o", MappedServerSimulation.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    }
+
+
+    public static long countMappedSimulations() {
+        return DefaultServerSimulation.entityManager().createQuery("select count(o) from MappedServerSimulation o", Long.class).getSingleResult();
+    }
+
+    public static List<MappedServerSimulation> findAllMappedSimulations() {
+        return DefaultServerSimulation.entityManager().createQuery("select o from MappedServerSimulation o", MappedServerSimulation.class).getResultList();
     }
 
 

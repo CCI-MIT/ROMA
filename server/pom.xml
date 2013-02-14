@@ -560,7 +560,12 @@
                 <configuration>
                     <outxml>true</outxml>
                     <verbose>true</verbose>
-
+                    <weaveDependencies>
+                        <weaveDependency>
+                            <groupId>edu.mit.cci.roma</groupId>
+                            <artifactId>roma-core</artifactId>
+                        </weaveDependency>
+                    </weaveDependencies>
                     <aspectLibraries>
                         <aspectLibrary>
                             <groupId>org.springframework</groupId>

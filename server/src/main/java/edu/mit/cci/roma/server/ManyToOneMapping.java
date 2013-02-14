@@ -1,6 +1,7 @@
 package edu.mit.cci.roma.server;
 
 
+import edu.mit.cci.roma.api.SimulationException;
 import edu.mit.cci.roma.util.SimulationComputationException;
 
 public enum ManyToOneMapping {

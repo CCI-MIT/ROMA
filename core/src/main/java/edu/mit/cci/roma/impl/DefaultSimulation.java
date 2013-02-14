@@ -7,10 +7,7 @@ import edu.mit.cci.roma.api.SimulationException;
 import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.jaxb.JaxbCollection;
 import org.apache.log4j.Logger;
-import org.springframework.format.annotation.DateTimeFormat;
 
-
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -53,11 +50,11 @@ public class DefaultSimulation implements Simulation {
     }
 
 
-    @DateTimeFormat(style = "S-")
+
     @XmlElement(name = "Creation")
     protected Date created;
 
-    @NotNull
+
     protected Long simulationVersion;
 
     @XmlElement(name = "Description")

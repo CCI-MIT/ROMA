@@ -1,21 +1,30 @@
 package edu.mit.cci.roma.server;
 
 import edu.mit.cci.roma.impl.DefaultScenario;
+import org.springframework.beans.factory.annotation.Configurable;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 @XmlRootElement(name="Scenario")
 @XmlAccessorType(XmlAccessType.NONE)
-public class CompositeScenario extends DefaultScenario {
+@Entity
+@Configurable
+public class CompositeScenario extends DefaultServerScenario {
 
    private Map<Step,ScenarioList> childScenarios = new HashMap<Step,ScenarioList>();
 
     private int lastStep;
+
+
 
 
     public void addToStep(Step s, DefaultScenario scenario) {
@@ -35,6 +44,8 @@ public class CompositeScenario extends DefaultScenario {
         }
     }
 
+    @ManyToMany
+    @JoinTable(name="STEP_SCENARIO")
     public Map<Step, ScenarioList> getChildScenarios() {
            return this.childScenarios;
        }
@@ -50,6 +61,25 @@ public class CompositeScenario extends DefaultScenario {
        public void setLastStep(int lastStep) {
            this.lastStep = lastStep;
        }
+
+
+
+    public static long countCompositeScenarios() {
+        return entityManager().createQuery("select count(o) from CompositeScenario o", Long.class).getSingleResult();
+    }
+
+    public static List<CompositeScenario> indAllCompositeScenarios() {
+        return entityManager().createQuery("select o from CompositeScenario o", CompositeScenario.class).getResultList();
+    }
+
+    public static CompositeScenario findCompositeScenario(Long id) {
+        if (id == null) return null;
+        return entityManager().find(CompositeScenario.class, id);
+    }
+
+    public static List<CompositeScenario> findCompositeScenarioEntries(int firstResult, int maxResults) {
+        return entityManager().createQuery("select o from CompositeScenario o", CompositeScenario.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    }
 
      public String toString() {
         StringBuilder sb = new StringBuilder();

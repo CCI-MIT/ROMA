@@ -8,5 +8,5 @@ import java.net.InetAddress;
  */
 public interface RestAccessPoint {
 
-     public String create(InetAddress base, int port, String... params);
+     public String create(String context,  String... params);
 }

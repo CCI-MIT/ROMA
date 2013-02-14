@@ -7,7 +7,10 @@ import edu.mit.cci.roma.impl.DefaultScenario;
 import edu.mit.cci.roma.impl.DefaultSimulation;
 import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.impl.Tuple;
+import edu.mit.cci.roma.server.DefaultServerScenario;
 import edu.mit.cci.roma.server.DefaultServerSimulation;
+import edu.mit.cci.roma.server.DefaultServerVariable;
+import edu.mit.cci.roma.server.ServerTuple;
 import org.apache.log4j.Logger;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
@@ -93,9 +96,9 @@ public class RunSimulationForm  {
         List<Tuple> simInputs = new ArrayList<Tuple>();
 
         for (Map.Entry<String,String> ent:linputs.entrySet()) {
-            DefaultVariable v = DefaultVariable.findDefaultVariable(remap.containsKey(ent.getKey()) ? remap.get(ent.getKey()) : Long.parseLong(ent.getKey()));
+            DefaultVariable v = DefaultServerVariable.findDefaultVariable(remap.containsKey(ent.getKey()) ? remap.get(ent.getKey()) : Long.parseLong(ent.getKey()));
             if (v == null) throw new SimulationException("Could not identify variable "+ent.getKey());
-            Tuple t = new Tuple(v);
+            Tuple t = new ServerTuple(v);
             t.setValue_(ent.getValue());
             simInputs.add(t);
         }
@@ -103,7 +106,7 @@ public class RunSimulationForm  {
 
         Scenario s = sim.run(simInputs);
         s.setUser(userid);
-        ((DefaultScenario)s).persist();
+        ((DefaultServerScenario)s).persist();
         return "redirect:/defaultscenarios/"+s.getId();
 
     }

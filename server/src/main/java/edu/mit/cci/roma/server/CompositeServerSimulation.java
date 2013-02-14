@@ -1,14 +1,17 @@
 package edu.mit.cci.roma.server;
 
 import edu.mit.cci.roma.api.Scenario;
+import edu.mit.cci.roma.api.SimulationException;
 import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.impl.DefaultScenario;
 import edu.mit.cci.roma.impl.DefaultSimulation;
 import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.impl.Tuple;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Configurable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import java.util.ArrayList;
@@ -23,6 +26,9 @@ import java.util.Set;
  * Date: 1/29/13
  * Time: 11:55 AM
  */
+
+@Entity
+@Configurable
 public class CompositeServerSimulation extends DefaultServerSimulation {
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -74,7 +80,7 @@ public class CompositeServerSimulation extends DefaultServerSimulation {
                 for (Tuple t : fromPriorStep) {
                     if (m.getMapping().containsKey(t.getVar())) {
                         for (DefaultVariable v : m.getMapping().get(t.getVar()).getVariables()) {
-                            Tuple nt = Tuple.copy(t);
+                            Tuple nt = ServerTuple.copy(t);
                             nt.setVar(v);
                             toNextStep.add(nt);
                         }
@@ -105,7 +111,7 @@ public class CompositeServerSimulation extends DefaultServerSimulation {
                             // if there is a mapping for current variable, add it to output set
                             if (m.getMapping().containsKey(old.getVar())) {
                                 for (DefaultVariable nv : m.getMapping().get(old.getVar()).getVariables()) {
-                                    Tuple n = Tuple.copy(old);
+                                    Tuple n = ServerTuple.copy(old);
                                     n.setVar(nv);
                                     result.getValues_().add(n);
                                 }
@@ -137,5 +143,23 @@ public class CompositeServerSimulation extends DefaultServerSimulation {
 
     public void setStepMapping(Set<CompositeStepMapping> stepMapping) {
         this.stepMapping = stepMapping;
+    }
+
+
+     public static long countCompositeSimulations() {
+        return entityManager().createQuery("select count(o) from CompositeServerSimulation o", Long.class).getSingleResult();
+    }
+
+    public static List<CompositeServerSimulation> findAllCompositeSimulations() {
+        return entityManager().createQuery("select o from CompositeServerSimulation o", CompositeServerSimulation.class).getResultList();
+    }
+
+    public static CompositeServerSimulation findCompositeSimulation(Long id) {
+        if (id == null) return null;
+        return entityManager().find(CompositeServerSimulation.class, id);
+    }
+
+    public static List<CompositeServerSimulation> findCompositeSimulationEntries(int firstResult, int maxResults) {
+        return entityManager().createQuery("select o from CompositeServerSimulation o", CompositeServerSimulation.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 }

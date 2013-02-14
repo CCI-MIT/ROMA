@@ -117,18 +117,7 @@ public class Tuple {
         return "" + getId();
     }
 
-//    public static Tuple copy(Tuple t) {
-//        Tuple result = new Tuple();
-//        result.setVar(t.getVar());
-//        try {
-//            result.setValue_(t.getValue_());
-//        } catch (SimulationValidationException e) {
-//            throw new RuntimeException("Encountered an invalid tuple on copy", e);
-//        }
-//
-//        result.persist();
-//        return result;
-//    }
+
 
 
     private Long id;

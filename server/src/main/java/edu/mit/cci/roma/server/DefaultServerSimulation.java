@@ -7,12 +7,16 @@ import edu.mit.cci.roma.excel.ExcelRunnerStrategy;
 import edu.mit.cci.roma.excel.ExcelSimulation;
 import edu.mit.cci.roma.impl.DefaultScenario;
 import edu.mit.cci.roma.impl.DefaultSimulation;
+import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.impl.Tuple;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -24,17 +28,51 @@ import java.util.Set;
  * Date: 1/29/13
  * Time: 10:40 AM
  */
+
+@Entity
+@Configurable
 public class DefaultServerSimulation extends DefaultSimulation {
 
-   private static Logger log = Logger.getLogger(DefaultServerSimulation.class);
+
+    @Column(columnDefinition = "LONGTEXT")
+    public String getType() {
+        return super.getType();
+    }
+
+    @Column(columnDefinition = "LONGTEXT")
+    public String getDescription() {
+        return super.getDescription();
+    }
+
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getCreated() {
+        return super.getCreated();
+    }
+
+
+    private static Logger log = Logger.getLogger(DefaultServerSimulation.class);
 
     @Transient
-      private transient RunStrategy runStrategy = new RunStrategy.Post();
+    private transient RunStrategy runStrategy = new RunStrategy.Post();
 
+
+        @PersistenceContext
+        transient EntityManager entityManager;
+
+
+    @ManyToMany(cascade = CascadeType.ALL, targetEntity = DefaultVariable.class)
+    public Set<Variable> getOutputs() {
+        return super.getOutputs();
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL, targetEntity = DefaultVariable.class)
+    public Set<Variable> getInputs() {
+        return super.getInputs();
+    }
 
     public Scenario run(List<Tuple> siminputs) throws SimulationException {
 
-        DefaultScenario result = new DefaultScenario();
+        DefaultServerScenario result = new DefaultServerScenario();
         result.setSimulation(this);
 
         Map<Variable, Tuple> inputMap = new HashMap<Variable, Tuple>();
@@ -71,7 +109,7 @@ public class DefaultServerSimulation extends DefaultSimulation {
         return runStrategy;
     }
 
-      /**
+    /**
      * Runs a roma and returns a map of output variables to tuple values
      *
      * @param siminputs
@@ -99,6 +137,74 @@ public class DefaultServerSimulation extends DefaultSimulation {
 
 
         return result;
+    }
+
+
+    private Integer version;
+
+    @Version
+    @Column(name = "version")
+    public Integer getVersion() {
+        return this.version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    @Transactional
+    public void persist() {
+        if (this.entityManager == null) this.entityManager = entityManager();
+        this.entityManager.persist(this);
+    }
+
+    @Transactional
+    public void remove() {
+        if (this.entityManager == null) this.entityManager = entityManager();
+        if (this.entityManager.contains(this)) {
+            this.entityManager.remove(this);
+        } else {
+            DefaultServerSimulation attached = DefaultServerSimulation.findDefaultServerSimulation(this.id);
+            this.entityManager.remove(attached);
+        }
+    }
+
+    @Transactional
+    public void flush() {
+        if (this.entityManager == null) this.entityManager = entityManager();
+        this.entityManager.flush();
+    }
+
+    @Transactional
+    public DefaultServerSimulation merge() {
+        if (this.entityManager == null) this.entityManager = entityManager();
+        DefaultServerSimulation merged = this.entityManager.merge(this);
+        this.entityManager.flush();
+        return merged;
+    }
+
+    public static final EntityManager entityManager() {
+        EntityManager em = new DefaultServerSimulation().entityManager;
+        if (em == null)
+            throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
+        return em;
+    }
+
+    public static long countDefaultServerSimulations() {
+        return entityManager().createQuery("select count(o) from DefaultServerSimulation o", Long.class).getSingleResult();
+    }
+
+    public static List<DefaultServerSimulation> findAllDefaultServerSimulations() {
+        return entityManager().createQuery("select o from DefaultServerSimulation o", DefaultServerSimulation.class).getResultList();
+    }
+
+    public static DefaultServerSimulation findDefaultServerSimulation(Long id) {
+        if (id == null) return null;
+        return entityManager().find(DefaultServerSimulation.class, id);
+    }
+
+    public static List<DefaultServerSimulation> findDefaultServerSimulationEntries(int firstResult, int maxResults) {
+        return entityManager().createQuery("select o from DefaultServerSimulation o", DefaultServerSimulation.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
 

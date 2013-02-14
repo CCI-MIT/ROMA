@@ -45,17 +45,15 @@ public class BasicConnector implements DeserializingConnector {
 
     private HttpClient client = null;
 
-    private InetAddress serverAddress = null;
+    private String context = null;
 
-    private int port = 80;
+
 
     private Deserializer deserializer;
 
-    public BasicConnector(String hostname, int port) throws UnknownHostException {
+    public BasicConnector(String context) {
 
-        serverAddress = InetAddress.getByName(hostname);
-        this.port = port;
-        this.deserializer = deserializer;
+        this.context = context;
         client = new DefaultHttpClient();
         ((DefaultHttpClient)client).setRedirectStrategy(new DefaultRedirectStrategy() {
 
@@ -72,9 +70,7 @@ public class BasicConnector implements DeserializingConnector {
         });
     }
 
-    public BasicConnector(Deserializer deserializer, String hostname) throws UnknownHostException {
-        this(hostname, 80);
-    }
+
 
     @Override
     public void setDeserializer(Deserializer d) {
@@ -92,7 +88,7 @@ public class BasicConnector implements DeserializingConnector {
     @Override
     public synchronized Object post(RestAccessPoint location, Map<String, String> postparams, String... pathparam) throws IOException {
 
-        HttpPost post = new HttpPost(location.create(serverAddress, port, pathparam));
+        HttpPost post = new HttpPost(location.create(context, pathparam));
         //post.setFollowRedirects(true);
         post.addHeader("accept", "text/xml");
 
@@ -121,7 +117,7 @@ public class BasicConnector implements DeserializingConnector {
 
     @Override
     public Object get(RestAccessPoint location, Map<String, String> queryparams, String... pathparam) throws IOException {
-        return rawGet(location.create(serverAddress, port, pathparam), queryparams);
+        return rawGet(location.create(context, pathparam), queryparams);
     }
 
     private synchronized Object rawGet(String location, Map<String, String> queryparams) throws IOException {

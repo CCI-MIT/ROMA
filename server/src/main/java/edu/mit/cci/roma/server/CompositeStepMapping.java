@@ -1,24 +1,25 @@
 package edu.mit.cci.roma.server;
 
+import com.sun.tools.javac.resources.version;
+import edu.mit.cci.roma.api.SimulationCreationException;
 import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.impl.DefaultSimulation;
 import edu.mit.cci.roma.impl.DefaultVariable;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.roo.addon.entity.RooEntity;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@RooJavaBean
-@RooToString
-@RooEntity
+@Entity
+@Configurable
 public class CompositeStepMapping {
 
 
@@ -161,6 +162,100 @@ public class CompositeStepMapping {
 
     public void setMapping(Map<DefaultVariable, VariableList> mapping) {
         this.mapping = mapping;
+    }
+
+
+     @PersistenceContext
+    transient EntityManager entityManager;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
+
+    @Version
+    @Column(name = "version")
+    private Integer version;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getVersion() {
+        return this.version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    @Transactional
+    public void persist() {
+        if (this.entityManager == null) this.entityManager = entityManager();
+        this.entityManager.persist(this);
+    }
+
+    @Transactional
+    public void remove() {
+        if (this.entityManager == null) this.entityManager = entityManager();
+        if (this.entityManager.contains(this)) {
+            this.entityManager.remove(this);
+        } else {
+            CompositeStepMapping attached = findCompositeStepMapping(this.id);
+            this.entityManager.remove(attached);
+        }
+    }
+
+    @Transactional
+    public void flush() {
+        if (this.entityManager == null) this.entityManager = entityManager();
+        this.entityManager.flush();
+    }
+
+    @Transactional
+    public CompositeStepMapping merge() {
+        if (this.entityManager == null) this.entityManager = entityManager();
+        CompositeStepMapping merged = this.entityManager.merge(this);
+        this.entityManager.flush();
+        return merged;
+    }
+
+    public static final EntityManager entityManager() {
+        EntityManager em = new CompositeStepMapping().entityManager;
+        if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
+        return em;
+    }
+
+    public static long countCompositeStepMappings() {
+        return entityManager().createQuery("select count(o) from CompositeStepMapping o", Long.class).getSingleResult();
+    }
+
+    public static List<CompositeStepMapping> findAllCompositeStepMappings() {
+        return entityManager().createQuery("select o from CompositeStepMapping o", CompositeStepMapping.class).getResultList();
+    }
+
+    public static CompositeStepMapping findCompositeStepMapping(Long id) {
+        if (id == null) return null;
+        return entityManager().find(CompositeStepMapping.class, id);
+    }
+
+    public static List<CompositeStepMapping> findCompositeStepMappingEntries(int firstResult, int maxResults) {
+        return entityManager().createQuery("select o from CompositeStepMapping o", CompositeStepMapping.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    }
+
+     public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Parentsim: ").append(getParentsim()).append(", ");
+        sb.append("FromStep: ").append(getFromStep()).append(", ");
+        sb.append("ToStep: ").append(getToStep()).append(", ");
+        sb.append("FromVars: ").append(getFromVars() == null ? "null" : getFromVars().size()).append(", ");
+        sb.append("ToVars: ").append(getToVars() == null ? "null" : getToVars().size()).append(", ");
+        sb.append("Mapping: ").append(getMapping() == null ? "null" : getMapping().size());
+        return sb.toString();
     }
 
 

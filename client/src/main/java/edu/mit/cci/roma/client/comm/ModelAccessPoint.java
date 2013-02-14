@@ -14,11 +14,11 @@ import java.net.InetAddress;
 * Time: 4:12 PM
 */
 public enum ModelAccessPoint implements RestAccessPoint {
-    RUN_MODEL_URL("/roma/defaultsimulations/%s/run"),
-    GET_SIMULATION("/roma/defaultsimulations"),
-    GET_SCENARIO("/roma/defaultscenarios"),
-    GET_VARIABLE("/roma/variables"),
-    EDIT_SCENARIO_URL("/roma/rest/scenariostate");
+    RUN_MODEL_URL("/defaultsimulations/%s/run"),
+    GET_SIMULATION("/defaultsimulations"),
+    GET_SCENARIO("/defaultscenarios"),
+    GET_VARIABLE("/variables"),
+    EDIT_SCENARIO_URL("/rest/scenariostate");
 
     String url;
 
@@ -26,11 +26,10 @@ public enum ModelAccessPoint implements RestAccessPoint {
        this.url = s;
     }
 
-    public String create(InetAddress base, int port, String... params) {
-        StringBuffer buf = new StringBuffer("http://");
-        buf.append(base.getHostName());
-        buf.append(":");
-        buf.append(port);
+    public String create(String context, String... params) {
+        StringBuffer buf = new StringBuffer(!context.startsWith("http://")?"http://":"");
+        buf.append("/").append(context);
+
         int start = StringUtils.countMatches(url, "%");
 
         if (start > -1) {
