@@ -127,7 +127,7 @@ public class SimulationMockFactory {
     }
 
     public DefaultVariable getVariable(int arity, String name, DataType type, int precision) {
-        DefaultVariable v_in = new DefaultVariable();
+        DefaultServerVariable v_in = new DefaultServerVariable();
         v_in.setArity(arity);
         v_in.setName(name);
         v_in.setDataType(type);
@@ -142,7 +142,7 @@ public class SimulationMockFactory {
          DefaultServerSimulation simulation = new  DefaultServerSimulation();
         simulation.setSimulationVersion(1l);
         simulation.persist();
-        DefaultVariable dateinput = new DefaultVariable();
+        DefaultServerVariable dateinput = new DefaultServerVariable();
         dateinput.setName("Year");
         dateinput.setDataType(DataType.NUM);
         dateinput.setArity(11);
@@ -151,7 +151,7 @@ public class SimulationMockFactory {
         dateinput.setMin_(2000d);
         dateinput.setMax_(2100d);
 
-        DefaultVariable emissionsinput = new DefaultVariable();
+        DefaultServerVariable emissionsinput = new DefaultServerVariable();
         emissionsinput.setName("Emissions");
         emissionsinput.setDataType(DataType.NUM);
         emissionsinput.setArity(11);
@@ -161,7 +161,7 @@ public class SimulationMockFactory {
         emissionsinput.setMax_(5d);
 
 
-        DefaultVariable gdpOutput = new DefaultVariable();
+        DefaultServerVariable gdpOutput = new DefaultServerVariable();
         gdpOutput.setDataType(DataType.NUM);
         gdpOutput.setName("% GDP");
         gdpOutput.setArity(11);

@@ -112,5 +112,29 @@ public class RunSimulationForm  {
     }
 
 
+    public Map<String, String> getInputs() {
+        return this.inputs;
+    }
+
+    public void setInputs(Map<String, String> inputs) {
+        this.inputs = inputs;
+    }
+
+    public Long getSimid() {
+        return this.simid;
+    }
+
+    public void setSimid(Long simid) {
+        this.simid = simid;
+    }
+
+      public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Inputs: ").append(getInputs() == null ? "null" : getInputs().size()).append(", ");
+        sb.append("Simid: ").append(getSimid());
+        return sb.toString();
+    }
+
+
 
 }

@@ -24,6 +24,19 @@ public class DefaultServerVariable extends DefaultVariable {
 
 
 
+
+    public DefaultServerVariable() {
+        super();
+    }
+
+     public DefaultServerVariable(String name, String description, Integer arity) {
+        super(name,description,arity);
+    }
+
+    public DefaultServerVariable(String name, String description, Integer arity, Integer precision, Double min, Double max) {
+        super(name,description,arity,precision,min,max);
+    }
+
     @PersistenceContext
     transient EntityManager entityManager;
 
@@ -54,7 +67,7 @@ public class DefaultServerVariable extends DefaultVariable {
         return super.getDescription();
     }
 
-    @ManyToOne(targetEntity = DefaultVariable.class)
+    @ManyToOne(targetEntity = DefaultServerVariable.class)
     public Variable getIndexingVariable() {
       return super.getIndexingVariable();
     }
@@ -107,17 +120,17 @@ public class DefaultServerVariable extends DefaultVariable {
         return entityManager().createQuery("select count(o) from DefaultVariable o", Long.class).getSingleResult();
     }
 
-    public static List<DefaultVariable> findAllDefaultVariables() {
-        return entityManager().createQuery("select o from DefaultVariable o", DefaultVariable.class).getResultList();
+    public static List<DefaultServerVariable> findAllDefaultVariables() {
+        return entityManager().createQuery("select o from DefaultVariable o", DefaultServerVariable.class).getResultList();
     }
 
-    public static DefaultVariable findDefaultVariable(Long id) {
+    public static DefaultServerVariable findDefaultVariable(Long id) {
         if (id == null) return null;
-        return entityManager().find(DefaultVariable.class, id);
+        return entityManager().find(DefaultServerVariable.class, id);
     }
 
-    public static List<DefaultVariable> findDefaultVariableEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("select o from DefaultVariable o", DefaultVariable.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    public static List<DefaultServerVariable> findDefaultVariableEntries(int firstResult, int maxResults) {
+        return entityManager().createQuery("select o from DefaultVariable o", DefaultServerVariable.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
 

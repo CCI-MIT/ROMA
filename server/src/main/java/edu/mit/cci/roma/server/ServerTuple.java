@@ -95,9 +95,9 @@ public class ServerTuple extends Tuple {
     }
 
     @Transactional
-    public Tuple merge() {
+    public ServerTuple merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
-        Tuple merged = this.entityManager.merge(this);
+        ServerTuple merged = this.entityManager.merge(this);
         this.entityManager.flush();
         return merged;
     }
@@ -108,7 +108,7 @@ public class ServerTuple extends Tuple {
         return em;
     }
 
-    public static Tuple copy(Tuple t) {
+    public static ServerTuple copy(ServerTuple t) {
         ServerTuple result = new ServerTuple();
         result.setVar(t.getVar());
         try {
@@ -125,17 +125,17 @@ public class ServerTuple extends Tuple {
         return entityManager().createQuery("select count(o) from Tuple o", Long.class).getSingleResult();
     }
 
-    public static List<Tuple> findAllTuples() {
-        return entityManager().createQuery("select o from Tuple o", Tuple.class).getResultList();
+    public static List<ServerTuple> findAllTuples() {
+        return entityManager().createQuery("select o from Tuple o", ServerTuple.class).getResultList();
     }
 
-    public static Tuple findTuple(Long id) {
+    public static ServerTuple findTuple(Long id) {
         if (id == null) return null;
-        return entityManager().find(Tuple.class, id);
+        return entityManager().find(ServerTuple.class, id);
     }
 
-    public static List<Tuple> findTupleEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("select o from Tuple o", Tuple.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    public static List<ServerTuple> findTupleEntries(int firstResult, int maxResults) {
+        return entityManager().createQuery("select o from Tuple o", ServerTuple.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
      public String toString() {

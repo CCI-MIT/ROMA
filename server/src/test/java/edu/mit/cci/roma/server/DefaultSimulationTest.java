@@ -40,10 +40,10 @@ public class DefaultSimulationTest {
 
         sim.setUrl("http://localhost:8080/canned");
 
-        DefaultVariable one = new DefaultVariable("Test1","Test",3);
-        DefaultVariable two = new DefaultVariable("Test2","Test",3);
-        DefaultVariable three = new DefaultVariable("Test3","Test",3);
-        DefaultVariable four = new DefaultVariable("Test4","Test",3);
+        DefaultServerVariable one = new DefaultServerVariable("Test1","Test",3);
+        DefaultServerVariable two = new DefaultServerVariable("Test2","Test",3);
+        DefaultServerVariable three = new DefaultServerVariable("Test3","Test",3);
+        DefaultServerVariable four = new DefaultServerVariable("Test4","Test",3);
         one.persist();
         two.persist();
         three.persist();

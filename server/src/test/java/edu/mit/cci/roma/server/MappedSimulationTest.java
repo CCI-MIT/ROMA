@@ -49,7 +49,7 @@ public class MappedSimulationTest {
     public void testOneToOne_OneToOne_Index() {
 
         DefaultServerSimulation sim = mock.getScalarSimulation(0,13,0);
-        DefaultVariable idx = new DefaultVariable();
+        DefaultServerVariable idx = new DefaultServerVariable();
         idx.setArity(1);
         idx.setDataType(DataType.NUM);
         idx.setName("Index");
@@ -79,7 +79,7 @@ public class MappedSimulationTest {
     @Test
     public void testRun_oneToOne() throws SimulationException {
        DefaultServerSimulation sim = mock.getScalarSimulation(10,9,0);
-        DefaultVariable idx = new DefaultVariable("Index","Test",1,0,0d,20d);
+        DefaultServerVariable idx = new DefaultServerVariable("Index","Test",1,0,0d,20d);
         idx.persist();
         sim.getInputs().add(idx);
 
@@ -122,7 +122,7 @@ public class MappedSimulationTest {
      @Test
     public void testRun_oneToOne_Err() throws SimulationException {
        DefaultServerSimulation sim = mock.getScalarSimulation(0,12,0);
-        DefaultVariable idx = new DefaultVariable("Index","Test",1,0,0d,20d);
+        DefaultServerVariable idx = new DefaultServerVariable("Index","Test",1,0,0d,20d);
         idx.persist();
         sim.getInputs().add(idx);
 
@@ -166,7 +166,7 @@ public class MappedSimulationTest {
         @Test
     public void testRun_oneToOne_subSelect() throws SimulationException {
        DefaultServerSimulation sim = mock.getScalarSimulation(0,9,0);
-        DefaultVariable idx = new DefaultVariable("Index","Test",1,0,0d,20d);
+        DefaultServerVariable idx = new DefaultServerVariable("Index","Test",1,0,0d,20d);
 
          MappedServerSimulation msim = mock.getMappedSimulation(0,sim,123,1,null);
         msim.setSamplingFrequency(10);
@@ -206,7 +206,7 @@ public class MappedSimulationTest {
         @Test
     public void testRun_oneToOne_subSelect_reduce() throws SimulationException {
       DefaultServerSimulation sim = mock.getScalarSimulation(0,9,0);
-       DefaultVariable idx = new DefaultVariable("Index","Test",1,0,0d,20d);
+       DefaultServerVariable idx = new DefaultServerVariable("Index","Test",1,0,0d,20d);
         idx.persist();
         sim.getInputs().add(idx);
 
@@ -250,7 +250,7 @@ public class MappedSimulationTest {
      @Test
     public void testRun_oneToOne_subSelect_reduce_err() throws SimulationException {
       DefaultServerSimulation sim = mock.getScalarSimulation(0,21,0);
-       DefaultVariable idx = new DefaultVariable("Index","Test",1,0,0d,20d);
+       DefaultServerVariable idx = new DefaultServerVariable("Index","Test",1,0,0d,20d);
         idx.persist();
         sim.getInputs().add(idx);
 

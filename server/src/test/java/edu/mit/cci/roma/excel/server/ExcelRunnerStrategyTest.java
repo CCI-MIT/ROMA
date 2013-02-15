@@ -52,7 +52,7 @@ public class ExcelRunnerStrategyTest {
 
         for (Variable v : sim.getInputs()) {
 
-            Tuple t = new Tuple(v);
+            ServerTuple t = new ServerTuple(v);
             t.persist();
             if (v.getName().equals("Year")) {
                 t.setValues(dateinput);
@@ -86,7 +86,7 @@ public class ExcelRunnerStrategyTest {
 
         for (Variable v : sim.getInputs()) {
 
-            Tuple t = new Tuple(v);
+            ServerTuple t = new ServerTuple(v);
             t.persist();
             if (v.getName().equals("Year")) {
                 t.setValues(dateinput);

@@ -68,7 +68,7 @@ public class CompositeScenario extends DefaultServerScenario {
         return entityManager().createQuery("select count(o) from CompositeScenario o", Long.class).getSingleResult();
     }
 
-    public static List<CompositeScenario> indAllCompositeScenarios() {
+    public static List<CompositeScenario> findAllCompositeScenarios() {
         return entityManager().createQuery("select o from CompositeScenario o", CompositeScenario.class).getResultList();
     }
 

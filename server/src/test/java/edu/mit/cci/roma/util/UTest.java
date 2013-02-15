@@ -5,12 +5,14 @@ import edu.mit.cci.roma.api.TupleStatus;
 import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.impl.Tuple;
+import edu.mit.cci.roma.server.DefaultServerVariable;
 import edu.mit.cci.roma.server.SimulationException;
 import edu.mit.cci.roma.server.VariableDataOnDemand;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,7 @@ import java.util.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/META-INF/spring/applicationContext.xml")
 @Transactional
+@Configurable
 public class UTest {
 
     private edu.mit.cci.roma.server.util.U u = new edu.mit.cci.roma.server.util.U();
@@ -61,8 +64,8 @@ public class UTest {
 
     @Test
     public void parseVariableMap() throws SimulationException {
-        DefaultVariable one = new DefaultVariable("test1","test1",3);
-        DefaultVariable two = new DefaultVariable("test2","test2",3);
+        DefaultServerVariable one = new DefaultServerVariable("test1","test1",3);
+        DefaultServerVariable two = new DefaultServerVariable("test2","test2",3);
         one.persist();
         two.persist();
         StringBuilder builder = new StringBuilder();
