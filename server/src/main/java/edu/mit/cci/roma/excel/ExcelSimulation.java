@@ -1,12 +1,11 @@
 package edu.mit.cci.roma.excel;
 
 import edu.mit.cci.roma.impl.DefaultSimulation;
+import edu.mit.cci.roma.server.DefaultServerSimulation;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.roo.addon.entity.RooEntity;
-import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.roo.addon.tostring.RooToString;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
@@ -31,7 +30,7 @@ public class ExcelSimulation {
     private Date creation;
 
     @ManyToOne
-    private DefaultSimulation simulation;
+    private DefaultServerSimulation simulation;
 
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<ExcelVariable> inputs = new HashSet<ExcelVariable>();
@@ -60,7 +59,7 @@ public class ExcelSimulation {
         return this.simulation;
     }
 
-    public void setSimulation(DefaultSimulation simulation) {
+    public void setSimulation(DefaultServerSimulation simulation) {
         this.simulation = simulation;
     }
 
@@ -88,7 +87,7 @@ public class ExcelSimulation {
         this.file = file;
     }
 
-    public ExcelSimulation(DefaultSimulation sim, File f) throws IOException {
+    public ExcelSimulation(DefaultServerSimulation sim, File f) throws IOException {
         this.setSimulation(sim);
         InputStream is = new FileInputStream(f);
         setFile(IOUtils.toByteArray(is));

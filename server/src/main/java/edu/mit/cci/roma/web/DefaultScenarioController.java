@@ -10,7 +10,7 @@ import edu.mit.cci.roma.util.ConcreteSerializableCollection;
 import edu.mit.cci.roma.util.U;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,7 +28,7 @@ import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 
-@RooWebScaffold(path = "defaultscenarios", formBackingObject = DefaultScenario.class)
+
 @RequestMapping("/defaultscenarios")
 @Controller
 public class DefaultScenarioController {
@@ -119,7 +119,7 @@ public class DefaultScenarioController {
        }
 
        @ModelAttribute("tuples")
-       public Collection<Tuple> populateTuples() {
+       public Collection<ServerTuple> populateTuples() {
            return ServerTuple.findAllTuples();
        }
 

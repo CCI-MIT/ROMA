@@ -3,6 +3,7 @@ package edu.mit.cci.roma.web;
 
 import edu.mit.cci.roma.api.DataType;
 import edu.mit.cci.roma.impl.DefaultVariable;
+import edu.mit.cci.roma.server.DefaultServerVariable;
 import edu.mit.cci.roma.util.SpringControllerEnvironment;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
@@ -22,7 +23,7 @@ public class VariableControllerIntegrationTest extends SpringControllerEnvironme
     public void testVariables() throws Exception {
 
 
-        DefaultVariable v = new DefaultVariable();
+        DefaultServerVariable v = new DefaultServerVariable();
         v.setDataType(DataType.NUM);
         v.setPrecision_(1);
         v.setName("Test");

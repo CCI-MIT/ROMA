@@ -17,7 +17,7 @@ public class SliceSegmentTest {
     public void testInvalid() throws Exception {
         Polynomial p = new Polynomial(new double[] {4,5});
         try {
-            SliceSegment<Float,Integer> ss = new SliceSegment<Float, Integer>(4f,3f,100,p);
+            SliceSegment<Float> ss = new SliceSegment<Float>(4f,3f,100,p);
             Assert.fail("Should not be able to create slice segements with to>from");
         } catch (IllegalArgumentException ex) {
             //ok
@@ -28,7 +28,7 @@ public class SliceSegmentTest {
     public void testValid() throws Exception {
         String expect = "3.0-4.0 : f(x) = +5.0x +4.0";
         Polynomial p = new Polynomial(new double[] {4,5});
-        SliceSegment<Float,Integer> ss = new SliceSegment<Float, Integer>(3f,4f,100,p);
+        SliceSegment<Float> ss = new SliceSegment<Float>(3f,4f,100,p);
         log.info(ss);
 
         Assert.assertTrue(ss.getIndex()==100);

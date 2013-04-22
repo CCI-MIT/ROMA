@@ -19,16 +19,16 @@ import java.util.Set;
 @Configurable
 public class VariableList {
 
-    public Set<DefaultVariable> getVariables() {
+    public Set<DefaultServerVariable> getVariables() {
         return variables;
     }
 
-    public void setVariables(Set<DefaultVariable> variables) {
+    public void setVariables(Set<DefaultServerVariable> variables) {
         this.variables = variables;
     }
 
     @ManyToMany(cascade = CascadeType.ALL)
-    private Set<DefaultVariable> variables = new HashSet<DefaultVariable>();
+    private Set<DefaultServerVariable> variables = new HashSet<DefaultServerVariable>();
 
     @PersistenceContext
     transient EntityManager entityManager;

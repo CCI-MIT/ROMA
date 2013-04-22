@@ -21,6 +21,8 @@ import java.util.Set;
 
 @Entity
 @Configurable
+@Table(name="default_scenario")
+@DiscriminatorValue(value = "DefaultScenario")
 public class DefaultServerScenario extends DefaultScenario {
 
 
@@ -114,8 +116,8 @@ public class DefaultServerScenario extends DefaultScenario {
         return entityManager().createQuery("select count(o) from DefaultScenario o", Long.class).getSingleResult();
     }
 
-    public static List<DefaultScenario> findAllDefaultScenarios() {
-        return entityManager().createQuery("select o from DefaultScenario o", DefaultScenario.class).getResultList();
+    public static List<DefaultServerScenario> findAllDefaultScenarios() {
+        return entityManager().createQuery("select o from DefaultScenario o", DefaultServerScenario.class).getResultList();
     }
 
     public static DefaultScenario findDefaultScenario(Long id) {
@@ -123,8 +125,8 @@ public class DefaultServerScenario extends DefaultScenario {
         return entityManager().find(DefaultScenario.class, id);
     }
 
-    public static List<DefaultScenario> findDefaultScenarioEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("select o from DefaultScenario o", DefaultScenario.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    public static List<DefaultServerScenario> findDefaultScenarioEntries(int firstResult, int maxResults) {
+        return entityManager().createQuery("select o from DefaultScenario o", DefaultServerScenario.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
     public String toString() {

@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.roo.addon.test.RooIntegrationTest;
+
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,7 +46,7 @@ public class VariableIntegrationTest {
         org.junit.Assert.assertNotNull("Data on demand for 'DefaultVariable' failed to initialize correctly", dod.getRandomDefaultVariable());
         long count = DefaultServerVariable.countDefaultVariables();
         org.junit.Assert.assertTrue("Too expensive to perform a find all test for 'DefaultVariable', as there are " + count + " entries; set the findAllMaximum to exceed this value or set findAll=false on the integration test annotation to disable the test", count < 250);
-        java.util.List<DefaultVariable> result = DefaultServerVariable.findAllDefaultVariables();
+        java.util.List<DefaultServerVariable> result = DefaultServerVariable.findAllDefaultVariables();
         org.junit.Assert.assertNotNull("Find all method for 'DefaultVariable' illegally returned null", result);
         org.junit.Assert.assertTrue("Find all method for 'DefaultVariable' failed to return any data", result.size() > 0);
     }
@@ -56,7 +56,7 @@ public class VariableIntegrationTest {
         org.junit.Assert.assertNotNull("Data on demand for 'DefaultVariable' failed to initialize correctly", dod.getRandomDefaultVariable());
         long count = DefaultServerVariable.countDefaultVariables();
         if (count > 20) count = 20;
-        java.util.List<DefaultVariable> result = DefaultServerVariable.findDefaultVariableEntries(0, (int) count);
+        java.util.List<DefaultServerVariable> result = DefaultServerVariable.findDefaultVariableEntries(0, (int) count);
         org.junit.Assert.assertNotNull("Find entries method for 'DefaultVariable' illegally returned null", result);
         org.junit.Assert.assertEquals("Find entries method for 'DefaultVariable' returned an incorrect number of entries", count, result.size());
     }

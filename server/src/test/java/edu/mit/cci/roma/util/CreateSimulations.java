@@ -548,17 +548,17 @@ public class CreateSimulations {
         esim.setCreation(new Date());
         esim.setFile(IOUtils.toByteArray(new FileInputStream("./target/test-classes/emf22_mitigation.xls")));
 
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Time_input0", true), "Sheet2", "A13:A113"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("CO2e_input1", true), "Sheet2", "B13:B113"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Time_output0", false), "Sheet3", "A13:A23"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Change_in_GDP_vs_baseline_witch_emf22_output1", false), "Sheet3", "B13:B23"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Change_in_GDP_vs_baseline_minicam_emf22_output2", false), "Sheet3", "C13:C23"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Change_in_GDP_vs_baseline_merge_emf22_output3", false), "Sheet3", "D13:D23"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Change_in_GDP_vs_baseline_fund_emf23_output4", false), "Sheet3", "E13:E23"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Change_in_GDP_vs_baseline_gcm_emf24_output5", false), "Sheet3", "F13:F23"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Change_in_GDP_vs_baseline_merge_optimistic_emf25_output6", false), "Sheet3", "G13:G23"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Change_in_GDP_vs_baseline_merge_pessimistic_emf26_output7", false), "Sheet3", "H13:H23"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Change_in_GDP_vs_baseline_message_emf26_output8", false), "Sheet3", "I13:I23"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Time_input0", true), "Sheet2", "A13:A113"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("CO2e_input1", true), "Sheet2", "B13:B113"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Time_output0", false), "Sheet3", "A13:A23"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Change_in_GDP_vs_baseline_witch_emf22_output1", false), "Sheet3", "B13:B23"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Change_in_GDP_vs_baseline_minicam_emf22_output2", false), "Sheet3", "C13:C23"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Change_in_GDP_vs_baseline_merge_emf22_output3", false), "Sheet3", "D13:D23"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Change_in_GDP_vs_baseline_fund_emf23_output4", false), "Sheet3", "E13:E23"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Change_in_GDP_vs_baseline_gcm_emf24_output5", false), "Sheet3", "F13:F23"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Change_in_GDP_vs_baseline_merge_optimistic_emf25_output6", false), "Sheet3", "G13:G23"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Change_in_GDP_vs_baseline_merge_pessimistic_emf26_output7", false), "Sheet3", "H13:H23"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Change_in_GDP_vs_baseline_message_emf26_output8", false), "Sheet3", "I13:I23"));
 
         esim.persist();
         sim.setUrl(ExcelSimulation.EXCEL_URL + esim.getId());
@@ -575,12 +575,12 @@ public class CreateSimulations {
         esim.setCreation(new Date());
         esim.setFile(IOUtils.toByteArray(new FileInputStream("./target/test-classes/old_mitigation.xls")));
 
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Time_input0", true), "Sheet2", "A13:A113"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Atmospheric_CO2_concentration", true), "Sheet2", "B13:B113"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Time_output0", false), "Sheet3", "A13:A23"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("_Change_in_GDP_vs__baseline_igsm_output", false), "Sheet3", "E13:E23"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("_Change_in_GDP_vs__baseline_merge_output", false), "Sheet3", "F13:F23"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("_Change_in_GDP_vs__baseline_minicam_output", false), "Sheet3", "I13:I23"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Time_input0", true), "Sheet2", "A13:A113"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Atmospheric_CO2_concentration", true), "Sheet2", "B13:B113"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Time_output0", false), "Sheet3", "A13:A23"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("_Change_in_GDP_vs__baseline_igsm_output", false), "Sheet3", "E13:E23"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("_Change_in_GDP_vs__baseline_merge_output", false), "Sheet3", "F13:F23"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("_Change_in_GDP_vs__baseline_minicam_output", false), "Sheet3", "I13:I23"));
 
         esim.persist();
         sim.setUrl(ExcelSimulation.EXCEL_URL + esim.getId());
@@ -596,12 +596,12 @@ public class CreateSimulations {
     public DefaultServerSimulation createDamage() throws IOException, ParseException {
         DefaultServerSimulation sim = (DefaultServerSimulation) createBaseSim("./target/test-classes/combined_damage", 101, 101);
         ExcelSimulation esim = new ExcelSimulation(sim, new File("./target/test-classes/combined_damage.xls"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Temperature_input0", true), "Sheet1", "A13:A113"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Time1_output0", false), "Sheet2", "A13:A113"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("change_in_GDP_vs_baseline_page_output1", false), "Sheet2", "B13:B113"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("change_in_GDP_vs_baseline_page_5__output2", false), "Sheet2", "C13:C113"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("change_in_GDP_vs_baseline_page_95__output3", false), "Sheet2", "D13:D113"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("change_in_GDP_vs_baseline_dice_output4", false), "Sheet2", "E13:E113"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Temperature_input0", true), "Sheet1", "A13:A113"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Time1_output0", false), "Sheet2", "A13:A113"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("change_in_GDP_vs_baseline_page_output1", false), "Sheet2", "B13:B113"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("change_in_GDP_vs_baseline_page_5__output2", false), "Sheet2", "C13:C113"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("change_in_GDP_vs_baseline_page_95__output3", false), "Sheet2", "D13:D113"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("change_in_GDP_vs_baseline_dice_output4", false), "Sheet2", "E13:E113"));
 
         esim.persist();
         sim.setUrl(ExcelSimulation.EXCEL_URL + esim.getId());
@@ -622,9 +622,9 @@ public class CreateSimulations {
         CSVReader reader = new CSVReader(basename + "_xlmapping.csv");
         for (Map<String,String> line:reader) {
           if ("true".equalsIgnoreCase(get(line,"input"))) {
-              esim.getInputs().add(new ExcelVariable(esim,sim.findVariableWithExternalName(get(line,"ext_name"),true),get(line,"worksheet"),get(line,"range"),get(line,"rewriterange")));
+              esim.getInputs().add(new ExcelVariable(esim,(DefaultServerVariable)sim.findVariableWithExternalName(get(line,"ext_name"),true),get(line,"worksheet"),get(line,"range"),get(line,"rewriterange")));
           } else {
-               esim.getOutputs().add(new ExcelVariable(esim,sim.findVariableWithExternalName(get(line,"ext_name"),false),get(line,"worksheet"),get(line,"range")));
+               esim.getOutputs().add(new ExcelVariable(esim,(DefaultServerVariable)sim.findVariableWithExternalName(get(line,"ext_name"),false),get(line,"worksheet"),get(line,"range")));
           }
 
         }
@@ -640,14 +640,14 @@ public class CreateSimulations {
     public DefaultServerSimulation createTyndall() throws IOException, ParseException {
         DefaultServerSimulation sim = (DefaultServerSimulation) createBaseSim("./target/test-classes/tyndall", 1, 1);
         ExcelSimulation esim = new ExcelSimulation(sim, new File("./target/test-classes/tyndall.xls"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Temperature_Change", true), "Stern Review", "A2:A2"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Temperature_Change_output", false), "Stern Review", "A26:A26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Water_Impacts_output", false), "Stern Review", "B26:B26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Food_Impacts_output", false), "Stern Review", "C26:C26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Health_Impacts_output", false), "Stern Review", "D26:D26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Land_Impacts_output", false), "Stern Review", "E26:E26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Environment_Impacts_output", false), "Stern Review", "F26:F26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Abrupt_and_Large_Scale_Impacts_output", false), "Stern Review", "G26:G26"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Temperature_Change", true), "Stern Review", "A2:A2"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Temperature_Change_output", false), "Stern Review", "A26:A26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Water_Impacts_output", false), "Stern Review", "B26:B26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Food_Impacts_output", false), "Stern Review", "C26:C26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Health_Impacts_output", false), "Stern Review", "D26:D26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Land_Impacts_output", false), "Stern Review", "E26:E26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Environment_Impacts_output", false), "Stern Review", "F26:F26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Abrupt_and_Large_Scale_Impacts_output", false), "Stern Review", "G26:G26"));
         esim.persist();
         sim.setUrl(ExcelSimulation.EXCEL_URL + esim.getId());
         sim.persist();
@@ -660,14 +660,14 @@ public class CreateSimulations {
     public DefaultServerSimulation createIPCC() throws IOException, ParseException {
         DefaultServerSimulation sim = (DefaultServerSimulation) createBaseSim("./target/test-classes/ipcc", 1, 1);
         ExcelSimulation esim = new ExcelSimulation(sim, new File("./target/test-classes/ipcc.xls"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Temperature_Change", true), "Stern Review", "A13:A13"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Temperature_Change1_output", false), "Stern Review", "A26:A26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Water1_output", false), "Stern Review", "B26:B26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Food_Agriculture1_output", false), "Stern Review", "C26:C26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Health1_output", false), "Stern Review", "D26:D26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Land_Coastal1_output", false), "Stern Review", "E26:E26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Environment_Ecosystems1_output", false), "Stern Review", "F26:F26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Abrupt_Singular_Events1_output", false), "Stern Review", "G26:G26"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Temperature_Change", true), "Stern Review", "A13:A13"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Temperature_Change1_output", false), "Stern Review", "A26:A26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Water1_output", false), "Stern Review", "B26:B26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Food_Agriculture1_output", false), "Stern Review", "C26:C26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Health1_output", false), "Stern Review", "D26:D26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Land_Coastal1_output", false), "Stern Review", "E26:E26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Environment_Ecosystems1_output", false), "Stern Review", "F26:F26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Abrupt_Singular_Events1_output", false), "Stern Review", "G26:G26"));
         esim.persist();
         sim.setUrl(ExcelSimulation.EXCEL_URL + esim.getId());
         sim.persist();
@@ -745,7 +745,7 @@ public class CreateSimulations {
         List<Variable> varlist = new ArrayList<Variable>();
 
         for (Map<String, String> line : reader) {
-            DefaultVariable v = new DefaultVariable(get(line, "name"),
+            DefaultServerVariable v = new DefaultServerVariable(get(line, "name"),
                     get(line, "description"),
                     getInteger(line, "arity"), getInteger(line, "precision"), //0 for year, otherwise 2
                     getDouble(line, "min"),
@@ -780,7 +780,7 @@ public class CreateSimulations {
             if (get(line, "indexingid") != null) {
                 Variable indexing = varmap.get(get(line, "indexingid"));
                 v.setIndexingVariable(indexing);
-                ((DefaultVariable) v).persist();
+                ((DefaultServerVariable) v).persist();
 
 
             }
@@ -801,7 +801,7 @@ public class CreateSimulations {
 
         for (Map<String, String> line : reader) {
 
-            DefaultVariable v = new DefaultVariable(get(line, "name"),
+            DefaultServerVariable v = new DefaultServerVariable(get(line, "name"),
                     get(line, "description"),
                     arity, inferPrecision(get(line, "profile")), //0 for year, otherwise 2
                     getDouble(line, "min"),
@@ -826,7 +826,7 @@ public class CreateSimulations {
             if (get(line, "indexingid") != null) {
                 Variable indexing = varmap.get(get(line, "indexingid"));
                 v.setIndexingVariable(indexing);
-                ((DefaultVariable) v).persist();
+                ((DefaultServerVariable) v).persist();
 
 
             }
@@ -843,37 +843,37 @@ public class CreateSimulations {
         DefaultServerSimulation sim = (DefaultServerSimulation) createBaseSim("./target/test-classes/disag15", 1, 1);
         ExcelSimulation esim = new ExcelSimulation(sim, new File("./target/test-classes/disag15.xls"));
 
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("US_emissions_change_input0", true), "15region", "A13:A13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("EU_emissions_change_input1", true), "15region", "B13:B13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Russia_Former_Soviet_Union_emissions_change_input2", true), "15region", "C13:C13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("OECD_Asia_emissions_change_input3", true), "15region", "D13:D13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Canada_emissions_change_input4", true), "15region", "E13:E13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Developed_countries_start_year_input5", true), "15region", "F13:F13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Developed_countries_target_year_input6", true), "15region", "G13:G13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("China_emissions_change_input7", true), "15region", "H13:H13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("India_emissions_change_input8", true), "15region", "I13:I13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Brazil_emissions_change_input9", true), "15region", "J13:J13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("South_Africa_emissions_change_input10", true), "15region", "K13:K13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Mexico_emissions_change_input11", true), "15region", "L13:L13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Rapidly_developing_Asia_emissions_change_input12", true), "15region", "M13:M13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Rapidly_developing_countries_start_year_input13", true), "15region", "N13:N13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Rapidly_developing_countries_target_year_input14", true), "15region", "O13:O13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Middle_East_input15", true), "15region", "P13:P13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Latin_America_input16", true), "15region", "Q13:Q13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Africa_input17", true), "15region", "R13:R13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Other_developing_Asia_input18", true), "15region", "S13:S13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Other_developing_countries_start_year_input19", true), "15region", "T13:T13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Other_developing_countries_target_year_input20", true), "15region", "U13:U13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("US_emissions_change_input0", true), "15region", "A13:A13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("EU_emissions_change_input1", true), "15region", "B13:B13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Russia_Former_Soviet_Union_emissions_change_input2", true), "15region", "C13:C13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("OECD_Asia_emissions_change_input3", true), "15region", "D13:D13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Canada_emissions_change_input4", true), "15region", "E13:E13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Developed_countries_start_year_input5", true), "15region", "F13:F13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Developed_countries_target_year_input6", true), "15region", "G13:G13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("China_emissions_change_input7", true), "15region", "H13:H13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("India_emissions_change_input8", true), "15region", "I13:I13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Brazil_emissions_change_input9", true), "15region", "J13:J13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("South_Africa_emissions_change_input10", true), "15region", "K13:K13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Mexico_emissions_change_input11", true), "15region", "L13:L13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Rapidly_developing_Asia_emissions_change_input12", true), "15region", "M13:M13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Rapidly_developing_countries_start_year_input13", true), "15region", "N13:N13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Rapidly_developing_countries_target_year_input14", true), "15region", "O13:O13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Middle_East_input15", true), "15region", "P13:P13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Latin_America_input16", true), "15region", "Q13:Q13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Africa_input17", true), "15region", "R13:R13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Other_developing_Asia_input18", true), "15region", "S13:S13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Other_developing_countries_start_year_input19", true), "15region", "T13:T13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Other_developing_countries_target_year_input20", true), "15region", "U13:U13"));
 
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Developed_countries_emissions_change_output0", false), "15region", "A26:A26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Developed_countries_start_year_output1", false), "15region", "B26:B26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Developed_countries_target_year_output2", false), "15region", "C26:C26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Rapidly_developing_countries_emissions_change_output3", false), "15region", "D26:D26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Rapidly_developing_countries_start_year_output4", false), "15region", "E26:E26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Rapidly_developing_countries_target_year_output5", false), "15region", "F26:F26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Other_developing_countries_emissions_change_output6", false), "15region", "G26:G26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Other_developing_countries_start_year_output7", false), "15region", "H26:H26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Other_developing_countries_target_year_output8", false), "15region", "I26:I26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Developed_countries_emissions_change_output0", false), "15region", "A26:A26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Developed_countries_start_year_output1", false), "15region", "B26:B26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Developed_countries_target_year_output2", false), "15region", "C26:C26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Rapidly_developing_countries_emissions_change_output3", false), "15region", "D26:D26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Rapidly_developing_countries_start_year_output4", false), "15region", "E26:E26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Rapidly_developing_countries_target_year_output5", false), "15region", "F26:F26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Other_developing_countries_emissions_change_output6", false), "15region", "G26:G26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Other_developing_countries_start_year_output7", false), "15region", "H26:H26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Other_developing_countries_target_year_output8", false), "15region", "I26:I26"));
 
         esim.persist();
         sim.setUrl(ExcelSimulation.EXCEL_URL + esim.getId());
@@ -886,30 +886,30 @@ public class CreateSimulations {
         DefaultServerSimulation sim = (DefaultServerSimulation) createBaseSim("./target/test-classes/disag7", 1, 1);
         ExcelSimulation esim = new ExcelSimulation(sim, new File("./target/test-classes/disag7.xls"));
 
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("US_emissions_change_input0", true), "Disagge", "A13:A13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("EU_emissions_change_input1", true), "Disagge", "B13:B13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Other_developed_countries_emissions_change_input2", true), "Disagge", "C13:C13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Developed_countries_start_year_input3", true), "Disagge", "D13:D13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Developed_countries_target_year_input4", true), "Disagge", "E13:E13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("China_emissions_change_input5", true), "Disagge", "F13:F13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("India_emissions_change_input6", true), "Disagge", "G13:G13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Other_rapidly_developing_countries_emissions_change_input7", true), "Disagge", "H13:H13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Rapidly_developing_countries_start_year_input8", true), "Disagge", "I13:I13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Rapidly_developing_countries_target_year_input9", true), "Disagge", "J13:J13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Other_developing_countries_emissions_change_input10", true), "Disagge", "K13:K13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Other_developing_countries_start_year_input11", true), "Disagge", "L13:L13"));
-        esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Other_developing_countries_target_year_input12", true), "Disagge", "M13:M13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("US_emissions_change_input0", true), "Disagge", "A13:A13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("EU_emissions_change_input1", true), "Disagge", "B13:B13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Other_developed_countries_emissions_change_input2", true), "Disagge", "C13:C13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Developed_countries_start_year_input3", true), "Disagge", "D13:D13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Developed_countries_target_year_input4", true), "Disagge", "E13:E13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("China_emissions_change_input5", true), "Disagge", "F13:F13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("India_emissions_change_input6", true), "Disagge", "G13:G13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Other_rapidly_developing_countries_emissions_change_input7", true), "Disagge", "H13:H13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Rapidly_developing_countries_start_year_input8", true), "Disagge", "I13:I13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Rapidly_developing_countries_target_year_input9", true), "Disagge", "J13:J13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Other_developing_countries_emissions_change_input10", true), "Disagge", "K13:K13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Other_developing_countries_start_year_input11", true), "Disagge", "L13:L13"));
+        esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Other_developing_countries_target_year_input12", true), "Disagge", "M13:M13"));
 
 
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Developed_countries_emissions_change_output0", false), "Disagge", "A26:A26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Developed_countries_start_year_output1", false), "Disagge", "B26:B26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Developed_countries_target_year_output2", false), "Disagge", "C26:C26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Rapidly_developing_countries_emissions_change_output3", false), "Disagge", "D26:D26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Rapidly_developing_countries_start_year_output4", false), "Disagge", "E26:E26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Rapidly_developing_countries_target_year_output5", false), "Disagge", "F26:F26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Other_developing_countries_emissions_change_output6", false), "Disagge", "G26:G26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Other_developing_countries_start_year_output7", false), "Disagge", "H26:H26"));
-        esim.getOutputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName("Other_developing_countries_target_year_output8", false), "Disagge", "I26:I26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Developed_countries_emissions_change_output0", false), "Disagge", "A26:A26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Developed_countries_start_year_output1", false), "Disagge", "B26:B26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Developed_countries_target_year_output2", false), "Disagge", "C26:C26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Rapidly_developing_countries_emissions_change_output3", false), "Disagge", "D26:D26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Rapidly_developing_countries_start_year_output4", false), "Disagge", "E26:E26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Rapidly_developing_countries_target_year_output5", false), "Disagge", "F26:F26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Other_developing_countries_emissions_change_output6", false), "Disagge", "G26:G26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Other_developing_countries_start_year_output7", false), "Disagge", "H26:H26"));
+        esim.getOutputs().add(new ExcelVariable(esim, (DefaultServerVariable)sim.findVariableWithExternalName("Other_developing_countries_target_year_output8", false), "Disagge", "I26:I26"));
 
         esim.persist();
         sim.setUrl(ExcelSimulation.EXCEL_URL + esim.getId());

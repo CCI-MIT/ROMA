@@ -7,8 +7,7 @@ import edu.mit.cci.roma.impl.DefaultSimulation;
 import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.server.DefaultServerSimulation;
 import edu.mit.cci.roma.server.DefaultServerVariable;
-import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.roo.addon.tostring.RooToString;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,8 +35,6 @@ import java.util.List;
 
 @RequestMapping("/defaultsimulations/createexcel")
 @Controller
-@RooJavaBean
-@RooToString
 public class ExcelSimulationForm {
 
 
@@ -99,7 +96,7 @@ public class ExcelSimulationForm {
             ExcelVariable var = new ExcelVariable();
             var.setWorksheetName(form.inputWorksheetNames.get(i));
             var.setCellRange(form.inputRanges.get(i));
-            var.setSimulationVariable(v);
+            var.setSimulationVariable((DefaultServerVariable) v);
             var.setExcelSimulation(esim);
             var.persist();
             i++;
@@ -111,7 +108,7 @@ public class ExcelSimulationForm {
             ExcelVariable var = new ExcelVariable();
             var.setWorksheetName(form.outputWorksheetNames.get(i));
             var.setCellRange(form.outputRanges.get(i));
-            var.setSimulationVariable(v);
+            var.setSimulationVariable((DefaultServerVariable) v);
             var.setExcelSimulation(esim);
             var.persist();
             i++;
@@ -131,7 +128,7 @@ public class ExcelSimulationForm {
     }
 
     @ModelAttribute("variables")
-    public Collection<DefaultVariable> populateVariables() {
+    public Collection<DefaultServerVariable> populateVariables() {
         return DefaultServerVariable.findAllDefaultVariables();
     }
 

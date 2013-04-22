@@ -3,6 +3,7 @@ package edu.mit.cci.roma.util;
 import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.impl.DefaultScenario;
 import edu.mit.cci.roma.impl.DefaultSimulation;
+import edu.mit.cci.roma.server.DefaultServerScenario;
 import edu.mit.cci.roma.server.DefaultServerSimulation;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,7 +62,7 @@ public class DumpDbToFiles {
 
            }
 
-           Collection<DefaultScenario> scenarios = DefaultScenario.findAllDefaultScenarios();
+           Collection<DefaultServerScenario> scenarios = DefaultServerScenario.findAllDefaultScenarios();
            wrapper = U.wrap(scenarios);
            writer = new StringWriter();
            m.marshal(wrapper,writer);

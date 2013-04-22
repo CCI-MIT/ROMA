@@ -9,7 +9,7 @@ import edu.mit.cci.roma.server.ServerTuple;
 import edu.mit.cci.roma.server.Step;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,7 +26,7 @@ import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 
-@RooWebScaffold(path = "compositescenarios", formBackingObject = CompositeScenario.class)
+
 @RequestMapping("/compositescenarios")
 @Controller
 public class CompositeScenarioController {
@@ -113,7 +113,7 @@ public class CompositeScenarioController {
     }
 
     @ModelAttribute("tuples")
-    public Collection<Tuple> populateTuples() {
+    public Collection<ServerTuple> populateTuples() {
         return ServerTuple.findAllTuples();
     }
 

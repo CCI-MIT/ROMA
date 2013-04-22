@@ -13,14 +13,14 @@ package edu.mit.cci.roma.excel.responsesurfaces;
 * Date: 2/24/11
 * Time: 9:05 AM
 */
-public class SliceSegment<T extends Comparable<T>,U extends Comparable<U>>  {
+public class SliceSegment<T extends Comparable<T>>  {
 
     public T fromCriterion;
     public T toCriterion;
     public Polynomial function;
-    public U index;
+    public Integer index;
 
-    public SliceSegment(T from, T to, U index, Polynomial function) {
+    public SliceSegment(T from, T to, Integer index, Polynomial function) {
         this.function = function;
         if (from.compareTo(to)>0) throw new IllegalArgumentException("From must be less than to");
         this.fromCriterion = from;
@@ -28,7 +28,7 @@ public class SliceSegment<T extends Comparable<T>,U extends Comparable<U>>  {
         this.index = index;
     }
 
-    public U getIndex() {
+    public Integer getIndex() {
         return index;
     }
 

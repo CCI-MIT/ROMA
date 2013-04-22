@@ -5,7 +5,7 @@ import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.server.DefaultServerVariable;
 import edu.mit.cci.roma.util.ConcreteSerializableCollection;
 import edu.mit.cci.roma.util.U;
-import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,7 +24,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Collection;
 
-@RooWebScaffold(path = "variables", formBackingObject = DefaultVariable.class)
+
 @RequestMapping("/variables")
 @Controller
 public class VariableController {
@@ -107,7 +107,7 @@ public class VariableController {
     }
 
     @ModelAttribute("defaultvariables")
-    public Collection<DefaultVariable> populateDefaultVariables() {
+    public Collection<DefaultServerVariable> populateDefaultVariables() {
         return DefaultServerVariable.findAllDefaultVariables();
     }
 

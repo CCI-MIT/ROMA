@@ -4,7 +4,7 @@ import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.impl.Tuple;
 import edu.mit.cci.roma.server.DefaultServerVariable;
 import edu.mit.cci.roma.server.ServerTuple;
-import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@RooWebScaffold(path = "tuples", formBackingObject = Tuple.class)
+
 @RequestMapping("/tuples")
 @Controller
 public class TupleController {
@@ -97,7 +97,7 @@ public class TupleController {
     }
 
     @ModelAttribute("defaultvariables")
-    public Collection<DefaultVariable> populateDefaultVariables() {
+    public Collection<DefaultServerVariable> populateDefaultVariables() {
         return DefaultServerVariable.findAllDefaultVariables();
     }
 

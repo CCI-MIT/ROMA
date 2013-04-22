@@ -12,8 +12,7 @@ import edu.mit.cci.roma.server.DefaultServerSimulation;
 import edu.mit.cci.roma.server.DefaultServerVariable;
 import edu.mit.cci.roma.server.ServerTuple;
 import org.apache.log4j.Logger;
-import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.roo.addon.tostring.RooToString;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -36,8 +35,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/defaultsimulations/{simid}/run")
 @SessionAttributes("runsim")
-@RooJavaBean
-@RooToString
+
 public class RunSimulationForm  {
 
     public static String USER_PARAM = "userId";

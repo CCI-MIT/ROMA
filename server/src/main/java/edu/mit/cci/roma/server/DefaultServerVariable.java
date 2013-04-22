@@ -19,6 +19,7 @@ import java.util.List;
 
 @Entity
 @Configurable
+@Table(name="default_variable")
 public class DefaultServerVariable extends DefaultVariable {
 
 

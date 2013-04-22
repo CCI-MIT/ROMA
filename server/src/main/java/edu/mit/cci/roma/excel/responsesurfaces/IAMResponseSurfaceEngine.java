@@ -25,7 +25,7 @@ public class IAMResponseSurfaceEngine implements ResponseSurfaceEngine<Float, In
      * @param output      Each row is a the GDP output / year
      * @return the response surface
      */
-    public SimpleResponseSurface<Float, Integer> generateResponseSurface(Integer baselineIdx, Integer[] cols, DoubleMatrix2D scenarios, DoubleMatrix2D output) {
+    public SimpleResponseSurface<Float> generateResponseSurface(Integer baselineIdx, Integer[] cols, DoubleMatrix2D scenarios, DoubleMatrix2D output) {
         if (output.rows() != scenarios.rows() || output.columns() != scenarios.columns() || scenarios.columns() != cols.length) {
             throw new IllegalArgumentException("Rows and / or cols do not match matrix dimensions");
         }
@@ -49,7 +49,7 @@ public class IAMResponseSurfaceEngine implements ResponseSurfaceEngine<Float, In
 
         //Yang's code - to be examined
 
-        SimpleResponseSurface<Float, Integer> rs = new SimpleResponseSurface<Float, Integer>();
+        SimpleResponseSurface<Float> rs = new SimpleResponseSurface<Float>();
         //make a bunch of little matrixes starting with year after the baseyear
         DoubleMatrix2D[] pointsInYear = new DoubleMatrix2D[scenarios.columns()];
 
@@ -144,11 +144,11 @@ public class IAMResponseSurfaceEngine implements ResponseSurfaceEngine<Float, In
         //put results in response surface
         for (int ns = scenarios.rows() - 1; ns >= 1; ns--) {
 
-            Slice<Float, Integer> pces = new Slice<Float, Integer>();
+            Slice<Float> pces = new Slice<Float>();
 
             for (int nyr = scenarios.columns() - 1; nyr > baselineCol; nyr--) {
                 Polynomial mxpb = new Polynomial(new double[]{pointsInYear[nyr].get(ns, 4), pointsInYear[nyr].get(ns, 3)});
-                SliceSegment<Float, Integer> pcess = new SliceSegment<Float, Integer>(new Float(pointsInYear[nyr].get(ns, 1)), new Float(pointsInYear[nyr].get(ns - 1, 1)), nyr, mxpb);
+                SliceSegment<Float> pcess = new SliceSegment<Float>(new Float(pointsInYear[nyr].get(ns, 1)), new Float(pointsInYear[nyr].get(ns - 1, 1)), nyr, mxpb);
 
                 pces.add(pcess);
             }

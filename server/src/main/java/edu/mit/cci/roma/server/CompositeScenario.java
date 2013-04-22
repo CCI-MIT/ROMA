@@ -3,6 +3,7 @@ package edu.mit.cci.roma.server;
 import edu.mit.cci.roma.impl.DefaultScenario;
 import org.springframework.beans.factory.annotation.Configurable;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -18,6 +19,7 @@ import java.util.Map;
 @XmlAccessorType(XmlAccessType.NONE)
 @Entity
 @Configurable
+@DiscriminatorValue(value = "CompositeScenario")
 public class CompositeScenario extends DefaultServerScenario {
 
    private Map<Step,ScenarioList> childScenarios = new HashMap<Step,ScenarioList>();
@@ -45,7 +47,7 @@ public class CompositeScenario extends DefaultServerScenario {
     }
 
     @ManyToMany
-    @JoinTable(name="STEP_SCENARIO")
+    @JoinTable(name="step_scenario")
     public Map<Step, ScenarioList> getChildScenarios() {
            return this.childScenarios;
        }

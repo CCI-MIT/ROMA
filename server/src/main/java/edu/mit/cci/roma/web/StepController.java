@@ -3,7 +3,7 @@ package edu.mit.cci.roma.web;
 import edu.mit.cci.roma.impl.DefaultSimulation;
 import edu.mit.cci.roma.server.DefaultServerSimulation;
 import edu.mit.cci.roma.server.Step;
-import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,7 +20,7 @@ import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 
-@RooWebScaffold(path = "steps", formBackingObject = Step.class)
+
 @RequestMapping("/steps")
 @Controller
 public class StepController {

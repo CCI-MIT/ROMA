@@ -32,6 +32,6 @@ public interface ResponseSurfaceEngine<T extends Comparable<T>,U extends Compara
      * @param scenarios Values that characterize the domain of the response surface. Presument the first row correspond to the reference scenario.
      * @return A response surface
      */
-    public SimpleResponseSurface<T,U> generateResponseSurface(U baselineidx, U[] cols, DoubleMatrix2D scenarios, DoubleMatrix2D outputs);
+    public SimpleResponseSurface<T> generateResponseSurface(U baselineidx, Integer[] cols, DoubleMatrix2D scenarios, DoubleMatrix2D outputs);
 
 }

@@ -15,12 +15,12 @@ import edu.mit.cci.roma.server.Step;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.support.FormattingConversionServiceFactoryBean;
-import org.springframework.roo.addon.web.mvc.controller.RooConversionService;
+
         
 /**
  * A central place to register application Converters and Formatters. 
  */
-@RooConversionService
+
 public class ApplicationConversionServiceFactoryBean extends FormattingConversionServiceFactoryBean {
 
 	@Override

@@ -10,6 +10,7 @@ import edu.mit.cci.roma.util.SimulationComputationException;
 import edu.mit.cci.roma.util.U;
 import org.springframework.beans.factory.annotation.Configurable;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinTable;
@@ -29,14 +30,15 @@ import java.util.Set;
 
 @Configurable
 @Entity
+@DiscriminatorValue(value = "MappedSimulation")
 public class MappedServerSimulation extends DefaultServerSimulation {
 
      @ManyToOne
     private DefaultServerSimulation executorSimulation;
 
-    @ManyToMany(targetEntity = DefaultVariable.class)
+    @ManyToMany(targetEntity = DefaultServerVariable.class)
     @JoinTable(name = "VAR_MAPPING")
-    private Map<DefaultVariable, DefaultVariable> variableMap = new HashMap<DefaultVariable, DefaultVariable>();
+    private Map<DefaultServerVariable, DefaultServerVariable> variableMap = new HashMap<DefaultServerVariable, DefaultServerVariable>();
 
     private Integer replication;
 
@@ -45,7 +47,7 @@ public class MappedServerSimulation extends DefaultServerSimulation {
     @Enumerated
     private ManyToOneMapping manyToOne;
 
-    @ManyToOne(targetEntity = DefaultVariable.class)
+    @ManyToOne(targetEntity = DefaultServerVariable.class)
     private Variable indexingVariable;
 
 
@@ -161,7 +163,7 @@ public class MappedServerSimulation extends DefaultServerSimulation {
             DefaultServerVariable v = new DefaultServerVariable();
             v.persist();
             getInputs().add(v);
-            getVariableMap().put((DefaultVariable)mappedInput, v);
+            getVariableMap().put((DefaultServerVariable)mappedInput, v);
             U.copy(mappedInput, v);
             v.setArity(replication * mappedInput.getArity());
         }
@@ -171,7 +173,7 @@ public class MappedServerSimulation extends DefaultServerSimulation {
             DefaultServerVariable v = new DefaultServerVariable();
 
             getOutputs().add(v);
-            getVariableMap().put((DefaultVariable)mo, v);
+            getVariableMap().put((DefaultServerVariable)mo, v);
             U.copy(mo, v);
             v.setArity(mo.getArity() * outputArity);
             if (getManyToOne() == ManyToOneMapping.SUM) {
@@ -190,7 +192,7 @@ public class MappedServerSimulation extends DefaultServerSimulation {
 
     }
 
-    public void setVariableMap(Map<DefaultVariable, DefaultVariable> map) {
+    public void setVariableMap(Map<DefaultServerVariable, DefaultServerVariable> map) {
         this.variableMap.clear();
         if (map != null) {
             variableMap.putAll(map);
@@ -201,7 +203,7 @@ public class MappedServerSimulation extends DefaultServerSimulation {
         return this.executorSimulation;
     }
 
-    public Map<DefaultVariable, DefaultVariable> getVariableMap() {
+    public Map<DefaultServerVariable, DefaultServerVariable> getVariableMap() {
         return this.variableMap;
     }
 

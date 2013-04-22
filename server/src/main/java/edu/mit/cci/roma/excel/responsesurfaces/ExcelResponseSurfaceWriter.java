@@ -25,9 +25,9 @@ public class ExcelResponseSurfaceWriter {
      * @param numInputsAndOutputs The number of input / output rows to generate
      * @param responseSurface The response surface to be serialized
      * @param <T> The datatype of the boundaries of each data set
-     * @param <U> The indices within each data set at which the surface is evaluated
+     *
      */
-    public static <T extends Comparable<T>,U extends Comparable<U>> String writeSpreadSheet(String filename, int numInputsAndOutputs, SimpleResponseSurface<T,U> responseSurface) {
+    public static <T extends Comparable<T>> String writeSpreadSheet(String filename, int numInputsAndOutputs, SimpleResponseSurface<T> responseSurface) {
 
         //Keren's code 
 
@@ -45,13 +45,13 @@ public class ExcelResponseSurfaceWriter {
         HSSFRow dataHeader1 = dataSheet.createRow(row); row ++;
         
         //Get Data
-        List<Slice<T, U>> slices = responseSurface.getSlices();
-        //int numSlices = slices.size(); //Number of slices: if there are n slices, there will be L1, L2, ... Ln, and Un
+        List<Slice<T>> slices = responseSurface.getSlices();
+        //int numSlices = slices.size(); //Number of slices: if there are n slices, there will be L1, L2, ... Ln, and Integern
         
         //Get indecies
-        Slice <T, U> sampleSlice = responseSurface.getSlices().get(0);
-        List<U> ndx = new ArrayList<U>();
-        for (SliceSegment<T,U> seg:sampleSlice) {
+        Slice <T> sampleSlice = responseSurface.getSlices().get(0);
+        List<Integer> ndx = new ArrayList<Integer>();
+        for (SliceSegment<T> seg:sampleSlice) {
           ndx.add(seg.getIndex());
         }
         
@@ -76,7 +76,7 @@ public class ExcelResponseSurfaceWriter {
         	curRow.createCell(0).setCellValue(new Double(ndx.get(i).toString()));
         	
         	int col = 1;
-        	for(SliceSegment<T,U> seg: responseSurface.getAtIndex(ndx.get(i))){
+        	for(SliceSegment<T> seg: responseSurface.getAtIndex(ndx.get(i))){
         		curRow.createCell(col).setCellValue(seg.function.getParam(1)); col ++;
         		curRow.createCell(col).setCellValue(seg.function.getIntercept()); col ++;
         	}
@@ -103,7 +103,7 @@ public class ExcelResponseSurfaceWriter {
         	
         	int col = 1;
         	T top = null;
-        	for(SliceSegment<T,U> seg: responseSurface.getAtIndex(ndx.get(i))){
+        	for(SliceSegment<T> seg: responseSurface.getAtIndex(ndx.get(i))){
         		curRow.createCell(col).setCellValue(new Double(seg.fromCriterion.toString())); col ++;
         		top = seg.toCriterion;
         	}

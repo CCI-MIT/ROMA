@@ -6,9 +6,7 @@ import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.impl.DefaultSimulation;
 import edu.mit.cci.roma.impl.DefaultVariable;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.roo.addon.entity.RooEntity;
-import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.roo.addon.tostring.RooToString;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;

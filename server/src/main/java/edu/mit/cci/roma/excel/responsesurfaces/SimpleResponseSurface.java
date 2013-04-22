@@ -24,12 +24,12 @@ import java.util.List;
  * <li>
  */
 
-public class SimpleResponseSurface<T extends Comparable<T>, U extends Comparable<U>> {
+public class SimpleResponseSurface<T extends Comparable<T>> {
 
 
-    private U[] defaultindices = null;
+    private Integer[] defaultindices = null;
 
-    private List<Slice<T, U>> slices = new ArrayList<Slice<T, U>>();
+    private List<Slice<T>> slices = new ArrayList<Slice<T>>();
 
     /**
      * Adds a slice to this response surface.  Slices are maintained in order (according to {@link Slice#compareTo(Slice)}).
@@ -40,7 +40,7 @@ public class SimpleResponseSurface<T extends Comparable<T>, U extends Comparable
      * @param indices   The indices for which different functions are defined
      * @param equations The function that interpolates between outputs between lower / upper bounds in the input space
      */
-    public Slice<T,U> addSlice(T[] from, T[] to, U[] indices, Polynomial[] equations) {
+    public Slice<T> addSlice(T[] from, T[] to, Integer[] indices, Polynomial[] equations) {
         if (defaultindices != null) {
             if (!Arrays.equals(defaultindices, indices)) {
                 throw new IllegalArgumentException("Added slices must have the same indices as other slices");
@@ -52,9 +52,9 @@ public class SimpleResponseSurface<T extends Comparable<T>, U extends Comparable
             }
         }
 
-        Slice<T, U> s = new Slice<T, U>();
+        Slice<T> s = new Slice<T>();
         for (int i = 0; i < indices.length - 1; i++) {
-            s.add(new SliceSegment<T, U>(from[i], to[i + i], indices[i], equations[i]));
+            s.add(new SliceSegment<T>(from[i], to[i + i], indices[i], equations[i]));
         }
         slices.add(s);
         Collections.sort(slices);
@@ -68,14 +68,14 @@ public class SimpleResponseSurface<T extends Comparable<T>, U extends Comparable
      * @param s  The slice to add
      * @return
      */
-    public Slice<T,U> addSlice(Slice<T,U> s) {
-        List<U> idxs = new ArrayList<U>();
-        for (SliceSegment<T,U> seg:s) {
+    public Slice<T> addSlice(Slice<T> s) {
+        List<Integer> idxs = new ArrayList<Integer>();
+        for (SliceSegment<T> seg:s) {
           idxs.add(seg.getIndex());
         }
 
         //argh, java
-        U[] ary = idxs.toArray((U[]) new Comparable[0]);
+        Integer[] ary = idxs.toArray(new Integer[idxs.size()]);
         if (defaultindices !=null) {
             if (!Arrays.equals(ary,defaultindices)) {
               throw new IllegalArgumentException("Added slices must have the same indices as other slices");
@@ -95,7 +95,7 @@ public class SimpleResponseSurface<T extends Comparable<T>, U extends Comparable
      *
      * @return
      */
-    public List<Slice<T, U>> getSlices() {
+    public List<Slice<T>> getSlices() {
         return Collections.unmodifiableList(slices);
     }
 
@@ -107,7 +107,7 @@ public class SimpleResponseSurface<T extends Comparable<T>, U extends Comparable
      * @param index
      * @return
      */
-    public List<SliceSegment<T,U>> getAtIndex(U index) {
+    public List<SliceSegment<T>> getAtIndex(Integer index) {
         int pos = -1;
 
         for (int i=0;i<defaultindices.length;i++) {
@@ -119,8 +119,8 @@ public class SimpleResponseSurface<T extends Comparable<T>, U extends Comparable
         if (pos<0) {
             return null;
         } else {
-           List<SliceSegment<T,U>> result = new ArrayList<SliceSegment<T, U>>();
-           for (Slice<T,U> s:slices) {
+           List<SliceSegment<T>> result = new ArrayList<SliceSegment<T>>();
+           for (Slice<T> s:slices) {
               result.add(s.get(pos));
             }
             return result;
@@ -136,7 +136,7 @@ public class SimpleResponseSurface<T extends Comparable<T>, U extends Comparable
      * @param slice
      * @return true if a slice was removed
      */
-    public boolean removeSlice(Slice<T, U> slice) {
+    public boolean removeSlice(Slice<T> slice) {
         boolean result = slices.remove(slice);
         if (slices.isEmpty()) {
             defaultindices = null;

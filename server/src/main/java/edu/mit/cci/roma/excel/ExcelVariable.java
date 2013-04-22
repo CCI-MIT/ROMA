@@ -1,6 +1,7 @@
 package edu.mit.cci.roma.excel;
 
 import edu.mit.cci.roma.impl.DefaultVariable;
+import edu.mit.cci.roma.server.DefaultServerVariable;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,13 +30,13 @@ public class ExcelVariable {
     private String rewriteCellRange;
 
     @ManyToOne
-    private DefaultVariable simulationVariable;
+    private DefaultServerVariable simulationVariable;
 
 
     public ExcelVariable() {
     }
 
-    public ExcelVariable(ExcelSimulation sim, DefaultVariable var, String worksheet, String cellrange) {
+    public ExcelVariable(ExcelSimulation sim, DefaultServerVariable var, String worksheet, String cellrange) {
         super();
         setExcelSimulation(sim);
         setSimulationVariable(var);
@@ -44,7 +45,7 @@ public class ExcelVariable {
 
     }
 
-    public ExcelVariable(ExcelSimulation sim, DefaultVariable var, String worksheet, String cellrange, String rewriteCellRange) {
+    public ExcelVariable(ExcelSimulation sim, DefaultServerVariable var, String worksheet, String cellrange, String rewriteCellRange) {
         super();
         setExcelSimulation(sim);
         setSimulationVariable(var);
@@ -89,7 +90,7 @@ public ExcelSimulation getExcelSimulation() {
         return this.simulationVariable;
     }
 
-    public void setSimulationVariable(DefaultVariable simulationVariable) {
+    public void setSimulationVariable(DefaultServerVariable simulationVariable) {
         this.simulationVariable = simulationVariable;
     }
 

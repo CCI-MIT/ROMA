@@ -6,7 +6,7 @@ import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.impl.Tuple;
 import edu.mit.cci.roma.server.DefaultServerVariable;
-import edu.mit.cci.roma.server.SimulationException;
+
 import edu.mit.cci.roma.server.VariableDataOnDemand;
 import org.junit.Assert;
 import org.junit.Test;
@@ -90,8 +90,8 @@ public class UTest {
 
     @Test
     public void stringRepresentationFromTuple() throws SimulationException {
-        DefaultVariable one = new DefaultVariable("test1","test1",3);
-        DefaultVariable two = new DefaultVariable("test2","test2",3);
+        DefaultServerVariable one = new DefaultServerVariable("test1","test1",3);
+        DefaultServerVariable two = new DefaultServerVariable("test2","test2",3);
         one.persist();
         two.persist();
         String[] vals1 = {"4", "5", "6"};

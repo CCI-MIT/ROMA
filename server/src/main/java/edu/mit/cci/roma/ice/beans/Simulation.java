@@ -12,6 +12,8 @@ import edu.mit.cci.roma.excel.ExcelSimulation;
 import edu.mit.cci.roma.excel.ExcelVariable;
 import edu.mit.cci.roma.impl.DefaultSimulation;
 import edu.mit.cci.roma.impl.DefaultVariable;
+import edu.mit.cci.roma.server.DefaultServerSimulation;
+import edu.mit.cci.roma.server.DefaultServerVariable;
 import org.apache.commons.io.IOUtils;
 
 public class Simulation {
@@ -137,7 +139,7 @@ public class Simulation {
 		System.out.println("Entering CreateSimulation in Simulation...");//TODO: Delete
 		
 		//Step1: Create Default Simulation
-		DefaultSimulation sim = (DefaultSimulation) createBaseSim();
+		DefaultServerSimulation sim =  createBaseSim();
 		
 		System.out.println("Base Simulation Created");//TODO: Delete
 		
@@ -166,10 +168,10 @@ public class Simulation {
 		String col3 = "C" + startRow.toString() + ":C" + lastRow.toString();
 		String col4 = "D" + startRow.toString() + ":D" + lastRow.toString();
 		
-		esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName(indepVarName, true), "Inputs_Outputs", col1));
-		esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName(inputVarName, true), "Inputs_Outputs", col2));
-		esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName(indepVarName, false), "Inputs_Outputs", col3));
-		esim.getInputs().add(new ExcelVariable(esim, sim.findVariableWithExternalName(outputVarName, false), "Inputs_Outputs", col4));
+		esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable) sim.findVariableWithExternalName(indepVarName, true), "Inputs_Outputs", col1));
+		esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable) sim.findVariableWithExternalName(inputVarName, true), "Inputs_Outputs", col2));
+		esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable) sim.findVariableWithExternalName(indepVarName, false), "Inputs_Outputs", col3));
+		esim.getInputs().add(new ExcelVariable(esim, (DefaultServerVariable) sim.findVariableWithExternalName(outputVarName, false), "Inputs_Outputs", col4));
 		
 		//Step6: Persist Excel Simulation
 		esim.persist();
@@ -192,10 +194,10 @@ public class Simulation {
 		
 	}
 	
-	private DefaultSimulation createBaseSim() {
+	private DefaultServerSimulation createBaseSim() {
 		
 		//Create Default Simulation
-		DefaultSimulation sim = new DefaultSimulation();
+		DefaultServerSimulation sim = new DefaultServerSimulation();
 		
 		//Add Basic info: name, description, creation, url, version, 
 		sim.setName(this.name);
@@ -212,9 +214,9 @@ public class Simulation {
 		//Add IndepVar
 		System.out.println("adding Variables"); //TODO: Delete
 		
-		DefaultVariable indepVar = new DefaultVariable(indepVarName,indepVarDescription, responseSurface.getExcelIOArity()); //Max Min?
-		DefaultVariable inputDepVar = new DefaultVariable(inputVarName, inputVarDescription, responseSurface.getExcelIOArity());
-		DefaultVariable outputDepVar = new DefaultVariable(outputVarName, outputVarDescription, responseSurface.getExcelIOArity());
+		DefaultServerVariable indepVar = new DefaultServerVariable(indepVarName,indepVarDescription, responseSurface.getExcelIOArity()); //Max Min?
+		DefaultServerVariable inputDepVar = new DefaultServerVariable(inputVarName, inputVarDescription, responseSurface.getExcelIOArity());
+		DefaultServerVariable outputDepVar = new DefaultServerVariable(outputVarName, outputVarDescription, responseSurface.getExcelIOArity());
 		
 		System.out.println("Adding Variables Part One Finished");//TODO: Delete
 		

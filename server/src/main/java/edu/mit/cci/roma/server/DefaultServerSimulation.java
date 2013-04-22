@@ -31,6 +31,8 @@ import java.util.Set;
 
 @Entity
 @Configurable
+@Table(name="default_simulation")
+@DiscriminatorValue(value = "DefaultSimulation")
 public class DefaultServerSimulation extends DefaultSimulation {
 
 
@@ -48,6 +50,12 @@ public class DefaultServerSimulation extends DefaultSimulation {
     public Date getCreated() {
         return super.getCreated();
     }
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name="id")
+    public Long getId() {
+        return super.getId();
+    }
 
 
     private static Logger log = Logger.getLogger(DefaultServerSimulation.class);
@@ -60,12 +68,12 @@ public class DefaultServerSimulation extends DefaultSimulation {
         transient EntityManager entityManager;
 
 
-    @ManyToMany(cascade = CascadeType.ALL, targetEntity = DefaultVariable.class)
+    @ManyToMany(cascade = CascadeType.ALL, targetEntity = DefaultServerVariable.class)
     public Set<Variable> getOutputs() {
         return super.getOutputs();
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, targetEntity = DefaultVariable.class)
+    @ManyToMany(cascade = CascadeType.ALL, targetEntity = DefaultServerVariable.class)
     public Set<Variable> getInputs() {
         return super.getInputs();
     }

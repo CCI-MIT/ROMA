@@ -3,6 +3,7 @@ package edu.mit.cci.roma.ice.beans;
 import javax.faces.event.ActionEvent;
 
 import edu.mit.cci.roma.impl.DefaultScenario;
+import edu.mit.cci.roma.server.DefaultServerScenario;
 
 public class SampleBean {
 	
@@ -18,7 +19,7 @@ public class SampleBean {
     }
 	
 	public long getScenariosCount() {
-		return DefaultScenario.countDefaultScenarios();
+		return DefaultServerScenario.countDefaultScenarios();
 	}
 	
 	public String getInstruction() {

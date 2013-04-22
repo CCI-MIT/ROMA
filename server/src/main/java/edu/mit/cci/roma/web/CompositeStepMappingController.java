@@ -4,7 +4,7 @@ import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.server.CompositeServerSimulation;
 import edu.mit.cci.roma.server.CompositeStepMapping;
 import edu.mit.cci.roma.server.DefaultServerVariable;
-import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 
-@RooWebScaffold(path = "compositestepmappings", formBackingObject = CompositeStepMapping.class)
+
 @RequestMapping("/compositestepmappings")
 @Controller
 public class CompositeStepMappingController {
@@ -92,7 +92,7 @@ public class CompositeStepMappingController {
     }
 
     @ModelAttribute("defaultvariables")
-    public Collection<DefaultVariable> populateDefaultVariables() {
+    public Collection<DefaultServerVariable> populateDefaultVariables() {
         return DefaultServerVariable.findAllDefaultVariables();
     }
 

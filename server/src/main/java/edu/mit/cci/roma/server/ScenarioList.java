@@ -4,9 +4,7 @@ import com.sun.tools.javac.resources.version;
 import edu.mit.cci.roma.api.DataType;
 import edu.mit.cci.roma.impl.DefaultScenario;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.roo.addon.entity.RooEntity;
-import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.roo.addon.tostring.RooToString;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
@@ -19,16 +17,16 @@ import java.util.Set;
 public class ScenarioList {
 
     @ManyToMany(cascade = CascadeType.ALL)
-    private Set<DefaultScenario> scenarios = new HashSet<DefaultScenario>();
+    private Set<DefaultServerScenario> scenarios = new HashSet<DefaultServerScenario>();
 
     @ElementCollection
     private Set<DataType> testField = new HashSet<DataType>();
 
-     public Set<DefaultScenario> getScenarios() {
+     public Set<DefaultServerScenario> getScenarios() {
         return this.scenarios;
     }
 
-    public void setScenarios(Set<DefaultScenario> scenarios) {
+    public void setScenarios(Set<DefaultServerScenario> scenarios) {
         this.scenarios = scenarios;
     }
 

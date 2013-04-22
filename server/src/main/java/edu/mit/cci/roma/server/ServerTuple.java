@@ -20,6 +20,7 @@ import java.util.List;
 
 @Entity
 @Configurable
+@Table(name="tuple")
 public class ServerTuple extends Tuple {
 
 
@@ -108,7 +109,7 @@ public class ServerTuple extends Tuple {
         return em;
     }
 
-    public static ServerTuple copy(ServerTuple t) {
+    public static ServerTuple copy(Tuple t) {
         ServerTuple result = new ServerTuple();
         result.setVar(t.getVar());
         try {

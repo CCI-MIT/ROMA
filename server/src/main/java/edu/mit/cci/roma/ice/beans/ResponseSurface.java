@@ -27,7 +27,7 @@ public class ResponseSurface {
 	private String[] rowHeaders;
 	private DoubleMatrix2D scenarios;
 	private DoubleMatrix2D outputs;
-	private SimpleResponseSurface<Float, Integer> rs;
+	private SimpleResponseSurface<Float> rs;
 	private String rsPath;
 	private Integer excelIOArity = 10; //Number of input/output columns needed for excel (input/output Arity for roma)
 	

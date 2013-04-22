@@ -2,14 +2,14 @@ package edu.mit.cci.roma.server;
 
 import edu.mit.cci.roma.impl.DefaultSimulation;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.roo.addon.dod.RooDataOnDemand;
+
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@RooDataOnDemand(entity = DefaultSimulation.class)
+
 @Configurable
 @Component
 public class DefaultSimulationDataOnDemand {

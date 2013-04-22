@@ -22,7 +22,7 @@ public class ResponseSurfaceEngineTest {
 		double outpvalues2[][] = { { 36.46, 42.6227, 48.051, 53.713 }, { 36.46, 42.5951544, 48.000024 ,53.587318 }, { 36.45975, 42.44516, 47.7097, 53.110855 },{36.45975,42.5838342,47.998608,53.60994},{36.45975,42.5031776,47.89099,53.324344} };
 		DoubleMatrix2D scen2 = new DenseDoubleMatrix2D(scenvalues2);
 		DoubleMatrix2D outp2 = new DenseDoubleMatrix2D(outpvalues2);
-		SimpleResponseSurface<Float,Integer> surf = fee.generateResponseSurface(2000, cols, scen2, outp2);
+		SimpleResponseSurface<Float> surf = fee.generateResponseSurface(2000, cols, scen2, outp2);
 
 		Double[][] testData = {
 				{.033248,.062477, -.00583, .046563},
@@ -39,13 +39,13 @@ public class ResponseSurfaceEngineTest {
 				{-.07052, -.02521, .000593, .02353}
 		};
 		int t = 0;
-		List<Slice<Float,Integer>> slices = surf.getSlices();
+		List<Slice<Float>> slices = surf.getSlices();
 		Assert.assertEquals(4,slices.size());
 		for(int i = 0; i < slices.size(); i++){
-			Slice<Float,Integer> slice = slices.get(i);
+			Slice<Float> slice = slices.get(i);
 			Assert.assertEquals(3,slice.size());
 		    for(int j = 0; j < slice.size(); j++){
-		    	SliceSegment<Float,Integer> seg = slice.get(j);
+		    	SliceSegment<Float> seg = slice.get(j);
 		    	assertAlmostEqual(testData[t][0],seg.fromCriterion,1e-2);
 		    	assertAlmostEqual(testData[t][1],seg.toCriterion,1e-2);
 		    	assertAlmostEqual(testData[t][2],seg.function.getParam(0),1e-2);

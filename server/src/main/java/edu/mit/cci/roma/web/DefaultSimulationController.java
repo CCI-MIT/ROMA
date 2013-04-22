@@ -9,7 +9,7 @@ import edu.mit.cci.roma.util.U;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,7 +31,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.Set;
 
-@RooWebScaffold(path = "defaultsimulations", formBackingObject = DefaultSimulation.class)
+
 @RequestMapping("/defaultsimulations")
 @Controller
 public class DefaultSimulationController {
@@ -85,7 +85,7 @@ public class DefaultSimulationController {
     }
 
     @ModelAttribute("defaultVariables")
-    public Collection<DefaultVariable> populateDefaultVariables() {
+    public Collection<DefaultServerVariable> populateDefaultVariables() {
         return DefaultServerVariable.findAllDefaultVariables();
     }
 

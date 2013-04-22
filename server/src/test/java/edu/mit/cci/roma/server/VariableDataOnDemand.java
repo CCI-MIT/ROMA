@@ -2,7 +2,7 @@ package edu.mit.cci.roma.server;
 
 import edu.mit.cci.roma.impl.DefaultVariable;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.roo.addon.dod.RooDataOnDemand;
+
 import org.springframework.stereotype.Component;
 
 import java.util.List;

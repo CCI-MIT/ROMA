@@ -8,7 +8,7 @@ import edu.mit.cci.roma.server.ManyToOneMapping;
 import edu.mit.cci.roma.server.MappedServerSimulation;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,7 +27,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Collection;
 
-@RooWebScaffold(path = "mappedsimulations", formBackingObject = MappedServerSimulation.class)
+
 @RequestMapping("/mappedsimulations")
 @Controller
 public class MappedSimulationController {
@@ -111,7 +111,7 @@ public class MappedSimulationController {
     }
 
     @ModelAttribute("defaultvariables")
-    public Collection<DefaultVariable> populateDefaultVariables() {
+    public Collection<DefaultServerVariable> populateDefaultVariables() {
         return DefaultServerVariable.findAllDefaultVariables();
     }
 

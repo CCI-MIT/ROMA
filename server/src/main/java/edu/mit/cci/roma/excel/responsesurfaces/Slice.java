@@ -21,25 +21,25 @@ import java.util.List;
 */
 
 
-public class Slice<T extends Comparable<T>,U extends Comparable<U>> extends ArrayList<SliceSegment<T ,U >> implements Comparable<Slice<T,U>>  {
+public class Slice<T extends Comparable<T>> extends ArrayList<SliceSegment<T>> implements Comparable<Slice<T>>  {
 
-    Comparator<SliceSegment<T, U>> segmentComparator = new Comparator<SliceSegment<T, U>> () {
+    Comparator<SliceSegment<T>> segmentComparator = new Comparator<SliceSegment<T>> () {
 
         @Override
-        public int compare(SliceSegment<T, U> segment1, SliceSegment<T, U> segment2) {
+        public int compare(SliceSegment<T> segment1, SliceSegment<T> segment2) {
           return segment1.getIndex().compareTo(segment2.getIndex());
         }
     };
 
     @Override
-    public SliceSegment<T, U> set(int i, SliceSegment<T, U> sliceSegment) {
+    public SliceSegment<T> set(int i, SliceSegment<T> sliceSegment) {
         throw new UnsupportedOperationException("Slice does not support explicit positioning of segments; modify the segment's index to obtain a different ordering");
     }
 
     @Override
-    public boolean add(SliceSegment<T, U> sliceSegment) {
+    public boolean add(SliceSegment<T> sliceSegment) {
         boolean result = super.add(sliceSegment);
-        List<SliceSegment<T,U>> tmp = new ArrayList<SliceSegment<T,U>>(this);
+        List<SliceSegment<T>> tmp = new ArrayList<SliceSegment<T>>(this);
         Collections.sort(tmp,segmentComparator);
         this.clear();
         this.addAll(tmp);
@@ -47,13 +47,13 @@ public class Slice<T extends Comparable<T>,U extends Comparable<U>> extends Arra
     }
 
     @Override
-    public void add(int i, SliceSegment<T, U> sliceSegment) {
+    public void add(int i, SliceSegment<T> sliceSegment) {
         throw new UnsupportedOperationException("Slice does not support explicit positioning of segments; modify the segment's index to obtain a different ordering");
     }
 
-    public int compareTo(Slice<T,U> other) {
-        SliceSegment<T,U> otherrange = other.get(other.size()-1);
-        SliceSegment<T,U> myrange = get(this.size()-1);
+    public int compareTo(Slice<T> other) {
+        SliceSegment<T> otherrange = other.get(other.size()-1);
+        SliceSegment<T> myrange = get(this.size()-1);
         return myrange.getToCriterion().compareTo(otherrange.getToCriterion());
 
     }

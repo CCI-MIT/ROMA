@@ -3,7 +3,7 @@ package edu.mit.cci.roma.server;
 import edu.mit.cci.roma.impl.Tuple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.roo.addon.dod.RooDataOnDemand;
+
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class TupleDataOnDemand {
 
     private Random rnd = new java.security.SecureRandom();
 
-    private List<Tuple> data;
+    private List<ServerTuple> data;
 
     @Autowired
     private VariableDataOnDemand defaultVariableDataOnDemand;
@@ -57,7 +57,7 @@ public class TupleDataOnDemand {
             return;
         }
 
-        data = new java.util.ArrayList<Tuple>();
+        data = new java.util.ArrayList<ServerTuple>();
         for (int i = 0; i < 10; i++) {
             ServerTuple obj = getNewTransientTuple(i);
             obj.persist();

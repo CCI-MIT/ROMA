@@ -6,7 +6,7 @@ import edu.mit.cci.roma.impl.DefaultSimulation;
 import edu.mit.cci.roma.server.DefaultServerSimulation;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,7 +23,7 @@ import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 
-@RooWebScaffold(path = "excelsimulations", formBackingObject = ExcelSimulation.class)
+
 @RequestMapping("/excelsimulations")
 @Controller
 public class ExcelSimulationController {

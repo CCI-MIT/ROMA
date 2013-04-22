@@ -4,7 +4,7 @@ import edu.mit.cci.roma.excel.ExcelSimulation;
 import edu.mit.cci.roma.excel.ExcelVariable;
 import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.server.DefaultServerVariable;
-import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 
-@RooWebScaffold(path = "excelvariables", formBackingObject = ExcelVariable.class)
+
 @RequestMapping("/excelvariables")
 @Controller
 public class ExcelVariableController {
@@ -92,7 +92,7 @@ public class ExcelVariableController {
     }
 
     @ModelAttribute("defaultvariables")
-    public Collection<DefaultVariable> populateDefaultVariables() {
+    public Collection<DefaultServerVariable> populateDefaultVariables() {
         return DefaultServerVariable.findAllDefaultVariables();
     }
 

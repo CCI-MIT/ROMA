@@ -14,10 +14,10 @@ public class SliceTest {
     @Test
     public void testModifications() throws Exception {
         Polynomial p = new Polynomial(new double[]{4, 5});
-        SliceSegment<Float, Integer> s1 = new SliceSegment<Float, Integer>(3f, 4f, 100, p);
-        SliceSegment<Float, Integer> s2 = new SliceSegment<Float, Integer>(4f, 5f, 103, p);
+        SliceSegment<Float> s1 = new SliceSegment<Float>(3f, 4f, 100, p);
+        SliceSegment<Float> s2 = new SliceSegment<Float>(4f, 5f, 103, p);
 
-        Slice<Float, Integer> s = new Slice<Float, Integer>();
+        Slice<Float> s = new Slice<Float>();
 
         try {
             s.add(s1);
@@ -38,17 +38,17 @@ public class SliceTest {
     @Test
     public void testCompareTo() throws Exception {
         Polynomial p = new Polynomial(new double[]{4, 5});
-        SliceSegment<Float, Integer> s1 = new SliceSegment<Float, Integer>(3f, 4f, 100, p);
-        SliceSegment<Float, Integer> s2 = new SliceSegment<Float, Integer>(4f, 5f, 103, p);
+        SliceSegment<Float> s1 = new SliceSegment<Float>(3f, 4f, 100, p);
+        SliceSegment<Float> s2 = new SliceSegment<Float>(4f, 5f, 103, p);
 
-        SliceSegment<Float, Integer> s3 = new SliceSegment<Float, Integer>(1f, 2f, 1, p);
-        SliceSegment<Float, Integer> s4 = new SliceSegment<Float, Integer>(3f, 6f, 2, p);
+        SliceSegment<Float> s3 = new SliceSegment<Float>(1f, 2f, 1, p);
+        SliceSegment<Float> s4 = new SliceSegment<Float>(3f, 6f, 2, p);
 
-        Slice<Float, Integer> sl1 = new Slice<Float, Integer>();
+        Slice<Float> sl1 = new Slice<Float>();
         sl1.add(s2);
         sl1.add(s1);
 
-        Slice<Float, Integer> sl2 = new Slice<Float, Integer>();
+        Slice<Float> sl2 = new Slice<Float>();
         sl2.add(s3);
         sl2.add(s4);
 
@@ -59,10 +59,10 @@ public class SliceTest {
     @Test
     public void testOrdering() throws Exception {
         Polynomial p = new Polynomial(new double[]{4, 5});
-        SliceSegment<Float, Integer> s1 = new SliceSegment<Float, Integer>(3f, 4f, 100, p);
-        SliceSegment<Float, Integer> s2 = new SliceSegment<Float, Integer>(4f, 5f, 103, p);
+        SliceSegment<Float> s1 = new SliceSegment<Float>(3f, 4f, 100, p);
+        SliceSegment<Float> s2 = new SliceSegment<Float>(4f, 5f, 103, p);
 
-        Slice<Float, Integer> s = new Slice<Float, Integer>();
+        Slice<Float> s = new Slice<Float>();
         s.add(s2);
         s.add(s1);
 

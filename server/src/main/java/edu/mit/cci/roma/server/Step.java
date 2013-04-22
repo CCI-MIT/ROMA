@@ -4,9 +4,7 @@ package edu.mit.cci.roma.server;
 import com.sun.tools.javac.resources.version;
 import edu.mit.cci.roma.impl.DefaultSimulation;
 import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.roo.addon.entity.RooEntity;
-import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.roo.addon.tostring.RooToString;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
@@ -26,14 +24,14 @@ public class Step {
     private Integer order_ = 0;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    private Set<DefaultSimulation> simulations = new HashSet<DefaultSimulation>();
+    private Set<DefaultServerSimulation> simulations = new HashSet<DefaultServerSimulation>();
 
     public Step() {
     }
 
-    public Step(Integer order, DefaultSimulation... sims) {
+    public Step(Integer order, DefaultServerSimulation... sims) {
         setOrder_(order);
-        for (DefaultSimulation sim : sims) {
+        for (DefaultServerSimulation sim : sims) {
             getSimulations().add(sim);
         }
     }
@@ -46,11 +44,11 @@ public class Step {
         this.order_ = order_;
     }
 
-    public Set<DefaultSimulation> getSimulations() {
+    public Set<DefaultServerSimulation> getSimulations() {
         return this.simulations;
     }
 
-    public void setSimulations(Set<DefaultSimulation> simulations) {
+    public void setSimulations(Set<DefaultServerSimulation> simulations) {
         this.simulations = simulations;
     }
 

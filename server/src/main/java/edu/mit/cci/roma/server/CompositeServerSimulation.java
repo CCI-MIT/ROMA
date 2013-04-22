@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
@@ -29,6 +30,7 @@ import java.util.Set;
 
 @Entity
 @Configurable
+@DiscriminatorValue(value = "CompositeSimulation")
 public class CompositeServerSimulation extends DefaultServerSimulation {
 
     @ManyToMany(cascade = CascadeType.ALL)

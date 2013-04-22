@@ -4,7 +4,7 @@ import edu.mit.cci.roma.api.DataType;
 import edu.mit.cci.roma.impl.DefaultScenario;
 import edu.mit.cci.roma.server.DefaultServerScenario;
 import edu.mit.cci.roma.server.ScenarioList;
-import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Collection;
 
-@RooWebScaffold(path = "scenariolists", formBackingObject = ScenarioList.class)
+
 @RequestMapping("/scenariolists")
 @Controller
 public class ScenarioListController {
@@ -93,7 +93,7 @@ public class ScenarioListController {
     }
 
     @ModelAttribute("defaultscenarios")
-    public Collection<DefaultScenario> populateDefaultScenarios() {
+    public Collection<DefaultServerScenario> populateDefaultScenarios() {
         return DefaultServerScenario.findAllDefaultScenarios();
     }
 
