@@ -91,7 +91,7 @@ public class CompositeStepMapping {
             mapping.put(from, list);
 
         }
-        list.getVariables().add(to);
+        list.getVariables().add((DefaultServerVariable)to);
     }
 
     public Set<Variable> getFromVars() {

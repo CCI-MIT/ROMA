@@ -36,7 +36,7 @@ public class CompositeScenario extends DefaultServerScenario {
             childScenarios.put(s,list);
 
         }
-            childScenarios.get(s).getScenarios().add(scenario);
+            childScenarios.get(s).getScenarios().add((DefaultServerScenario)scenario);
 
     }
 
