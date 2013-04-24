@@ -33,15 +33,13 @@ import java.util.Set;
 @DiscriminatorValue(value = "CompositeSimulation")
 public class CompositeServerSimulation extends DefaultServerSimulation {
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @javax.persistence.OrderBy("order_")
     private List<Step> steps = new ArrayList<Step>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+   
     private Set<CompositeStepMapping> stepMapping = new HashSet<CompositeStepMapping>();
 
     @Transient
-    private static Logger log = Logger.getLogger(CompositeServerSimulation.class);
+    private static transient Logger log = Logger.getLogger(CompositeServerSimulation.class);
 
     public Scenario run(List<Tuple> siminputs) throws SimulationException {
         CompositeScenario result = new CompositeScenario();
@@ -131,6 +129,9 @@ public class CompositeServerSimulation extends DefaultServerSimulation {
 
     }
 
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @javax.persistence.OrderBy("order_")
     public List<Step> getSteps() {
         return this.steps;
     }
@@ -139,6 +140,7 @@ public class CompositeServerSimulation extends DefaultServerSimulation {
         this.steps = steps;
     }
 
+    @ManyToMany(cascade = CascadeType.ALL)
     public Set<CompositeStepMapping> getStepMapping() {
         return this.stepMapping;
     }

@@ -1,260 +1,292 @@
 package edu.mit.cci.roma.server;
 
-import com.sun.tools.javac.resources.version;
-import edu.mit.cci.roma.api.SimulationCreationException;
-import edu.mit.cci.roma.api.Variable;
-import edu.mit.cci.roma.impl.DefaultSimulation;
-import edu.mit.cci.roma.impl.DefaultVariable;
-import org.springframework.beans.factory.annotation.Configurable;
-
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Transient;
+import javax.persistence.Version;
+
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.transaction.annotation.Transactional;
+
+import edu.mit.cci.roma.api.SimulationCreationException;
+import edu.mit.cci.roma.api.Variable;
+import edu.mit.cci.roma.impl.DefaultSimulation;
+import edu.mit.cci.roma.impl.DefaultVariable;
+
 @Entity
 @Configurable
 public class CompositeStepMapping {
 
+	@ManyToOne
+	private CompositeServerSimulation parentsim;
 
-    @ManyToOne
-    private CompositeServerSimulation parentsim;
+	@ManyToOne
+	private Step fromStep;
 
+	@ManyToOne
+	private Step toStep;
 
-    @ManyToOne
-    private Step fromStep;
+	@Transient
+	private Set<Variable> fromVars = null;
 
-    @ManyToOne
-    private Step toStep;
+	@Transient
+	private Set<Variable> toVars = null;
 
+	@ManyToMany(targetEntity = VariableList.class)
+	@JoinTable(name = "STEP_VAR_TO_VAR")
+	private Map<DefaultServerVariable, VariableList> mapping = new HashMap<DefaultServerVariable, VariableList>();
 
-    @Transient
-    private Set<Variable> fromVars = null;
+	public CompositeStepMapping() {
 
-    @Transient
-    private Set<Variable> toVars = null;
+	}
 
+	public CompositeStepMapping(CompositeServerSimulation csim, Step s1, Step s2)
+			throws SimulationCreationException {
+		this.parentsim = csim;
 
-    @ManyToMany(targetEntity = VariableList.class)
-    @JoinTable(name = "STEP_VAR_TO_VAR")
-    private Map<DefaultVariable, VariableList> mapping = new HashMap<DefaultVariable, VariableList>();
+		if (s1 != null && s2 != null && s1.getOrder_() >= s2.getOrder_()) {
+			throw new SimulationCreationException(
+					"Mappings can only be between steps that are strictly ordered");
+		}
 
+		if ((s1 != null && !csim.getSteps().contains(s1))
+				|| (s2 != null && !csim.getSteps().contains(s2))) {
+			throw new SimulationCreationException(
+					"Mappings can only be established between steps in the designated parent roma");
+		}
 
-    public CompositeStepMapping() {
+		setFromStep(s1);
+		setToStep(s2);
+		this.parentsim.getStepMapping().add(this);
+	}
 
-    }
+	// private void put(DefaultVariable from, DefaultVariable to) {
+	// if (!mapping.containsKey())
+	// }
 
-    public CompositeStepMapping(CompositeServerSimulation csim, Step s1, Step s2) throws SimulationCreationException {
-        this.parentsim = csim;
+	public void addLink(Variable fromVar, Variable toVar)
+			throws SimulationCreationException {
 
-        if (s1 != null && s2 != null && s1.getOrder_() >= s2.getOrder_()) {
-            throw new SimulationCreationException("Mappings can only be between steps that are strictly ordered");
-        }
+		if (!getFromVars().contains(fromVar) || !getToVars().contains(toVar)) {
+			throw new SimulationCreationException(
+					"From and to variables must correspond to the steps they connect");
+		} else if (fromVar.getArity().intValue() != toVar.getArity()
+				|| !(fromVar.getDataType().equals(toVar.getDataType()))) {
+			throw new SimulationCreationException(
+					"From and to variables must have same arity and datatype");
 
-        if ((s1 != null && !csim.getSteps().contains(s1)) || (s2 != null && !csim.getSteps().contains(s2))) {
-            throw new SimulationCreationException("Mappings can only be established between steps in the designated parent roma");
-        }
+		} else {
+			put((DefaultServerVariable) fromVar, (DefaultServerVariable) toVar);
 
-        setFromStep(s1);
-        setToStep(s2);
-        this.parentsim.getStepMapping().add(this);
-    }
+		}
 
+	}
 
-//    private void put(DefaultVariable from, DefaultVariable to) {
-//        if (!mapping.containsKey())
-//    }
+	private void put(DefaultServerVariable from, DefaultServerVariable to) {
+		VariableList list = mapping.get(from);
+		if (list == null) {
+			list = new VariableList();
+			list.persist();
+			mapping.put(from, list);
 
-    public void addLink(Variable fromVar, Variable toVar) throws SimulationCreationException {
+		}
+		list.getVariables().add((DefaultServerVariable) to);
+	}
 
-        if (!getFromVars().contains(fromVar) || !getToVars().contains(toVar)) {
-            throw new SimulationCreationException("From and to variables must correspond to the steps they connect");
-        } else if (fromVar.getArity().intValue() != toVar.getArity() || !(fromVar.getDataType().equals(toVar.getDataType()))) {
-            throw new SimulationCreationException("From and to variables must have same arity and datatype");
+	public Set<Variable> getFromVars() {
+		if (parentsim == null)
+			throw new RuntimeException(
+					"Parent roma for step mapping should never be null");
+		if (fromVars == null) {
+			fromVars = new HashSet<Variable>();
+			if (getFromStep() == null) {
+				fromVars.addAll(parentsim.getInputs());
+			} else {
+				for (DefaultSimulation s : getFromStep().getSimulations()) {
+					fromVars.addAll(s.getOutputs());
+				}
+			}
+		}
+		return this.fromVars;
+	}
 
-        } else {
-            put((DefaultVariable) fromVar, (DefaultVariable) toVar);
+	public Set<Variable> getToVars() {
+		if (parentsim == null)
+			throw new RuntimeException(
+					"Parent roma for step mapping should never be null");
+		if (toVars == null) {
+			toVars = new HashSet<Variable>();
+			if (getToStep() == null) {
+				toVars.addAll(parentsim.getOutputs());
+			} else {
+				for (DefaultSimulation s : toStep.getSimulations()) {
+					toVars.addAll(s.getInputs());
+				}
+			}
+		}
+		return this.toVars;
+	}
 
-        }
+	private void setFromStep(Step from) {
+		this.fromStep = from;
+		fromVars = null;
 
-    }
+	}
 
-    private void put(DefaultVariable from, DefaultVariable to) {
-        VariableList list = mapping.get(from);
-        if (list == null) {
-            list = new VariableList();
-            list.persist();
-            mapping.put(from, list);
+	private void setToStep(Step to) {
+		this.toStep = to;
+		toVars = null;
+	}
 
-        }
-        list.getVariables().add((DefaultServerVariable)to);
-    }
+	public CompositeServerSimulation getParentsim() {
+		return this.parentsim;
+	}
 
-    public Set<Variable> getFromVars() {
-        if (parentsim==null) throw new RuntimeException("Parent roma for step mapping should never be null");
-        if (fromVars == null) {
-            fromVars = new HashSet<Variable>();
-            if (getFromStep() == null) {
-                fromVars.addAll(parentsim.getInputs());
-            } else {
-                for (DefaultSimulation s : getFromStep().getSimulations()) {
-                    fromVars.addAll(s.getOutputs());
-                }
-            }
-        }
-        return this.fromVars;
-    }
+	public void setParentsim(CompositeServerSimulation parentsim) {
+		this.parentsim = parentsim;
+	}
 
-    public Set<Variable> getToVars() {
-        if (parentsim==null) throw new RuntimeException("Parent roma for step mapping should never be null");
-        if (toVars == null) {
-            toVars = new HashSet<Variable>();
-            if (getToStep() == null) {
-                toVars.addAll(parentsim.getOutputs());
-            } else {
-                for (DefaultSimulation s : toStep.getSimulations()) {
-                    toVars.addAll(s.getInputs());
-                }
-            }
-        }
-        return this.toVars;
-    }
+	public Step getFromStep() {
+		return this.fromStep;
+	}
 
+	public Step getToStep() {
+		return this.toStep;
+	}
 
-    private void setFromStep(Step from) {
-        this.fromStep = from;
-        fromVars = null;
+	public Map<DefaultServerVariable, VariableList> getMapping() {
+		return this.mapping;
+	}
 
-    }
+	public void setMapping(Map<DefaultServerVariable, VariableList> mapping) {
+		this.mapping = mapping;
+	}
 
-    private void setToStep(Step to) {
-        this.toStep = to;
-        toVars = null;
-    }
+	@PersistenceContext
+	transient EntityManager entityManager;
 
-       public CompositeServerSimulation getParentsim() {
-        return this.parentsim;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	private Long id;
 
-    public void setParentsim(CompositeServerSimulation parentsim) {
-        this.parentsim = parentsim;
-    }
+	@Version
+	@Column(name = "version")
+	private Integer version;
 
-    public Step getFromStep() {
-        return this.fromStep;
-    }
+	public Long getId() {
+		return this.id;
+	}
 
-    public Step getToStep() {
-        return this.toStep;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
+	public Integer getVersion() {
+		return this.version;
+	}
 
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
 
-    public Map<DefaultVariable, VariableList> getMapping() {
-        return this.mapping;
-    }
+	@Transactional
+	public void persist() {
+		if (this.entityManager == null)
+			this.entityManager = entityManager();
+		this.entityManager.persist(this);
+	}
 
-    public void setMapping(Map<DefaultVariable, VariableList> mapping) {
-        this.mapping = mapping;
-    }
+	@Transactional
+	public void remove() {
+		if (this.entityManager == null)
+			this.entityManager = entityManager();
+		if (this.entityManager.contains(this)) {
+			this.entityManager.remove(this);
+		} else {
+			CompositeStepMapping attached = findCompositeStepMapping(this.id);
+			this.entityManager.remove(attached);
+		}
+	}
 
+	@Transactional
+	public void flush() {
+		if (this.entityManager == null)
+			this.entityManager = entityManager();
+		this.entityManager.flush();
+	}
 
-     @PersistenceContext
-    transient EntityManager entityManager;
+	@Transactional
+	public CompositeStepMapping merge() {
+		if (this.entityManager == null)
+			this.entityManager = entityManager();
+		CompositeStepMapping merged = this.entityManager.merge(this);
+		this.entityManager.flush();
+		return merged;
+	}
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+	public static final EntityManager entityManager() {
+		EntityManager em = new CompositeStepMapping().entityManager;
+		if (em == null)
+			throw new IllegalStateException(
+					"Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
+		return em;
+	}
 
-    @Version
-    @Column(name = "version")
-    private Integer version;
+	public static long countCompositeStepMappings() {
+		return entityManager().createQuery(
+				"select count(o) from CompositeStepMapping o", Long.class)
+				.getSingleResult();
+	}
 
-    public Long getId() {
-        return this.id;
-    }
+	public static List<CompositeStepMapping> findAllCompositeStepMappings() {
+		return entityManager().createQuery(
+				"select o from CompositeStepMapping o",
+				CompositeStepMapping.class).getResultList();
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public static CompositeStepMapping findCompositeStepMapping(Long id) {
+		if (id == null)
+			return null;
+		return entityManager().find(CompositeStepMapping.class, id);
+	}
 
-    public Integer getVersion() {
-        return this.version;
-    }
+	public static List<CompositeStepMapping> findCompositeStepMappingEntries(
+			int firstResult, int maxResults) {
+		return entityManager()
+				.createQuery("select o from CompositeStepMapping o",
+						CompositeStepMapping.class).setFirstResult(firstResult)
+				.setMaxResults(maxResults).getResultList();
+	}
 
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
-
-    @Transactional
-    public void persist() {
-        if (this.entityManager == null) this.entityManager = entityManager();
-        this.entityManager.persist(this);
-    }
-
-    @Transactional
-    public void remove() {
-        if (this.entityManager == null) this.entityManager = entityManager();
-        if (this.entityManager.contains(this)) {
-            this.entityManager.remove(this);
-        } else {
-            CompositeStepMapping attached = findCompositeStepMapping(this.id);
-            this.entityManager.remove(attached);
-        }
-    }
-
-    @Transactional
-    public void flush() {
-        if (this.entityManager == null) this.entityManager = entityManager();
-        this.entityManager.flush();
-    }
-
-    @Transactional
-    public CompositeStepMapping merge() {
-        if (this.entityManager == null) this.entityManager = entityManager();
-        CompositeStepMapping merged = this.entityManager.merge(this);
-        this.entityManager.flush();
-        return merged;
-    }
-
-    public static final EntityManager entityManager() {
-        EntityManager em = new CompositeStepMapping().entityManager;
-        if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
-        return em;
-    }
-
-    public static long countCompositeStepMappings() {
-        return entityManager().createQuery("select count(o) from CompositeStepMapping o", Long.class).getSingleResult();
-    }
-
-    public static List<CompositeStepMapping> findAllCompositeStepMappings() {
-        return entityManager().createQuery("select o from CompositeStepMapping o", CompositeStepMapping.class).getResultList();
-    }
-
-    public static CompositeStepMapping findCompositeStepMapping(Long id) {
-        if (id == null) return null;
-        return entityManager().find(CompositeStepMapping.class, id);
-    }
-
-    public static List<CompositeStepMapping> findCompositeStepMappingEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("select o from CompositeStepMapping o", CompositeStepMapping.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
-    }
-
-     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Parentsim: ").append(getParentsim()).append(", ");
-        sb.append("FromStep: ").append(getFromStep()).append(", ");
-        sb.append("ToStep: ").append(getToStep()).append(", ");
-        sb.append("FromVars: ").append(getFromVars() == null ? "null" : getFromVars().size()).append(", ");
-        sb.append("ToVars: ").append(getToVars() == null ? "null" : getToVars().size()).append(", ");
-        sb.append("Mapping: ").append(getMapping() == null ? "null" : getMapping().size());
-        return sb.toString();
-    }
-
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Parentsim: ").append(getParentsim()).append(", ");
+		sb.append("FromStep: ").append(getFromStep()).append(", ");
+		sb.append("ToStep: ").append(getToStep()).append(", ");
+		sb.append("FromVars: ")
+				.append(getFromVars() == null ? "null" : getFromVars().size())
+				.append(", ");
+		sb.append("ToVars: ")
+				.append(getToVars() == null ? "null" : getToVars().size())
+				.append(", ");
+		sb.append("Mapping: ").append(
+				getMapping() == null ? "null" : getMapping().size());
+		return sb.toString();
+	}
 
 }

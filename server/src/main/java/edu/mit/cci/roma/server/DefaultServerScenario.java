@@ -42,7 +42,7 @@ public class DefaultServerScenario extends DefaultScenario {
        return super.getCreated();
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity=ServerTuple.class)
     public Set<edu.mit.cci.roma.impl.Tuple> getValues_() {
         return super.getValues_();
     }

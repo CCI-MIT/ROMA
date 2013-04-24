@@ -92,6 +92,7 @@ public class ManageCompositeSimulationController {
 	
 	
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private String addUpdate(CompositeServerSimulation compSim, Model model, HttpServletRequest request,
 			HttpServletResponse response) throws SimulationCreationException, IOException {
 		try {
@@ -146,7 +147,7 @@ public class ManageCompositeSimulationController {
 				simulations.add(DefaultServerSimulation.findDefaultServerSimulation(simId));
 			}
 			//step.set
-			step.setSimulations(simulations);
+			step.setSimulations((Set)simulations);
 			steps.add(step);
 			
 			stepsMap.put(stepBean.getStepId(), step);

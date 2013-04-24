@@ -36,10 +36,10 @@ public class CompositeSimulationTest {
 
         CompositeServerSimulation csim = new CompositeServerSimulation();
 
-        DefaultSimulation sim1 = new DefaultSimulation();
+        DefaultServerSimulation sim1 = new DefaultServerSimulation();
 
 
-        DefaultSimulation sim2 = new DefaultSimulation();
+        DefaultServerSimulation sim2 = new DefaultServerSimulation();
 
 
         Step s1 = new Step(1,sim1);
@@ -62,7 +62,7 @@ public class CompositeSimulationTest {
 
 
 
-        DefaultSimulation sim1 = new DefaultSimulation();
+        DefaultServerSimulation sim1 = new DefaultServerSimulation();
         DefaultVariable v_in = factory.getVariable(1,"TestInput1",DataType.NUM,1);
         DefaultVariable v_out = factory.getVariable(1,"TestOutput1",DataType.NUM,1);
         sim1.getInputs().add(v_in);
@@ -71,7 +71,7 @@ public class CompositeSimulationTest {
 
 
 
-        DefaultSimulation sim2 = new DefaultSimulation();
+        DefaultServerSimulation sim2 = new DefaultServerSimulation();
         DefaultVariable v_in_1 = factory.getVariable(2,"TestInput2",DataType.NUM,1);
         DefaultVariable v_in_2 = factory.getVariable(1,"TestInput3",DataType.TXT,1);
         DefaultVariable v_in_3 = factory.getVariable(1,"TestInput4",DataType.NUM,1);
@@ -126,7 +126,7 @@ public class CompositeSimulationTest {
 
 
 
-        DefaultSimulation sim1 =  SimulationMockFactory.configurePassThruStrategy(new DefaultServerSimulation());
+       DefaultServerSimulation sim1 =  SimulationMockFactory.configurePassThruStrategy(new DefaultServerSimulation());
 
         DefaultVariable v_in = factory.getVariable(1,"TestInput1",DataType.NUM,0);
         DefaultVariable v_out = factory.getVariable(1,"TestOutput1",DataType.NUM,0);
@@ -137,7 +137,7 @@ public class CompositeSimulationTest {
 
 
 
-        DefaultSimulation sim2 = SimulationMockFactory.configurePassThruStrategy(new DefaultServerSimulation());
+         DefaultServerSimulation sim2 = SimulationMockFactory.configurePassThruStrategy(new DefaultServerSimulation());
         DefaultVariable v_in_3 = factory.getVariable(1,"TestInput4",DataType.NUM,0);
         DefaultVariable v_out_1 = factory.getVariable(2,"TestOutput2", DataType.NUM,0);
         sim2.getInputs().add(v_in_3);
