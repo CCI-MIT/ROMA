@@ -28,7 +28,7 @@ import edu.mit.cci.roma.util.SimulationValidationException;
  * Time: 1:06 PM
  */
 
-@Entity
+@Entity(name="Tuple")
 @Configurable
 @Table(name="tuple")
 public class ServerTuple extends Tuple {
