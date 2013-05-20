@@ -1,16 +1,26 @@
 package edu.mit.cci.roma.server;
 
-import com.sun.tools.javac.resources.version;
-import edu.mit.cci.roma.api.Variable;
-import edu.mit.cci.roma.impl.DefaultVariable;
-import edu.mit.cci.roma.impl.Tuple;
-import edu.mit.cci.roma.util.SimulationValidationException;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Table;
+import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.List;
+import edu.mit.cci.roma.api.Variable;
+import edu.mit.cci.roma.impl.Tuple;
+import edu.mit.cci.roma.util.SimulationValidationException;
 
 /**
  * User: jintrone

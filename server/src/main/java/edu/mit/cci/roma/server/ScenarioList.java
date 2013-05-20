@@ -1,16 +1,25 @@
 package edu.mit.cci.roma.server;
 
-import com.sun.tools.javac.resources.version;
-import edu.mit.cci.roma.api.DataType;
-import edu.mit.cci.roma.impl.DefaultScenario;
-import org.springframework.beans.factory.annotation.Configurable;
-
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Version;
+
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.transaction.annotation.Transactional;
+
+import edu.mit.cci.roma.api.DataType;
 
 @Configurable
 @Entity

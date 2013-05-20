@@ -1,14 +1,25 @@
 package edu.mit.cci.roma.server;
 
-import com.sun.tools.javac.resources.version;
-import edu.mit.cci.roma.api.DataType;
-import edu.mit.cci.roma.api.Variable;
-import edu.mit.cci.roma.impl.DefaultVariable;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Table;
+import javax.persistence.Version;
+
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.*;
-import java.util.List;
+import edu.mit.cci.roma.api.DataType;
+import edu.mit.cci.roma.api.Variable;
+import edu.mit.cci.roma.impl.DefaultVariable;
 
 /**
  * User: jintrone
@@ -21,10 +32,6 @@ import java.util.List;
 @Configurable
 @Table(name="default_variable")
 public class DefaultServerVariable extends DefaultVariable {
-
-
-
-
 
     public DefaultServerVariable() {
         super();
