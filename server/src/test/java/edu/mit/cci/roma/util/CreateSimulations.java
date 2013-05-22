@@ -160,6 +160,7 @@ public class CreateSimulations {
         Variable pTemp = pangaea.findVariableWithExternalName("GlobalTempChange", false);
         Variable /*pCumEmissions*/pAtmConcentation = pangaea.findVariableWithExternalName("AtmosphericCO2Concentration", false);
 
+        Variable v2 = damage.findVariableWithExternalName("Temperature_input0", true);
         mapping2.addLink(pTemp, damage.findVariableWithExternalName("Temperature_input0", true));
         mapping2.addLink(pYear, mitigation.findVariableWithExternalName("Time_input0", true));
         mapping2.addLink(/*pCumEmissions*/pAtmConcentation, mitigation.findVariableWithExternalName("Atmospheric_CO2_concentration", true));

@@ -44,7 +44,7 @@ import edu.mit.cci.roma.impl.Tuple;
  * User: jintrone Date: 1/29/13 Time: 10:40 AM
  */
 
-@Entity
+@Entity(name="DefaultSimulation")
 @Configurable
 @Table(name = "default_simulation")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
@@ -222,13 +222,13 @@ public class DefaultServerSimulation extends DefaultSimulation {
 
 	public static long countDefaultServerSimulations() {
 		return entityManager().createQuery(
-				"select count(o) from DefaultServerSimulation o", Long.class)
+				"select count(o) from DefaultSimulation o", Long.class)
 				.getSingleResult();
 	}
 
 	public static List<DefaultServerSimulation> findAllDefaultServerSimulations() {
 		return entityManager().createQuery(
-				"select o from DefaultServerSimulation o",
+				"select o from DefaultSimulation o",
 				DefaultServerSimulation.class).getResultList();
 	}
 
@@ -241,7 +241,7 @@ public class DefaultServerSimulation extends DefaultSimulation {
 	public static List<DefaultServerSimulation> findDefaultServerSimulationEntries(
 			int firstResult, int maxResults) {
 		return entityManager()
-				.createQuery("select o from DefaultServerSimulation o",
+				.createQuery("select o from DefaultSimulation o",
 						DefaultServerSimulation.class)
 				.setFirstResult(firstResult).setMaxResults(maxResults)
 				.getResultList();

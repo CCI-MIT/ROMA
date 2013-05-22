@@ -28,7 +28,7 @@ import edu.mit.cci.roma.impl.DefaultVariable;
  */
 
 
-@Entity
+@Entity(name="DefaultVariable")
 @Configurable
 @Table(name="default_variable")
 public class DefaultServerVariable extends DefaultVariable {

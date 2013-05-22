@@ -1,17 +1,32 @@
 package edu.mit.cci.roma.server;
 
-import edu.mit.cci.roma.api.Simulation;
-import edu.mit.cci.roma.impl.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Version;
+
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import edu.mit.cci.roma.api.Simulation;
+import edu.mit.cci.roma.impl.DefaultScenario;
 
 /**
  * User: jintrone
@@ -19,7 +34,7 @@ import java.util.Set;
  * Time: 3:10 PM
  */
 
-@Entity
+@Entity(name="DefaultScenario")
 @Configurable
 @Table(name="default_scenario")
 @DiscriminatorValue(value = "DefaultScenario")
@@ -120,9 +135,9 @@ public class DefaultServerScenario extends DefaultScenario {
         return entityManager().createQuery("select o from DefaultScenario o", DefaultServerScenario.class).getResultList();
     }
 
-    public static DefaultScenario findDefaultScenario(Long id) {
+    public static DefaultServerScenario findDefaultScenario(Long id) {
         if (id == null) return null;
-        return entityManager().find(DefaultScenario.class, id);
+        return entityManager().find(DefaultServerScenario.class, id);
     }
 
     public static List<DefaultServerScenario> findDefaultScenarioEntries(int firstResult, int maxResults) {
