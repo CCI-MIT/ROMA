@@ -29,6 +29,7 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import org.apache.log4j.Logger;
+import org.hibernate.annotations.AccessType;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,6 +46,7 @@ import edu.mit.cci.roma.impl.Tuple;
  */
 
 @Entity(name="DefaultSimulation")
+@AccessType(value = "property")
 @Configurable
 @Table(name = "default_simulation")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
@@ -57,15 +59,34 @@ public class DefaultServerSimulation extends DefaultSimulation {
 		return super.getType();
 	}
 
-	@Column(columnDefinition = "LONGTEXT")
+    @Override
+    public String getName() {
+        return super.getName();    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public String getUrl() {
+        return super.getUrl();    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Long getSimulationVersion() {
+        return super.getSimulationVersion();    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    @Column(columnDefinition = "LONGTEXT")
 	public String getDescription() {
 		return super.getDescription();
 	}
+
+
 
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date getCreated() {
 		return super.getCreated();
 	}
+
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -40,8 +40,15 @@ import edu.mit.cci.roma.impl.DefaultScenario;
 @DiscriminatorValue(value = "DefaultScenario")
 public class DefaultServerScenario extends DefaultScenario {
 
+    @Override
+    public String getName() {
+        return super.getName();    //To change body of overridden methods use File | Settings | File Templates.
+    }
 
-
+    @Override
+    public String getUser() {
+        return super.getUser();    //To change body of overridden methods use File | Settings | File Templates.
+    }
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)

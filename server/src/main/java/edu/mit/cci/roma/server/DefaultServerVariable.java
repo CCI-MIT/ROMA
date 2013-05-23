@@ -37,7 +37,57 @@ public class DefaultServerVariable extends DefaultVariable {
         super();
     }
 
-     public DefaultServerVariable(String name, String description, Integer arity) {
+    @Override
+    public String[] getOptions() {
+        return super.getOptions();    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public String getUnits() {
+        return super.getUnits();    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public String getLabels() {
+        return super.getLabels();    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public String getName() {
+        return super.getName();    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Integer getArity() {
+        return super.getArity();    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Integer getPrecision_() {
+        return super.getPrecision_();    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Double getMax_() {
+        return super.getMax_();    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Double getMin_() {
+        return super.getMin_();    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public String getExternalName() {
+        return super.getExternalName();    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public String getDefaultValue() {
+        return super.getDefaultValue();    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    public DefaultServerVariable(String name, String description, Integer arity) {
         super(name,description,arity);
     }
 

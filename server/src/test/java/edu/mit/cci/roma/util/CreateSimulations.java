@@ -201,6 +201,8 @@ public class CreateSimulations {
     @Transactional
     @Rollback(false)
     public void createAll() throws IOException, ParseException, SimulationCreationException {
+
+        System.err.println("Working directory: "+new File(".").getAbsolutePath());
         new File(SIM_MAP).delete();
         new File(VAR_MAP).delete();
         DefaultServerSimulation pangaea = createPangaea();
