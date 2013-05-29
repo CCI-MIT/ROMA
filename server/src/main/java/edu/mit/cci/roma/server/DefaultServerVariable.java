@@ -1,19 +1,12 @@
 package edu.mit.cci.roma.server;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Table;
-import javax.persistence.Version;
+import javax.persistence.*;
 
+import edu.mit.cci.roma.impl.DefaultSimulation;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,10 +30,18 @@ public class DefaultServerVariable extends DefaultVariable {
         super();
     }
 
-    @Override
-    public String[] getOptions() {
-        return super.getOptions();    //To change body of overridden methods use File | Settings | File Templates.
+
+
+    public String get_optionsRaw() {
+        return super.get_optionsRaw();
     }
+
+    public void set_optionsRaw(String options) {
+        super.set_optionsRaw(options);
+    }
+
+
+
 
     @Override
     public String getUnits() {

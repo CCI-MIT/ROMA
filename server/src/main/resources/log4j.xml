@@ -35,6 +35,10 @@
 		<level value="warn" />
 	</logger>
 
+    <logger name="org.hibernate.type">
+        <level value="warn"/>
+    </logger>
+
     <logger name="org.apache.commons.digester">
         <level value="warn"/>
     </logger>

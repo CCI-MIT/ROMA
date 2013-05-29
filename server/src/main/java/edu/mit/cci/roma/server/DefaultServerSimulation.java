@@ -9,25 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.ManyToMany;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-import javax.persistence.Version;
+import javax.persistence.*;
 
+import edu.mit.cci.roma.impl.DefaultVariable;
 import org.apache.log4j.Logger;
 import org.hibernate.annotations.AccessType;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -103,15 +87,35 @@ public class DefaultServerSimulation extends DefaultSimulation {
 	@PersistenceContext
 	transient EntityManager entityManager;
 
-	@ManyToMany(cascade = CascadeType.ALL, targetEntity = DefaultServerVariable.class)
-	public Set<Variable> getOutputs() {
-		return super.getOutputs();
-	}
+    Set<Variable> _outputs = new HashSet<Variable>();
+
+    Set<Variable> _inputs = new HashSet<Variable>();
 
 	@ManyToMany(cascade = CascadeType.ALL, targetEntity = DefaultServerVariable.class)
-	public Set<Variable> getInputs() {
-		return super.getInputs();
+    @JoinTable(name="default_simulation_outputs",
+            joinColumns={@JoinColumn(name="default_simulation_id")},
+            inverseJoinColumns={@JoinColumn(name="output_id")})
+	public Set<Variable> getOutputs() {
+		return _outputs;
 	}
+
+
+
+    public void setOutputs(Set<Variable> outputs) {
+        this._outputs = outputs;
+    }
+
+	@ManyToMany(cascade = CascadeType.ALL, targetEntity = DefaultServerVariable.class)
+    @JoinTable(name="default_simulation_inputs",
+            joinColumns={@JoinColumn(name="default_simulation_id")},
+            inverseJoinColumns={@JoinColumn(name="input_id")})
+	public Set<Variable> getInputs() {
+		return _inputs;
+	}
+
+    public void setInputs(Set<Variable> inputs) {
+       this._inputs = inputs;
+    }
 
 	public Scenario run(List<Tuple> siminputs) throws SimulationException {
 

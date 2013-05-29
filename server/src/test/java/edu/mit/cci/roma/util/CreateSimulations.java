@@ -196,6 +196,15 @@ public class CreateSimulations {
 
     }
 
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void mappingTest() throws IOException, ParseException {
+        DefaultServerSimulation pangaea = createPangaea();
+
+    }
+
+
 
     @Test
     @Transactional
@@ -833,8 +842,15 @@ public class CreateSimulations {
 
 
             }
-            if (inputs) sim.getInputs().add(v);
-            else sim.getOutputs().add(v);
+            if (inputs) {
+                sim.getInputs().add(v);
+
+            }
+            else {
+                sim.getOutputs().add(v);
+
+            }
+
             i++;
         }
         ((DefaultServerSimulation) sim).persist();
