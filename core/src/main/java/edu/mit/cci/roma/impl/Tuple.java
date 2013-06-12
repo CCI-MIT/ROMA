@@ -80,9 +80,9 @@ public class Tuple {
         this.value_ = (U.escape(values, statuses));
     }
 
-    public void setValue_(String val) throws SimulationValidationException {
-        this.statuses.clear();
-        _setValues(U.unescape(val, this.statuses, null));
+    public void setValue_(String val) {
+        this.value_ = val;
+        //_setValues(U.unescape(val, this.statuses, null));
     }
 
 

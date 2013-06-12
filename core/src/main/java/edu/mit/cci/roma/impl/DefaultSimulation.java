@@ -80,11 +80,11 @@ public class DefaultSimulation implements Simulation {
 
 
     @XmlJavaTypeAdapter(JaxbCollection.Adapter.class)
-    protected final Set<Variable> inputs = new HashSet<Variable>();
+    protected Set<Variable> inputs;
 
 
     @XmlJavaTypeAdapter(JaxbCollection.Adapter.class)
-    protected final Set<Variable> outputs = new HashSet<Variable>();
+    protected Set<Variable> outputs;
 
 
     public Scenario run(List<Tuple> siminputs) throws SimulationException {
@@ -94,7 +94,7 @@ public class DefaultSimulation implements Simulation {
 
     @Override
     public void setInputs(Set<Variable> i) {
-        this.inputs.clear();
+        this.inputs = i;
         if (i != null) {
             inputs.addAll(i);
         }
@@ -102,15 +102,14 @@ public class DefaultSimulation implements Simulation {
 
     @Override
     public void setOutputs(Set<Variable> o) {
-        this.outputs.clear();
-        if (o != null) {
-            outputs.addAll(o);
-        }
+        this.outputs = o;
     }
+
 
     public Set<Variable> getInputs() {
         return this.inputs;
     }
+
 
     public Set<Variable> getOutputs() {
         return this.outputs;

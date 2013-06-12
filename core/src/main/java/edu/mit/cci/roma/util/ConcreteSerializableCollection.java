@@ -4,11 +4,7 @@ import edu.mit.cci.roma.impl.DefaultScenario;
 import edu.mit.cci.roma.impl.DefaultSimulation;
 import edu.mit.cci.roma.impl.DefaultVariable;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -19,15 +15,15 @@ import java.util.List;
  * Time: 9:17 AM
  */
 @XmlRootElement(name="List")
-@XmlAccessorType(XmlAccessType.NONE)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ConcreteSerializableCollection {
 
     @XmlElements({
-            @XmlElement(name="DefaultVariable", type=DefaultVariable.class),
+            @XmlElement(name="Variable", type=DefaultVariable.class),
             @XmlElement(name="Simulation", type=DefaultSimulation.class),
             @XmlElement(name="Scenario", type= DefaultScenario.class)
     })
-    public final List bucket = new ArrayList();
+    public final ArrayList bucket = new ArrayList();
 
     public ConcreteSerializableCollection() {}
 
