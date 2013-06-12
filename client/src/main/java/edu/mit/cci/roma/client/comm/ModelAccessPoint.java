@@ -28,7 +28,7 @@ public enum ModelAccessPoint implements RestAccessPoint {
 
     public String create(String context, String... params) {
         StringBuffer buf = new StringBuffer(!context.startsWith("http://")?"http://":"");
-        buf.append("/").append(context);
+        buf.append(context);
 
         int start = StringUtils.countMatches(url, "%");
 

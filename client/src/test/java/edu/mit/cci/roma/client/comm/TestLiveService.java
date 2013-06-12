@@ -5,6 +5,7 @@ import edu.mit.cci.roma.client.Simulation;
 import edu.mit.cci.roma.client.Tuple;
 import edu.mit.cci.roma.client.TupleStatus;
 import edu.mit.cci.roma.client.Variable;
+import edu.mit.cci.roma.impl.DefaultVariable;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -27,11 +28,42 @@ import java.util.Map;
  */
 public class TestLiveService {
 
-   // @Test
+    @Test
     public void testPangaea() throws IOException, MetaDataNotFoundException, ScenarioNotFoundException, ModelNotFoundException {
 
-        ClientRepository repo = ClientRepository.instance("localhost",8080);
+        ClientRepository repo = ClientRepository.instance("localhost:8080/roma-server");
         Simulation sim = repo.getSimulation(1L);
+
+        Assert.assertNotNull(sim);
+        Map<String, Object> inputs = new HashMap<String, Object>();
+        //developed
+        inputs.put("Developed start year", "2012");  //start year
+        inputs.put("Developed target year", "2050");  //target year
+        inputs.put("Pct change in Developed FF emissions", "200");   //target
+
+        //developing a
+        inputs.put("Developing A start year", "2012");
+        inputs.put("Developing A target year", "2050");
+        inputs.put("Pct change in Developing A FF emissions", "200");
+
+        //developing b
+        inputs.put("Developing B start year", "2012");
+        inputs.put("Developing B target year", "2050");
+        inputs.put("Pct change in Developing B FF emissions", "200");
+
+
+        inputs.put("Target Sequestration", "0.50");  //sequestration (afforestation)
+        inputs.put("Global land use emissions change", "0.50");  //deforestation
+        Scenario scenario = repo.runModelWithInputNames(sim, inputs, 546L, true);
+        Assert.assertNotNull(scenario);
+
+    }
+
+    @Test
+    public void testCompositeModel() throws IOException, MetaDataNotFoundException, ScenarioNotFoundException, ModelNotFoundException {
+
+        ClientRepository repo = ClientRepository.instance("localhost:8080/roma-server");
+        Simulation sim = repo.getSimulation(10L);
 
         Assert.assertNotNull(sim);
         Map<String, Object> inputs = new HashMap<String, Object>();
@@ -61,7 +93,7 @@ public class TestLiveService {
    // @Test
     public void testErrorScenario() throws IOException, MetaDataNotFoundException, ScenarioNotFoundException, ModelNotFoundException {
 
-        ClientRepository repo = ClientRepository.instance("localhost",8080);
+        ClientRepository repo = ClientRepository.instance("localhost");
         Scenario scenario = repo.getScenario(25L);
         Variable var = null;
         for (Variable v:scenario.getOutputSet()) {
@@ -81,7 +113,7 @@ public class TestLiveService {
 
     @Test
     public void testDOEModel() throws IOException, MetaDataNotFoundException, ScenarioNotFoundException, ModelNotFoundException {
-        ClientRepository repo = ClientRepository.instance("cognosis.mit.edu",8083);
+        ClientRepository repo = ClientRepository.instance("cognosis.mit.edu");
         Simulation sim = repo.getSimulation(15L);
         Assert.assertNotNull(sim);
         Map<String, Object> inputs = new HashMap<String, Object>();
@@ -185,7 +217,7 @@ public class TestLiveService {
 //    }
 //       @Test
 //     public void testCompositeModelRun2() throws IOException, ScenarioNotFoundException, ModelNotFoundException, MetaDataNotFoundException {
-//        ClientRepository repo = ClientRepository.instance("localhost", 8080);
+//        ClientRepository repo = ClientRepository.instance("localhost:8080/roma-server");
 //        Scenario scenario = TestHelper.runCompositeTwo(repo);
 //        log.info("Scenario: "+scenario.getName()+" id:"+scenario.getId());
 //        log.info(getScenarioString(scenario));

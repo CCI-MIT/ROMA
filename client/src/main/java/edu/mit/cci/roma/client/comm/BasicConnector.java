@@ -90,7 +90,7 @@ public class BasicConnector implements DeserializingConnector {
 
         HttpPost post = new HttpPost(location.create(context, pathparam));
         //post.setFollowRedirects(true);
-        post.addHeader("accept", "text/xml");
+        post.addHeader("accept", "application/xml");
 
         if (postparams != null && postparams.size() > 0) {
             List<NameValuePair> paramList = new ArrayList<NameValuePair>();
@@ -122,7 +122,7 @@ public class BasicConnector implements DeserializingConnector {
 
     private synchronized Object rawGet(String location, Map<String, String> queryparams) throws IOException {
         HttpGet get = new HttpGet(location);
-         get.addHeader("accept", "text/xml");
+         get.addHeader("accept", "application/xml");
         if (queryparams != null && queryparams.size() > 0) {
             HttpParams params = new BasicHttpParams();
             for (Map.Entry<String, String> ent : queryparams.entrySet()) {
