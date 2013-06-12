@@ -5,7 +5,6 @@ import edu.mit.cci.roma.api.Scenario;
 import edu.mit.cci.roma.api.SimulationException;
 import edu.mit.cci.roma.api.TupleStatus;
 import edu.mit.cci.roma.api.Variable;
-import edu.mit.cci.roma.impl.DefaultVariable;
 
 import edu.mit.cci.roma.impl.Tuple;
 import org.junit.Assert;
@@ -58,7 +57,7 @@ public class MappedSimulationTest {
 
 
          MappedServerSimulation msim = mock.getMappedSimulation(0,sim,123,1,null);
-        msim.setIndexingVariable(idx);
+        msim.updateIndexingVariable(idx);
         Set<Variable> inputs = msim.getInputs();
         Set<Variable> outputs = msim.getOutputs();
 
@@ -85,7 +84,7 @@ public class MappedSimulationTest {
 
 
          MappedServerSimulation msim = mock.getMappedSimulation(0,sim,123,1,null);
-        msim.setIndexingVariable(idx);
+        msim.updateIndexingVariable(idx);
         Set<Variable> inputs = msim.getInputs();
         List<Tuple> params = new ArrayList<Tuple>();
 
@@ -128,7 +127,7 @@ public class MappedSimulationTest {
 
 
          MappedServerSimulation msim = mock.getMappedSimulation(0,sim,123,1,null);
-        msim.setIndexingVariable(idx);
+        msim.updateIndexingVariable(idx);
         Set<Variable> inputs = msim.getInputs();
         List<Tuple> params = new ArrayList<Tuple>();
 
@@ -170,7 +169,7 @@ public class MappedSimulationTest {
 
          MappedServerSimulation msim = mock.getMappedSimulation(0,sim,123,1,null);
         msim.setSamplingFrequency(10);
-        msim.setIndexingVariable(idx);
+        msim.updateIndexingVariable(idx);
         Set<Variable> inputs = msim.getInputs();
         List<Tuple> params = new ArrayList<Tuple>();
 
@@ -214,7 +213,7 @@ public class MappedSimulationTest {
          MappedServerSimulation msim = mock.getMappedSimulation(0,sim,123,1,null);
             msim.setSamplingFrequency(10);
             msim.setManyToOne(ManyToOneMapping.SUM);
-        msim.setIndexingVariable(idx);
+        msim.updateIndexingVariable(idx);
         Set<Variable> inputs = msim.getInputs();
         List<Tuple> params = new ArrayList<Tuple>();
 
@@ -258,7 +257,7 @@ public class MappedSimulationTest {
          MappedServerSimulation msim = mock.getMappedSimulation(0,sim,123,1,null);
             msim.setSamplingFrequency(10);
             msim.setManyToOne(ManyToOneMapping.SUM);
-        msim.setIndexingVariable(idx);
+        msim.updateIndexingVariable(idx);
         Set<Variable> inputs = msim.getInputs();
         List<Tuple> params = new ArrayList<Tuple>();
 

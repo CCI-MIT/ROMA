@@ -20,7 +20,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.hibernate.annotations.AccessType;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +39,9 @@ import edu.mit.cci.roma.impl.DefaultScenario;
 @Entity(name="DefaultScenario")
 @Configurable
 @Table(name="default_scenario")
+@AccessType(value = "property")
 @DiscriminatorValue(value = "DefaultScenario")
+@XmlRootElement(name="Scenario")
 public class DefaultServerScenario extends DefaultScenario {
 
     @Override
@@ -144,7 +148,8 @@ public class DefaultServerScenario extends DefaultScenario {
 
     public static DefaultServerScenario findDefaultScenario(Long id) {
         if (id == null) return null;
-        return entityManager().find(DefaultServerScenario.class, id);
+        DefaultServerScenario scenario = entityManager().find(DefaultServerScenario.class, id);
+        return scenario;
     }
 
     public static List<DefaultServerScenario> findDefaultScenarioEntries(int firstResult, int maxResults) {

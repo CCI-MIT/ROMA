@@ -29,16 +29,14 @@ import edu.mit.cci.roma.util.SimulationValidationException;
  * Time: 1:06 PM
  */
 
-@Entity(name="Tuple")
+@Entity(name = "Tuple")
 @Configurable
-@Table(name="tuple")
+@Table(name = "tuple")
 public class ServerTuple extends Tuple {
-
 
 
     @PersistenceContext
     transient EntityManager entityManager;
-
 
 
     @NotNull
@@ -49,7 +47,7 @@ public class ServerTuple extends Tuple {
 
     @Column(columnDefinition = "LONGTEXT")
     public String getValue_() {
-      return super.getValue_();
+        return super.getValue_();
     }
 
     @Id
@@ -69,12 +67,10 @@ public class ServerTuple extends Tuple {
     }
 
 
-
-
     private Integer version;
 
     @Version
-        @Column(name = "version")
+    @Column(name = "version")
     public Integer getVersion() {
         return this.version;
     }
@@ -116,18 +112,16 @@ public class ServerTuple extends Tuple {
 
     public static final EntityManager entityManager() {
         EntityManager em = new ServerTuple().entityManager;
-        if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
+        if (em == null)
+            throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
         return em;
     }
 
     public static ServerTuple copy(Tuple t) {
         ServerTuple result = new ServerTuple();
         result.setVar(t.getVar());
-        try {
-            result.setValue_(t.getValue_());
-        } catch (SimulationValidationException e) {
-            throw new RuntimeException("Encountered an invalid tuple on copy", e);
-        }
+
+        result.setValue_(t.getValue_());
 
         result.persist();
         return result;
@@ -150,7 +144,7 @@ public class ServerTuple extends Tuple {
         return entityManager().createQuery("select o from Tuple o", ServerTuple.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
-     public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Values: ").append(java.util.Arrays.toString(getValues())).append(", ");
         sb.append("Id_: ").append(getId_()).append(", ");

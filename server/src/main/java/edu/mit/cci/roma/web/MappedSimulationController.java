@@ -33,7 +33,7 @@ import java.util.Collection;
 public class MappedSimulationController {
 
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "accept=text/xml")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "accept=application/xml")
     @ResponseBody
     public MappedServerSimulation showXml(@PathVariable("id") Long id, Model model) {
        return MappedServerSimulation.findMappedSimulation(id);

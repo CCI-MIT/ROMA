@@ -48,10 +48,11 @@ public class DefaultSimulationController {
     }
 
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "accept=text/xml")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "accept=application/xml")
     @ResponseBody
     public DefaultSimulation showXml(@PathVariable("id") Long id, Model model) {
-        return DefaultServerSimulation.findDefaultServerSimulation(id);
+        DefaultSimulation result =  DefaultServerSimulation.findDefaultServerSimulation(id);
+        return result;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "accept=text/html")
@@ -63,10 +64,12 @@ public class DefaultSimulationController {
 
     }
 
-    @RequestMapping(method = RequestMethod.GET, headers = "accept=text/xml")
+    @RequestMapping(method = RequestMethod.GET, headers = "accept=application/xml")
     @ResponseBody
     public ConcreteSerializableCollection listXml(Model model) {
-        return U.wrap(DefaultServerSimulation.findAllDefaultServerSimulations());
+        ConcreteSerializableCollection result = U.wrap(DefaultServerSimulation.findAllDefaultServerSimulations());
+        //DefaultServerSimulation.entityManager().flush();
+        return result;
 
     }
 

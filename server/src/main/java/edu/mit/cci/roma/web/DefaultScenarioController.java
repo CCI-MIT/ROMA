@@ -14,12 +14,8 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriUtils;
 import org.springframework.web.util.WebUtils;
 
@@ -33,7 +29,7 @@ import java.util.Collection;
 @Controller
 public class DefaultScenarioController {
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "accept=text/xml")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "accept=application/xml")
     @ResponseBody
     public DefaultScenario showXml(@PathVariable("id") Long id, Model model) {
         return DefaultServerScenario.findDefaultScenario(id);
@@ -46,11 +42,21 @@ public class DefaultScenarioController {
         return "defaultscenarios/show";
     }
 
-    @RequestMapping(method = RequestMethod.GET, headers = "accept=text/xml")
+    @RequestMapping(method = RequestMethod.GET, headers = "accept=application/xml")
     @ResponseBody
     public ConcreteSerializableCollection listXml(Model model) {
        return U.wrap(DefaultServerScenario.findAllDefaultScenarios());
 
+    }
+
+    @ExceptionHandler({Exception.class,RuntimeException.class})
+   public ModelAndView handleException(Exception ex) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("error");
+
+        modelAndView.addObject("name", ex.getClass().getSimpleName());
+        return modelAndView;
     }
 
 
@@ -118,10 +124,10 @@ public class DefaultScenarioController {
            return DefaultServerSimulation.findAllDefaultServerSimulations();
        }
 
-       @ModelAttribute("tuples")
-       public Collection<ServerTuple> populateTuples() {
-           return ServerTuple.findAllTuples();
-       }
+//       @ModelAttribute("tuples")
+//       public Collection<ServerTuple> populateTuples() {
+//           return ServerTuple.findAllTuples();
+//       }
 
        void addDateTimeFormatPatterns(Model model) {
            model.addAttribute("defaultScenario_created_date_format", DateTimeFormat.patternForStyle("S-", LocaleContextHolder.getLocale()));

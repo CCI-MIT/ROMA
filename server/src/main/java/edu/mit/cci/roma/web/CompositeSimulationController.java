@@ -29,7 +29,7 @@ import java.util.Collection;
 @Controller
 public class CompositeSimulationController {
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "accept=text/xml")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "accept=application/xml")
     @ResponseBody
     public CompositeServerSimulation showXml(@PathVariable("id") Long id, Model model) {
         return CompositeServerSimulation.findCompositeSimulation(id);

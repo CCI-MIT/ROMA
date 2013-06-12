@@ -29,7 +29,7 @@ import java.util.Collection;
 @Controller
 public class VariableController {
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "accept=text/xml")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "accept=application/xml")
     @ResponseBody
     public DefaultVariable showXml(@PathVariable("id") Long id, Model model) {
         return DefaultServerVariable.findDefaultVariable(id);
@@ -42,7 +42,7 @@ public class VariableController {
         return "variables/show";
     }
 
-    @RequestMapping(method = RequestMethod.GET, headers = "accept=text/xml")
+    @RequestMapping(method = RequestMethod.GET, headers = "accept=application/xml")
     @ResponseBody
     public ConcreteSerializableCollection list(Model model) {
         return U.wrap(DefaultServerVariable.findAllDefaultVariables());

@@ -24,7 +24,11 @@
                 <value>edu.mit.cci.roma.impl.DefaultVariable</value>
                 <value>edu.mit.cci.roma.impl.Tuple</value>
                 <value>edu.mit.cci.roma.impl.DefaultSimulation</value>
+                <value>edu.mit.cci.roma.server.DefaultServerSimulation</value>
                 <value>edu.mit.cci.roma.impl.DefaultScenario</value>
+                <value>edu.mit.cci.roma.server.DefaultServerScenario</value>
+                <value>edu.mit.cci.roma.jaxb.JaxbCollection</value>
+                <value>edu.mit.cci.roma.jaxb.JaxbReference</value>
                 <value>edu.mit.cci.roma.util.ConcreteSerializableCollection</value>
             </list>
         </property>
@@ -117,4 +121,5 @@
             </list>
         </property>
     </bean>
+
 </beans>

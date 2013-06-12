@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import edu.mit.cci.roma.impl.DefaultSimulation;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -24,6 +25,7 @@ import edu.mit.cci.roma.impl.DefaultVariable;
 @Entity(name="DefaultVariable")
 @Configurable
 @Table(name="default_variable")
+@XmlRootElement(name = "Variable")
 public class DefaultServerVariable extends DefaultVariable {
 
     public DefaultServerVariable() {

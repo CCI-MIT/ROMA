@@ -23,7 +23,7 @@ public class MappedSimulationDataOnDemand {
         obj.setManyToOne(null);
         obj.setReplication(new Integer(index));
         obj.setSamplingFrequency(new Integer(index));
-        obj.setIndexingVariable(null);
+        obj.updateIndexingVariable(null);
         obj.setExecutorSimulation(null);
         return obj;
     }

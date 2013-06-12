@@ -15,6 +15,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -31,6 +32,7 @@ import java.util.Set;
 @Entity
 @Configurable
 @DiscriminatorValue(value = "CompositeSimulation")
+@XmlRootElement(name = "Simulation")
 public class CompositeServerSimulation extends DefaultServerSimulation {
 
     private List<Step> steps = new ArrayList<Step>();
