@@ -16,12 +16,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * User: jintrone
@@ -46,6 +41,7 @@ public class CompositeServerSimulation extends DefaultServerSimulation {
     public Scenario run(List<Tuple> siminputs) throws SimulationException {
         CompositeScenario result = new CompositeScenario();
         result.setSimulation(this);
+        result.setCreated(new Date());
         Collections.sort(steps, new Comparator<Step>() {
             public int compare(Step step, Step step1) {
                 return (int) Math.signum(step.getOrder_() - step1.getOrder_());
