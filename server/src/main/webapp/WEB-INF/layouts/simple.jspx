@@ -1,0 +1,32 @@
+<html xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:tiles="http://tiles.apache.org/tags-tiles" xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" >  
+	
+	<jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat" />
+	
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />  
+	<jsp:directive.page pageEncoding="UTF-8" /> 
+			
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=8" />	
+  		
+  		<spring:url value="/resources/css/bootstrap.css" var="bootstrap_css" />
+  		<spring:url value="/resources/css/bootstrap-theme.css" var="bootstrapTheme_css" />
+  		<link rel="stylesheet" type="text/css" media="screen" href="${bootstrap_css}"><!-- required for FF3 and Opera --></link>
+  		<link rel="stylesheet" type="text/css" media="screen" href="${bootstrapTheme_css}"><!-- required for FF3 and Opera --></link>
+  		
+  		
+  		<spring:url value="/resources/js/bootstrap.js" var="bootstrap_js" />
+  		<script src="${bootstrap_js }" type="text/javascript"><!-- --></script>
+  		
+			
+		
+		<spring:message code="application_name" var="app_name"/>
+		<title><spring:message code="welcome_h3" arguments="${app_name}" /></title>
+	</head>
+	
+  	<body class="tundra spring">
+   		<div class="container">
+			<tiles:insertAttribute name="body"/> 
+		</div>
+	</body>
+</html>

@@ -2,6 +2,7 @@ package edu.mit.cci.roma.pangaea.core;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 
 import org.junit.BeforeClass;
@@ -18,12 +19,16 @@ public class EnRoadsTest {
     
 	
 	@BeforeClass
-	public static void loadProperties() throws TestingUtilsException, VensimException {
+	public static void loadProperties() throws TestingUtilsException, VensimException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		TestingUtils.loadPropertiesToSystem(EnRoadsTest.class.getClassLoader().getResource("test.properties").getFile());
+		Field fieldSysPath = ClassLoader.class.getDeclaredField( "sys_paths" );
+		fieldSysPath.setAccessible( true );
+		fieldSysPath.set( null, null );
 		
         String libName = System.getProperty(DLL_LIBNAME_PARAM);
         String modelPath = System.getProperty(MODEL_PATH_PARAM);
 
+        System.out.println(System.getenv());
         vensimHelper = new VensimHelper(libName, modelPath);
 	}
 	
@@ -53,7 +58,7 @@ public class EnRoadsTest {
 	    vensimHelper.run();
 	       for (String varName: vensimHelper.getVariables()) {
 	           System.out.println(varName);
-	            System.out.println(vensimHelper.getVariable(varName));
+	            System.out.println(Arrays.toString(vensimHelper.getVariable(varName)));
 	        }
 	        
 	       System.out.println("end...");

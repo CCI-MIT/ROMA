@@ -1,24 +1,23 @@
 package edu.mit.cci.roma.server.util;
 
-import edu.mit.cci.roma.api.SimulationException;
-import edu.mit.cci.roma.api.Variable;
-import edu.mit.cci.roma.impl.DefaultVariable;
-import edu.mit.cci.roma.impl.Tuple;
-import edu.mit.cci.roma.server.DefaultServerVariable;
-import edu.mit.cci.roma.server.ServerTuple;
-import edu.mit.cci.roma.util.SimulationComputationException;
-import edu.mit.cci.roma.util.SimulationValidation;
-import org.apache.log4j.Logger;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+
+import edu.mit.cci.roma.api.SimulationException;
+import edu.mit.cci.roma.api.Variable;
+import edu.mit.cci.roma.impl.Tuple;
+import edu.mit.cci.roma.server.DefaultServerVariable;
+import edu.mit.cci.roma.server.ServerTuple;
+import edu.mit.cci.roma.util.SimulationComputationException;
+import edu.mit.cci.roma.util.SimulationValidation;
 
 /**
  * User: jintrone
@@ -29,7 +28,7 @@ public class U {
 
     private static Logger log = Logger.getLogger(U.class);
 
-    public static String getCellValueAsString(HSSFSheet worksheet, int rowCounter, int colCounter,
+    public static String getCellValueAsString(Sheet worksheet, int rowCounter, int colCounter,
                                                  String defaultValue) throws SimulationException {
            SimulationValidation.notNull(worksheet, "worksheet");
 

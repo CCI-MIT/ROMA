@@ -1,0 +1,5 @@
+"description","id","internalname","name","profile","vartype","units","labels","external","varcontext","indexingid","defaultval","id","max","metadata","min","categories","sheet","rowsrange"
+"Input scenario",2014021,"input_scenario","Input scenario","java.lang.String","FREE","Input scenario","Text","","SCALAR",NULL,"",2014021,NULL,3640,NULL,NULL,"Blatt1","G2:G2"
+"Input level",2014022,"input_level","Input level","java.lang.String","FREE","Year","Input level","","SCALAR",NULL,"",NULL,NULL,2014022,NULL,NULL,"Blatt1","H2:H2"
+"Input type",2014023,"input_type","Input type","java.lang.String","FREE","Year","Input type","","SCALAR",NULL,"",NULL,NULL,2014023,NULL,NULL,"Blatt1","I2:I2"
+

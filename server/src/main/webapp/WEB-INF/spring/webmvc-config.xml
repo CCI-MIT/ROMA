@@ -9,10 +9,6 @@
         <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     </context:component-scan>
 
-    <!-- Turns on support for mapping requests to Spring MVC @Controller methods
-            Also registers default Formatters and Validators for use across all @Controllers -->
-       <mvc:annotation-driven conversion-service="applicationConversionService"/>
-
 
 
 
@@ -55,6 +51,10 @@
 
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources -->
     <mvc:resources location="/, classpath:/META-INF/web-resources/" mapping="/resources/**"/>
+
+    <!-- Turns on support for mapping requests to Spring MVC @Controller methods
+            Also registers default Formatters and Validators for use across all @Controllers -->
+       <mvc:annotation-driven conversion-service="applicationConversionService"/>
 
     <!-- Allows for mapping the DispatcherServlet to "/" by forwarding static resource requests to the container's default Servlet -->
     <mvc:default-servlet-handler/>

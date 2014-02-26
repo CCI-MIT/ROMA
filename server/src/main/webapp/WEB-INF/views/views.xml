@@ -9,6 +9,10 @@
     <put-attribute name="body" value="/WEB-INF/views/index.jspx" />
   </definition>
 
+  <definition name="emfsimulation" extends="simple">
+    <put-attribute name="body" value="/WEB-INF/views/emfsimulation.jspx" />
+  </definition>
+  
   <definition name="dataAccessFailure" extends="public">
     <put-attribute name="body" value="/WEB-INF/views/dataAccessFailure.jspx" />
   </definition>

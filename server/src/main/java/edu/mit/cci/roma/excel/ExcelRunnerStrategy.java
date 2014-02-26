@@ -1,29 +1,32 @@
 package edu.mit.cci.roma.excel;
 
-import edu.mit.cci.roma.api.DataType;
-import edu.mit.cci.roma.api.SimulationException;
-import edu.mit.cci.roma.api.TupleStatus;
-import edu.mit.cci.roma.api.Variable;
-import edu.mit.cci.roma.impl.Tuple;
-import edu.mit.cci.roma.server.*;
-import edu.mit.cci.roma.util.SimulationComputationException;
-
-import edu.mit.cci.roma.util.SimulationValidation;
-import edu.mit.cci.roma.util.U;
-import org.apache.log4j.Logger;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.FormulaEvaluator;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.util.AreaReference;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.ss.util.AreaReference;
+
+import edu.mit.cci.roma.api.DataType;
+import edu.mit.cci.roma.api.SimulationException;
+import edu.mit.cci.roma.api.TupleStatus;
+import edu.mit.cci.roma.api.Variable;
+import edu.mit.cci.roma.impl.Tuple;
+import edu.mit.cci.roma.server.DefaultServerSimulation;
+import edu.mit.cci.roma.server.RunStrategy;
+import edu.mit.cci.roma.util.SimulationComputationException;
+import edu.mit.cci.roma.util.SimulationValidation;
+import edu.mit.cci.roma.util.U;
 
 /**
  * User: jintrone
@@ -51,13 +54,15 @@ public class ExcelRunnerStrategy implements RunStrategy {
         }
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(esim.getFile());
-        HSSFWorkbook workbook = null;
+        Workbook workbook = null;
 
         try {
-            workbook = new HSSFWorkbook(new POIFSFileSystem(inputStream));
+            workbook = WorkbookFactory.create(inputStream);
         } catch (IOException e) {
             throw new SimulationException("Error loading excel workbook", e);
-        }
+        } catch (InvalidFormatException e) {
+            throw new SimulationException("Error loading excel workbook", e);
+		}
 
         if (workbook == null) {
             throw new SimulationException("Workbook could not be found for roma " + esim.getSimulation().getName());
@@ -92,8 +97,8 @@ public class ExcelRunnerStrategy implements RunStrategy {
         return U.createStringRepresentation(result);
     }
 
-    public void writeInput(ExcelVariable v, String[] data, HSSFWorkbook workbook) throws SimulationException {
-        HSSFSheet sheet = workbook.getSheet(v.getWorksheetName());
+    public void writeInput(ExcelVariable v, String[] data, Workbook workbook) throws SimulationException {
+        Sheet sheet = workbook.getSheet(v.getWorksheetName());
         SimulationValidation.equalsArity(v.getSimulationVariable(), data.length);
         SimulationValidation.notNull(sheet, "Worksheet");
         ExcelValidation.validateExcelCoordinates(v.getCellRange());
@@ -139,10 +144,10 @@ public class ExcelRunnerStrategy implements RunStrategy {
 
     }
 
-    public void runForumlas(HSSFWorkbook workbook) throws SimulationException {
+    public void runForumlas(Workbook workbook) throws SimulationException {
         FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
         for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
-            HSSFSheet sheet = workbook.getSheetAt(i);
+            Sheet sheet = workbook.getSheetAt(i);
             for (Row r : sheet) {
                 for (Cell c : r) {
                     if (c.getCellType() == Cell.CELL_TYPE_FORMULA) {
@@ -158,8 +163,8 @@ public class ExcelRunnerStrategy implements RunStrategy {
         }
     }
 
-    public Object[] readOutput(ExcelVariable ev, HSSFWorkbook workbook, String cellRange) throws SimulationException {
-        HSSFSheet sheet = workbook.getSheet(ev.getWorksheetName());
+    public Object[] readOutput(ExcelVariable ev, Workbook workbook, String cellRange) throws SimulationException {
+        Sheet sheet = workbook.getSheet(ev.getWorksheetName());
         SimulationValidation.notNull(sheet, "Worksheet");
         ExcelValidation.validateExcelCoordinates(cellRange);
 
