@@ -80,6 +80,7 @@ public class DefaultVariable implements Variable {
     @XmlElement(name = "ExternalName")
     private String externalName;
 
+    @XmlElement(name = "OptionsRaw")
     private String _optionsRaw;
 
 

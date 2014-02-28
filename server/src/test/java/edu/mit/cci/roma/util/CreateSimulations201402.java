@@ -178,7 +178,7 @@ public class CreateSimulations201402 {
     public static String[] parseCategories(String cat) {
         if (cat == null) return null;
         else {
-            return cat.split(",");
+            return cat.split(";");
         }
     }
 

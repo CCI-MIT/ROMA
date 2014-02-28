@@ -2,6 +2,7 @@ package edu.mit.cci.roma.excel.server;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Assert;
@@ -24,9 +25,10 @@ import edu.mit.cci.roma.server.ServerTuple;
 public class ExcelSimulationEmf201402Run {
     @Test
     public void testReadExcelFile() throws Exception {
-        DefaultSimulation sim = DefaultServerSimulation.findDefaultServerSimulation(32L);
+        DefaultSimulation sim = DefaultServerSimulation.findDefaultServerSimulation(42L);
 
         String[] expect = new String[]{"3,22","6,69","8,17","10,75","10,03", "7,36","6,61","5,48"};
+        String[] expectIndex = new String[]{"2000","2010","2020","2030","2040", "2050","2060","2070"};
 
         List<Tuple> inputs = new ArrayList<Tuple>();
 
@@ -38,21 +40,35 @@ public class ExcelSimulationEmf201402Run {
                 t.setValues(new String[] {"Scenario 2"});
             }
             else if (v.getName().equals("Input level")) {
-                t.setValues(new String[] {"Overshoot"});
+                t.setValues(new String[] {"3.7"});
             }
             else {
-                t.setValues(new String[] {"3,7"});
+                t.setValues(new String[] {"Overshoot"});
             }
             inputs.add(t);
 
         }
 
         DefaultScenario scenario = (DefaultScenario) sim.run(inputs);
-        Tuple t = scenario.getVariableValue(sim.getOutputs().iterator().next());
-        System.out.println(Arrays.toString(t.getValues()));
-        System.out.println(Arrays.toString(t.getValues()));
-        Assert.assertArrayEquals(expect, t.getValues());
-
+        Iterator<Variable> outputVariables = sim.getOutputs().iterator();
+        while (outputVariables.hasNext()) {
+        	Variable outVar = outputVariables.next();
+        	Tuple t = scenario.getVariableValue(outVar);
+        	if (outVar.getName().equals("Calc output")) {
+        		
+                Assert.assertArrayEquals(expect, t.getValues());
+                Variable indexingVariable = outVar.getIndexingVariable();
+                Tuple indexTuple = scenario.getVariableValue(indexingVariable);
+                Assert.assertArrayEquals(expectIndex, indexTuple.getValues());
+                
+        	}
+        	else {
+                Tuple indexTuple = scenario.getVariableValue(outVar);
+                Assert.assertArrayEquals(expectIndex, indexTuple.getValues());
+        		
+        	}
+            
+        }
 
     }
 }
