@@ -1,0 +1,7 @@
+"description","id","internalname","name","profile","vartype","units","labels","external","varcontext","indexingid","defaultval","id","max","metadata","min","categories","sheet","rowsrange"
+"Year",201403081,"Time_output0","Time","java.lang.Integer","RANGE","Year","Year","","INDEX",NULL,"",201403081,2100.0,201403081,2000.0,NULL,"Results","C25:M25"
+"FUND",201403082,"fundoutput","FUND output","java.lang.Double","RANGE","GDP change %","GDP change %","","INDEXED",201403081,"",201403082,NULL,201403082,NULL,NULL,"Results","C26:M26"
+"GTEM",201403083,"gtemoutput","GTEM output","java.lang.Double","RANGE","GDP change %","GDP change %","","INDEXED",201403081,"",201403083,NULL,201403083,NULL,NULL,"Results","C27:M27"
+"MESSAGE",201403084,"messageoutput","Message output","java.lang.Double","RANGE","GDP change %","GDP change %","","INDEXED",201403081,"",201403084,NULL,201403084,NULL,NULL,"Results","C28:M28"
+"MiniCAM-Basic",201403085,"minicamoutput","MiniCAM-Basic output","java.lang.Double","RANGE","GDP change %","GDP change %","","INDEXED",201403081,"",201403085,NULL,201403085,NULL,NULL,"Results","C29:M29"
+

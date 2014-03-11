@@ -25,10 +25,12 @@ import edu.mit.cci.roma.server.ServerTuple;
 public class ExcelSimulationEmf201402Run {
     @Test
     public void testReadExcelFile() throws Exception {
-        DefaultSimulation sim = DefaultServerSimulation.findDefaultServerSimulation(42L);
+        DefaultSimulation sim = DefaultServerSimulation.findDefaultServerSimulation(15L);
 
-        String[] expect = new String[]{"3,22","6,69","8,17","10,75","10,03", "7,36","6,61","5,48"};
-        String[] expectIndex = new String[]{"2000","2010","2020","2030","2040", "2050","2060","2070"};
+        String[][] expected = {
+        		{ "0,00", "0,00", "-0,05", "-0,07", "-0,09", "-0,11", "-0,14", "-0,18", "-0,22", "-0,26", "-0,33"},
+        		{ "0,00", "0,00", "-0,00", "-0,01", "-0,02", "-0,03", "-0,05", "-0,06", "-0,07", "-0,08", "-0,09" }
+        };
 
         List<Tuple> inputs = new ArrayList<Tuple>();
 
@@ -36,17 +38,12 @@ public class ExcelSimulationEmf201402Run {
 
             ServerTuple t = new ServerTuple(v);
             t.persist();
+            
+            System.out.println(v.getName());
             if (v.getName().equals("Input scenario")) {
-                t.setValues(new String[] {"Scenario 2"});
-            }
-            else if (v.getName().equals("Input level")) {
-                t.setValues(new String[] {"3.7"});
-            }
-            else {
-                t.setValues(new String[] {"Overshoot"});
+                t.setValues(new String[] {"450"});
             }
             inputs.add(t);
-
         }
 
         DefaultScenario scenario = (DefaultScenario) sim.run(inputs);
@@ -54,21 +51,33 @@ public class ExcelSimulationEmf201402Run {
         while (outputVariables.hasNext()) {
         	Variable outVar = outputVariables.next();
         	Tuple t = scenario.getVariableValue(outVar);
-        	if (outVar.getName().equals("Calc output")) {
-        		
-                Assert.assertArrayEquals(expect, t.getValues());
-                Variable indexingVariable = outVar.getIndexingVariable();
-                Tuple indexTuple = scenario.getVariableValue(indexingVariable);
-                Assert.assertArrayEquals(expectIndex, indexTuple.getValues());
-                
-        	}
-        	else {
-                Tuple indexTuple = scenario.getVariableValue(outVar);
-                Assert.assertArrayEquals(expectIndex, indexTuple.getValues());
-        		
-        	}
-            
+        	System.out.println(outVar.getName());
+        	System.out.println(Arrays.toString(t.getValues()));
+        	/*if (outVar.getName().equals("FUND output")) {
+        		org.junit.Assert.assertArrayEquals(expected[0], t.getValues());
+        	}*/
+        }
+        
+        inputs = new ArrayList<Tuple>();
+
+        for (Variable v : sim.getInputs()) {
+
+            ServerTuple t = new ServerTuple(v);
+            t.persist();
+            if (v.getName().equals("Input scenario")) {
+                t.setValues(new String[] {"550"});
+            }
+            inputs.add(t);
         }
 
+        scenario = (DefaultScenario) sim.run(inputs);
+        outputVariables = sim.getOutputs().iterator();
+        while (outputVariables.hasNext()) {
+        	Variable outVar = outputVariables.next();
+        	Tuple t = scenario.getVariableValue(outVar);
+        	if (outVar.getName().equals("FUND output")) {
+        		org.junit.Assert.assertArrayEquals(expected[1], t.getValues());
+        	}
+        }
     }
 }

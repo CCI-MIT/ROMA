@@ -40,7 +40,7 @@ public class CreateSimulations201402 {
     @Transactional
     @Rollback(false)
     public void createAll() throws IOException, ParseException, SimulationCreationException {
-    	DefaultServerSimulation sim = (DefaultServerSimulation) createBaseSim("./target/test-classes/2014_feb_models/emf/emf", 1, 8, true);
+    	DefaultServerSimulation sim = (DefaultServerSimulation) createBaseSim("./target/test-classes/2014_feb_models/emf22gdp/emf22gdp", 1, 11, true);
     }
     
     

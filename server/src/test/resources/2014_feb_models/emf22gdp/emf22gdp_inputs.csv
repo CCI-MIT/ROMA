@@ -1,0 +1,2 @@
+"description","id","internalname","name","profile","vartype","units","labels","external","varcontext","indexingid","defaultval","id","max","metadata","min","categories","sheet","rowsrange"
+"Input scenario",201403011,"input_scenario","Input scenario","java.lang.Integer","CATEGORICAL","Input scenario","Scenario","","SCALAR",NULL,"",2014021,NULL,3640,NULL,"450;550","Results","B1:B1"

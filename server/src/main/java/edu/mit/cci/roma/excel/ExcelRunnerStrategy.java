@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FormulaError;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -135,7 +136,15 @@ public class ExcelRunnerStrategy implements RunStrategy {
                 }
 
                 case CAT: {
-                    cell.setCellValue(data[i]);
+                	try {
+                		Double d = Double.parseDouble(data[i]);
+                		if (d != null) {
+                			cell.setCellValue(d);
+                		}
+                	}
+                	catch (NumberFormatException e) {
+                		cell.setCellValue(data[i]);
+                	}
                     break;
                 }
             }
@@ -151,7 +160,7 @@ public class ExcelRunnerStrategy implements RunStrategy {
             for (Row r : sheet) {
                 for (Cell c : r) {
                     if (c.getCellType() == Cell.CELL_TYPE_FORMULA) {
-                        try {
+                    	try {
                             evaluator.evaluateFormulaCell(c);
                         } catch (Exception e) {
                             throw new SimulationException(e);
