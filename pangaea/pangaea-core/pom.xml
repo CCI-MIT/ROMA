@@ -32,6 +32,25 @@
       <artifactId>vensim</artifactId>
       <version>1.0</version>
     </dependency>
+    <dependency>
+	<groupId>org.apache.commons</groupId>
+	<artifactId>commons-lang3</artifactId>
+	<version>3.3</version>
+</dependency>
+            
+    
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.9</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.9</version>
+            <scope>test</scope>
+		</dependency>
   </dependencies>
   
   

@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.log4j.Logger;
 
 import com.vensim.Vensim;
@@ -173,6 +175,32 @@ public class VensimHelper {
         }
         return Arrays.copyOfRange(varVal, 0, ret);
     }
+
+    public Pair<float[], float[]> getVariableIndexed(String name) throws VensimException {
+        validateContext();
+
+        final int maxVal = 500;
+        return getVariableIndexed(name, maxVal);
+    }
+    
+    /* (non-Javadoc)
+	 * @see edu.mit.cci.roma.pangaea.core.IVensimHelper#getVariable(java.lang.String, int)
+	 */
+    public Pair<float[], float[]> getVariableIndexed(String name, int maxVal) throws VensimException {
+        validateContext();
+
+        float[] varVal = new float[maxVal];
+        float[] timeVal = new float[maxVal];
+        
+        log.debug("Looking for value of variable " + name);
+        int ret = Vensim.CGetData(ctxId, V_RUNNAME, name, "", varVal, timeVal, maxVal);
+        if (ret == 0) {
+            log.debug("VensimVariable " + name + " wasn't found");
+            return new ImmutablePair<float[], float[]>(new float[] {}, new float[] {}); 
+        }
+        return new ImmutablePair<float[], float[]>(Arrays.copyOfRange(timeVal, 0, ret), Arrays.copyOfRange(varVal, 0, ret));
+    }
+    
     
     /**
      * Executes given command against Vensim core.
@@ -246,6 +274,19 @@ public class VensimHelper {
         }
         buf.append("\n");
         return buf.toString();
+    }
+    
+    /**
+     * Returns map of variable attributes.
+     * @param name variable name
+     * @return map of variable attributes
+     */
+    public Map<Integer, String[]> getVariableAttributes(String name) {
+    	Map<Integer, String[]> attributes = new HashMap<Integer, String[]>();
+    	for (Integer varId: varAttributeType.keySet()) {
+    		attributes.put(varId, Vensim.CGetVarAttrib(ctxId, name, varId));
+    	}
+    	return attributes;
     }
     
     

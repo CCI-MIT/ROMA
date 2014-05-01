@@ -30,7 +30,7 @@ import edu.mit.cci.roma.server.DefaultServerVariable;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:/META-INF/spring/applicationContext.xml", "classpath:/webmvc-test-config.xml"})
-public class CreateSimulations201402 {
+public class CreateSimulations201405 {
 	
 
     public static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -40,7 +40,7 @@ public class CreateSimulations201402 {
     @Transactional
     @Rollback(false)
     public void createAll() throws IOException, ParseException, SimulationCreationException {
-    	DefaultServerSimulation sim = (DefaultServerSimulation) createBaseSim("./target/test-classes/2014_may_models/emf/emf", 1, 11, true);
+    	DefaultServerSimulation sim = (DefaultServerSimulation) createBaseSim("./target/test-classes/2014_feb_models/emf22gdp/emf22gdp", 1, 11, true);
     }
     
     
