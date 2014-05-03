@@ -25,7 +25,7 @@ import edu.mit.cci.roma.server.ServerTuple;
 public class ExcelSimulationEmf201405Run {
     @Test
     public void testReadExcelFile() throws Exception {
-        DefaultSimulation sim = DefaultServerSimulation.findDefaultServerSimulation(23L);
+        DefaultSimulation sim = DefaultServerSimulation.findDefaultServerSimulation(27L);
 
         String[][] expected = {
         		{ "0,00", "0,00", "-0,05", "-0,07", "-0,09", "-0,11", "-0,14", "-0,18", "-0,22", "-0,26", "-0,33"},
