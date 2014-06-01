@@ -77,6 +77,10 @@ public class EMFCombineSpreadsheetsUtil {
 			for (int r=1; r <= modelSheet.getLastRowNum(); r++) {
 				Row row = modelSheet.getRow(r);
 				if (row == null) continue;
+				if (row.getCell(0).getStringCellValue().contains("generated")) {
+					// ignore
+					continue;
+				}
 				models.add(row.getCell(0).getStringCellValue());
 				availableScenarios.add(row.getCell(1).getStringCellValue());
 			}
@@ -96,7 +100,7 @@ public class EMFCombineSpreadsheetsUtil {
 				outputRow.createCell(0).setCellValue(model);
 				outputRow.createCell(1).setCellFormula("CONCATENATE(A" + (outputRow.getRowNum()+ 1) + ",'Inputs_Inputs'!B$1)");
 				for (int tmp = 0; tmp < 11; tmp++) {
-					outputRow.createCell(2+tmp).setCellFormula("VLOOKUP($B" + (outputRow.getRowNum() + 1) + ",'" + modelSheet.getSheetName() + "'!$E$2:$Q$500," + (2+tmp) + ")");
+					outputRow.createCell(2+tmp).setCellFormula("VLOOKUP($B" + (outputRow.getRowNum() + 1) + ",'" + modelSheet.getSheetName() + "'!$E$2:$Q$500," + (2+tmp) + ",FALSE)");
 				}
 			}
 			
@@ -130,7 +134,7 @@ public class EMFCombineSpreadsheetsUtil {
 					outputSheetName,
 					"C1:M1"});
 			
-			int rowNumber = 1;
+			int rowNumber = 2;
 			long outputId = nextId++;
 			for (String model: perOutputModels.get(outputSheetName)) {
 				outputsCsv.writeNext(new String[] {
