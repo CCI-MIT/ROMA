@@ -167,7 +167,7 @@ public class CreateSimulations201402 {
     public static int inferPrecision(String profile) {
         if (profile.contains("Integer")) {
             return 0;
-        } else return 2;
+        } else return 4;
     }
 
     public static Double getDouble(Map<String, String> line, String key) {
