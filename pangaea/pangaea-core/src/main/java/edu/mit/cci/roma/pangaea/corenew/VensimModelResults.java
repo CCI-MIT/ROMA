@@ -9,6 +9,7 @@ import java.util.Set;
 import org.apache.commons.lang3.tuple.Pair;
 
 import edu.mit.cci.roma.pangaea.core.PangaeaException;
+import edu.mit.cci.roma.pangaea.corenew.config.VensimModelOutputConfig;
 
 public class VensimModelResults {
 	private final static String VALUE_SEP = ";";
@@ -23,7 +24,7 @@ public class VensimModelResults {
 		this.definition = definition;
 	}
 	
-	public void addOutput(String name, Pair<float[], float[]> value) throws PangaeaException {
+	public void addOutput(VensimModelOutputConfig output, Pair<float[], float[]> value) throws PangaeaException {
 		Set<Float> indexVals = definition.getIndexVals();
 		float[] valuesIndexed = new float[indexVals.size()];
 		int valuesFilled = 0;
@@ -33,9 +34,9 @@ public class VensimModelResults {
 			}
 		}
 		if (valuesFilled != indexVals.size()) {
-			throw new PangaeaException("Not enough values in returned variable (not all number from index has corresponding value) [" + name + "], values:\n" + Arrays.toString(value.getRight()));
+			throw new PangaeaException("Not enough values in returned variable (not all number from index has corresponding value) [" + output.getName() + "], values:\n" + Arrays.toString(value.getRight()));
 		}
-		outputs.put(name, valuesIndexed);
+		outputs.put(output.getName(), valuesIndexed);
 	}
 	
 	public String toString() {

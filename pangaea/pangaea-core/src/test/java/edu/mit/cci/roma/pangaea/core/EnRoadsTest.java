@@ -30,7 +30,7 @@ public class EnRoadsTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void saveVarables() throws VensimException, PangaeaException, IOException {
 		VensimHelper helper = new VensimHelper(PangaeaPropsUtils.getVensimLibName(), PangaeaPropsUtils.getModelForName("enroads").getPath());
 		
@@ -57,5 +57,8 @@ public class EnRoadsTest {
 		}
 		
 		System.out.println(Arrays.toString(tmp));
+		
+		System.out.println(helper.getVariableInfo("Source subsidy renewables"));
 	}
+	
 }

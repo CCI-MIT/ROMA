@@ -14,6 +14,8 @@ import com.vensim.Vensim;
 import au.com.bytecode.opencsv.CSVWriter;
 import edu.mit.cci.roma.pangaea.corenew.PangaeaPropsUtils;
 import edu.mit.cci.roma.pangaea.corenew.VensimModelDefinition;
+import edu.mit.cci.roma.pangaea.corenew.config.VensimModelInputConfig;
+import edu.mit.cci.roma.pangaea.corenew.config.VensimModelOutputConfig;
 
 public class EnRoadsROMAAssetsGeneratorTest {
 	
@@ -66,20 +68,32 @@ public class EnRoadsROMAAssetsGeneratorTest {
 				"NULL"});
 		
 		
-		for (String output: modelDefinition.getOutputs()) {
-			Map<Integer, String[]> attributes = vensim.getVariableAttributes(output);
+		for (VensimModelOutputConfig output: modelDefinition.getOutputs()) {
+			Map<Integer, String[]> attributes = vensim.getVariableAttributes(output.getName());
 			long outputId = nextId++;
 			String[] maxes = attributes.get(Vensim.ATTRIB_MAX);
 			String[] mins = attributes.get(Vensim.ATTRIB_MIN);
+			String defaultVar = "";
+			
+			if (maxes.length > 0 && mins.length > 0) {
+				try {
+					Float min = Float.parseFloat(mins[0]);
+					Float max = Float.parseFloat(maxes[0]);
+					defaultVar = String.valueOf(min + (max-min)/2);
+				}
+				catch (Exception e) {
+					// ignore
+				}
+			}
 			
 			outputsCsv.writeNext(new String[] {
-					output, 
+					output.getName(), 
 					String.valueOf(outputId),
-					output,
-					output,
+					output.getName(),
+					output.getName(),
 					"java.lang.Double",
 					"RANGE",
-					output,
+					output.getName(),
 					attributes.get(Vensim.ATTRIB_UNITS)[0],
 					"",
 					"INDEXED",
@@ -92,26 +106,38 @@ public class EnRoadsROMAAssetsGeneratorTest {
 					"NULL"});
 		}
 		
-		for (String input: modelDefinition.getInputs()) {
-			Map<Integer, String[]> attributes = vensim.getVariableAttributes(input);
+		for (VensimModelInputConfig input: modelDefinition.getInputs()) {
+			Map<Integer, String[]> attributes = vensim.getVariableAttributes(input.getName());
 			long inputId = nextId++;
 			String[] maxes = attributes.get(Vensim.ATTRIB_MAX);
 			String[] mins = attributes.get(Vensim.ATTRIB_MIN);
+			String defaultVar = "";
 			
-			System.out.println(vensim.getVariableInfo(input));
+			if (maxes.length > 0 && mins.length > 0) {
+				try {
+					Float min = Float.parseFloat(mins[0]);
+					Float max = Float.parseFloat(maxes[0]);
+					defaultVar = String.valueOf(min + (max-min)/2);
+				}
+				catch (Exception e) {
+					// ignore
+				}
+			}
+			
+			System.out.println(vensim.getVariableInfo(input.getName()));
 			inputsCsv.writeNext(new String[] {
-					input, 
+					input.getName(), 
 					String.valueOf(inputId),
-					input,
-					input,
+					input.getName(),
+					input.getName(),
 					"java.lang.Double",
 					"RANGE",
-					input,
+					input.getName(),
 					attributes.get(Vensim.ATTRIB_UNITS)[0],
 					"",
 					"INDEXED",
 					String.valueOf(indexId),
-					"",
+					defaultVar,
 					String.valueOf(inputId),
 					maxes != null && maxes.length > 0 ? maxes[0] : "NULL",
 					String.valueOf(inputId),

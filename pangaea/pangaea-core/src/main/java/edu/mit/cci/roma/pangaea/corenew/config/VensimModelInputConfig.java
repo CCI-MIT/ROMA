@@ -9,7 +9,17 @@ public class VensimModelInputConfig {
 	private String name;
 	
 	@Element(required=false)
+	private String min;
+	
+	@Element(required=false)
+	private String max;
+	
+	@Element(required=false)
 	private VensimModelInputType type;
+
+	public String getName() {
+		return name;
+	}
 	
 
 }

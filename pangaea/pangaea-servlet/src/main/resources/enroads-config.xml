@@ -1,0 +1,92 @@
+<vensimModelConfig>
+	<inputs>
+		<vensimInput name="Global population scenario" />
+		<vensimInput name="GDP per capita rate global" />
+		<vensimInput name="Annual improvement to energy efficiency of new capital stationary" />
+		<vensimInput name="Annual improvement to energy efficiency of new capital mobile" />
+		<vensimInput name="Source subsidy nuclear" />
+		<vensimInput name="Source subsidy start time nuclear" />
+		<vensimInput name="Source subsidy stop time nuclear" />
+		<vensimInput name="Source subsidy renewables" />
+		<vensimInput name="Source subsidy start time renewables" />
+		<vensimInput name="Source subsidy bio" />
+		<vensimInput name="Source subsidy start time bio" />
+		<vensimInput name="Source subsidy stop time bio" />
+		<vensimInput name="Source subsidy CCS" >
+			<type name="MultipleInputsPropagationInput">
+				<configuration>Source subsidy bio CCS;Source subsidy coal CCS;Source subsidy natural gas CCS;Source subsidy oil CCS</configuration>
+			</type>
+		</vensimInput>
+		<vensimInput name="Source subsidy start time CCS" >
+			<type name="MultipleInputsPropagationInput">
+				<configuration>Source subsidy start time bio CCS;Source subsidy start time coal CCS;Source subsidy start time natural gas CCS;Source subsidy start time oil CCS</configuration>
+			</type>
+		</vensimInput>
+		<vensimInput name="Source subsidy stop time CCS" >
+			<type name="MultipleInputsPropagationInput">
+				<configuration>Source subsidy stop time bio CCS;Source subsidy stop time coal CCS;Source subsidy stop time natural gas CCS;Source subsidy stop time oil CCS</configuration>
+			</type>
+		</vensimInput>
+		
+		<vensimInput name="Breakthrough cost reduction nuclear" />
+		<vensimInput name="Breakthrough commercial time nuclear">
+			<type name="SubstractFromInput">
+				<configuration>2013</configuration>\
+			</type>
+			<min>2014</min>
+			<max>2100</max>
+		</vensimInput>
+		
+		<vensimInput name="Breakthrough cost reduction renewables" />
+		<vensimInput name="Breakthrough commercial time renewables">
+			<type name="SubstractFromInput">
+				<configuration>2013</configuration>
+			</type>
+			<min>2014</min>
+			<max>2100</max>
+		</vensimInput>
+		
+		<vensimInput name="Breakthrough cost reduction bio" />
+		<vensimInput name="Breakthrough commercial time bio">
+			<type name="SubstractFromInput">
+				<configuration>2013</configuration>
+			</type>
+			<min>2014</min>
+			<max>2100</max>
+		</vensimInput>
+		
+		<vensimInput name="Breakthrough cost reduction new tech" />
+		<vensimInput name="Breakthrough year cost reduction new tech">
+			<type name="SubstractFromInput">
+				<configuration>2013</configuration>
+			</type>
+			<min>2014</min>
+			<max>2100</max>
+		</vensimInput>
+		
+		<vensimInput name="Emissions price initial target" />
+		<vensimInput name="Emissions price phase 1 start" />
+		<vensimInput name="Emissions price time to achieve initial target">
+			<type name="SubstractFromInput">
+				<configuration>2013</configuration>
+			</type>
+			<min>2014</min>
+			<max>2100</max>
+		</vensimInput>
+		
+		<vensimInput name="Percent CH4 leakage from natural gas" />
+		<vensimInput name="Target accelerated retirement rate coal" />
+		<vensimInput name="Target percent below BAU of LULUCF" />
+		<vensimInput name="Target percent below BAU of other GHGs" />
+		<vensimInput name="Other emissions cut start time" />
+		<vensimInput name="Other emissions target year" />
+		
+	</inputs>
+	<outputs>
+		<vensimOutput name="Global Population" />
+		<vensimOutput name="Global GDP per capita" />
+		<vensimOutput name="LULUCF emissions" />
+		<vensimOutput name="Other GHG emissions" />
+	</outputs>
+	<outputIndex>2000;2005;2010;2015;2020;2025;2030;2035;2040;2045;2050;2055;2060;2065;2070;2075;2080;2085;2090;2095;2100</outputIndex>
+</vensimModelConfig>

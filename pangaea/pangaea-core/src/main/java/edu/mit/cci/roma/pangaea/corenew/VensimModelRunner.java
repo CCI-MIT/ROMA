@@ -10,6 +10,7 @@ import edu.mit.cci.roma.pangaea.core.PangaeaConnection;
 import edu.mit.cci.roma.pangaea.core.PangaeaException;
 import edu.mit.cci.roma.pangaea.core.VensimException;
 import edu.mit.cci.roma.pangaea.core.VensimHelper;
+import edu.mit.cci.roma.pangaea.corenew.config.VensimModelOutputConfig;
 
 public class VensimModelRunner {
 
@@ -48,8 +49,8 @@ public class VensimModelRunner {
 			vensim.run();
 			
 			VensimModelResults vensimModelResults = new VensimModelResults(definition);
-			for (String output: definition.getOutputs()) {
-				vensimModelResults.addOutput(output, vensim.getVariableIndexed(output));
+			for (VensimModelOutputConfig output: definition.getOutputs()) {
+				vensimModelResults.addOutput(output, vensim.getVariableIndexed(output.getName()));
 			}
 			return vensimModelResults;
 		}
