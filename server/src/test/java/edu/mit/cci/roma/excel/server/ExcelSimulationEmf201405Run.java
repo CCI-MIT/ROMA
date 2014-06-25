@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -25,7 +24,7 @@ import edu.mit.cci.roma.server.ServerTuple;
 public class ExcelSimulationEmf201405Run {
     @Test
     public void testReadExcelFile() throws Exception {
-        DefaultSimulation sim = DefaultServerSimulation.findDefaultServerSimulation(27L);
+        DefaultSimulation sim = DefaultServerSimulation.findDefaultServerSimulation(32L);
 
         String[][] expected = {
         		{ "0,00", "0,00", "-0,05", "-0,07", "-0,09", "-0,11", "-0,14", "-0,18", "-0,22", "-0,26", "-0,33"},
@@ -41,7 +40,7 @@ public class ExcelSimulationEmf201405Run {
             
             System.out.println(v.getName());
             if (v.getName().equals("Input scenario")) {
-                t.setValues(new String[] {"EMF27G16"});
+                t.setValues(new String[] {"EMF27G1"});
             }
             inputs.add(t);
         }
@@ -51,7 +50,7 @@ public class ExcelSimulationEmf201405Run {
         while (outputVariables.hasNext()) {
         	Variable outVar = outputVariables.next();
         	Tuple t = scenario.getVariableValue(outVar);
-        	System.out.println(outVar.getName());
+        	System.out.println(outVar.getLabels() + "\t" + outVar.getName());
         	System.out.println(Arrays.toString(t.getValues()));
         	/*if (outVar.getName().equals("FUND output")) {
         		org.junit.Assert.assertArrayEquals(expected[0], t.getValues());
@@ -65,7 +64,7 @@ public class ExcelSimulationEmf201405Run {
             ServerTuple t = new ServerTuple(v);
             t.persist();
             if (v.getName().equals("Input scenario")) {
-                t.setValues(new String[] {"550"});
+                t.setValues(new String[] {"EMF27G10"});
             }
             inputs.add(t);
         }

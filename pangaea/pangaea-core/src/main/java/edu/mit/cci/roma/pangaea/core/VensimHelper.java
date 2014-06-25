@@ -146,6 +146,15 @@ public class VensimHelper {
         doCommand(V_SET_VARIABLE + name + "=" + val);
     }
     
+    /* (non-Javadoc)
+	 * @see edu.mit.cci.roma.pangaea.core.IVensimHelper#setVariable(java.lang.String, float)
+	 */
+    public void setVariable(String name, String val) throws VensimException {
+        validateContext();
+
+        doCommand(V_SET_VARIABLE + name + "=" + val);
+    }
+    
     
     /* (non-Javadoc)
 	 * @see edu.mit.cci.roma.pangaea.core.IVensimHelper#getVariable(java.lang.String)
@@ -166,9 +175,16 @@ public class VensimHelper {
 
         float[] varVal = new float[maxVal];
         float[] timeVal = new float[maxVal];
-        
+        String tab = "";
+        /*
+        if (name.indexOf("[") > 0) {
+        	String[] nameAndTab = name.split("\\[");
+        	name = nameAndTab[0];
+        	tab = nameAndTab[1].replaceAll("\\]", "");
+        }*/
+  
         log.debug("Looking for value of variable " + name);
-        int ret = Vensim.CGetData(ctxId, V_RUNNAME, name, "", varVal, timeVal, maxVal);
+        int ret = Vensim.CGetData(ctxId, V_RUNNAME, name, tab, varVal, timeVal, maxVal);
         if (ret == 0) {
             log.debug("VensimVariable " + name + " wasn't found");
             return new float[0]; 
@@ -274,6 +290,15 @@ public class VensimHelper {
         }
         buf.append("\n");
         return buf.toString();
+    }
+    
+    public boolean getVariableExists(String name) {
+        for (Integer varId: varAttributeType.keySet()) {
+            String[] output = Vensim.CGetVarAttrib(ctxId, name, varId);
+            if (output.length > 0) return true;                
+        }
+        return false;
+    	
     }
     
     /**

@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import edu.mit.cci.roma.pangaea.core.SimulationResults.ScalarElement;
+import edu.mit.cci.roma.pangaea.corenew.PangaeaPropsUtils;
 
 
 /**
@@ -63,9 +64,9 @@ public class PangaeaConnection {
      * @throws PangaeaException 
      */
     public PangaeaConnection() throws PangaeaException {
-        String libName = System.getProperty(DLL_LIBNAME_PARAM);
-        String modelPath = System.getProperty(MODEL_PATH_PARAM);
-        
+    	
+        String libName = PangaeaPropsUtils.getVensimLibName();
+        String modelPath = PangaeaPropsUtils.getModelForName("clearn").getPath();
         if (libName == null || libName.trim().equals("")) {
         	log.error("Vensim library name has to be set with -D" + DLL_LIBNAME_PARAM);
         	throw new PangaeaException("Vensim library name has to be set with -D" + DLL_LIBNAME_PARAM);
@@ -186,7 +187,7 @@ public class PangaeaConnection {
 
             File f = new File(".");
             System.out.println(f.getAbsolutePath());
-
+            
             PangaeaConnection conn = new PangaeaConnection();
 
             System.out.println("Retrieving results");

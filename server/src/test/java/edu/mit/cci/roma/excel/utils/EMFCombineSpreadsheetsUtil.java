@@ -25,10 +25,10 @@ import au.com.bytecode.opencsv.CSVWriter;
 
 public class EMFCombineSpreadsheetsUtil {
 	private final static File sreadsheetsDir = new File("/home/janusz/workdir/pangaea/emf_spreadsheets");
-	private final static File outputSpreadsheetFile = new File("/home/janusz/workdir/pangaea/emf_combined/emf_20140520.xlsx");
-	private final static File outputsCsvFile = new File("/home/janusz/workdir/pangaea/emf_combined/emf_20140520_outputs.csv");
-	private final static File inputsCsvFile = new File("/home/janusz/workdir/pangaea/emf_combined/emf_20140520_inputs.csv");
-	private final static File simCsvFile = new File("/home/janusz/workdir/pangaea/emf_combined/emf_20140520_sim.csv");
+	private final static File outputSpreadsheetFile = new File("/home/janusz/workdir/pangaea/ROMA/server/src/test/resources/2014_may_models/emf_combined/emf_20140520.xlsx");
+	private final static File outputsCsvFile = new File("/home/janusz/workdir/pangaea/ROMA/server/src/test/resources/2014_may_models/emf_combined/emf_20140520_outputs.csv");
+	private final static File inputsCsvFile = new File("/home/janusz/workdir/pangaea/ROMA/server/src/test/resources/2014_may_models/emf_combined/emf_20140520_inputs.csv");
+	private final static File simCsvFile = new File("/home/janusz/workdir/pangaea/ROMA/server/src/test/resources/2014_may_models/emf_combined/emf_20140520_sim.csv");
 	private final static File outputsConfigurationFile = new File("/home/janusz/workdir/pangaea/emf_spreadsheets/conf.csv");
 	
 	public static void main(String[] args) throws InvalidFormatException, IOException {

@@ -2,68 +2,60 @@ package edu.mit.cci.roma.pangaea.core;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import edu.mit.cci.testing.TestingUtils;
-import edu.mit.cci.testing.TestingUtilsException;
+import com.vensim.Vensim;
+
+import edu.mit.cci.roma.pangaea.corenew.PangaeaPropsUtils;
+import edu.mit.cci.roma.pangaea.corenew.VensimModelResults;
+import edu.mit.cci.roma.pangaea.corenew.VensimModelRunner;
+
 
 public class EnRoadsTest {
-    private static VensimHelper vensimHelper;
-
-    public static final String DLL_LIBNAME_PARAM = "vensim_lib_name";
-    public static final String MODEL_PATH_PARAM = "vensim_model_path";
-    
-	
-	@BeforeClass
-	public static void loadProperties() throws TestingUtilsException, VensimException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		TestingUtils.loadPropertiesToSystem(EnRoadsTest.class.getClassLoader().getResource("test.properties").getFile());
-		Field fieldSysPath = ClassLoader.class.getDeclaredField( "sys_paths" );
-		fieldSysPath.setAccessible( true );
-		fieldSysPath.set( null, null );
-		
-        String libName = System.getProperty(DLL_LIBNAME_PARAM);
-        String modelPath = System.getProperty(MODEL_PATH_PARAM);
-
-        System.out.println(System.getenv());
-        vensimHelper = new VensimHelper(libName, modelPath);
-	}
-	
 	
 	@Test
-	public void variablesTest() throws VensimException, PangaeaException, IOException {
-	    
-	    FileWriter fw = new FileWriter("/tmp/enroads_vars.txt");
-	    
-	    fw.append("#### Variable names ####\n");
-        for (String varName: vensimHelper.getVariables()) {
-            fw.append(varName + "\n");
-        }
-
-        fw.flush();
-        fw.close();
-
-        fw = new FileWriter("/tmp/enroads_vars_def.txt");
-        fw.append("#### Variable definitions ####\n");
-	    for (String varName: vensimHelper.getVariables()) {
-	        fw.append(vensimHelper.getVariableInfo(varName) + "\n");
-	    }
-	    
-	    fw.flush();
-	    fw.close();
-	    
-	    vensimHelper.run();
-	       for (String varName: vensimHelper.getVariables()) {
-	           System.out.println(varName);
-	            System.out.println(Arrays.toString(vensimHelper.getVariable(varName)));
-	        }
-	        
-	       System.out.println("end...");
+	public void calculateBaseline() throws PangaeaException {
+		VensimModelRunner runner = new VensimModelRunner(PangaeaPropsUtils.getModelForName("enroads"));
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("Global population scenario", "3");
+		VensimModelResults results = runner.runTheModel(params);
+		
+		System.out.println(results.toString());
+		
+		
+		
 	}
 	
-	
-	
+	@Test
+	public void saveVarables() throws VensimException, PangaeaException, IOException {
+		VensimHelper helper = new VensimHelper(PangaeaPropsUtils.getVensimLibName(), PangaeaPropsUtils.getModelForName("enroads").getPath());
+		
+		//helper.setVariable("Population scenario", 3);
+		FileWriter fw = new FileWriter("/tmp/enroads_vars.txt");
+		for (String var: helper.getVariables()) {
+			fw.append(var);
+			fw.append("\n");
+			fw.append(helper.getVariableInfo(var));
+			fw.append("\n");
+		}
+		
+		fw.flush();
+		fw.close();
+		
+		//float[] tmp = helper.getVariable("Temp change from preindust[2C]");
+		String varName = "Absolute adjustments to costs";
+		System.out.println(helper.getVariableInfo(varName));
+		float[] tmp = helper.getVariable(varName + "[[FCoal]]");
+		String[] unitAttr = null;
+		if (varName.indexOf("[") > 0) {
+			unitAttr = helper.getVariableAttributes(varName.substring(0, varName.indexOf("["))).get(Vensim.ATTRIB_UNITS);
+			helper.getVariable(varName);
+		}
+		
+		System.out.println(Arrays.toString(tmp));
+	}
 }

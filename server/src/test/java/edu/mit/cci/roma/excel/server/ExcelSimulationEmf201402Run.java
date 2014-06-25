@@ -25,7 +25,7 @@ import edu.mit.cci.roma.server.ServerTuple;
 public class ExcelSimulationEmf201402Run {
     @Test
     public void testReadExcelFile() throws Exception {
-        DefaultSimulation sim = DefaultServerSimulation.findDefaultServerSimulation(15L);
+        DefaultSimulation sim = DefaultServerSimulation.findDefaultServerSimulation(38L);
 
         String[][] expected = {
         		{ "0,00", "0,00", "-0,05", "-0,07", "-0,09", "-0,11", "-0,14", "-0,18", "-0,22", "-0,26", "-0,33"},
@@ -41,7 +41,7 @@ public class ExcelSimulationEmf201402Run {
             
             System.out.println(v.getName());
             if (v.getName().equals("Input scenario")) {
-                t.setValues(new String[] {"450"});
+                t.setValues(new String[] {"EMF27G1"});
             }
             inputs.add(t);
         }
@@ -51,7 +51,7 @@ public class ExcelSimulationEmf201402Run {
         while (outputVariables.hasNext()) {
         	Variable outVar = outputVariables.next();
         	Tuple t = scenario.getVariableValue(outVar);
-        	System.out.println(outVar.getName());
+        	System.out.println(outVar.getName() + "\t" + outVar.getLabels());
         	System.out.println(Arrays.toString(t.getValues()));
         	/*if (outVar.getName().equals("FUND output")) {
         		org.junit.Assert.assertArrayEquals(expected[0], t.getValues());
