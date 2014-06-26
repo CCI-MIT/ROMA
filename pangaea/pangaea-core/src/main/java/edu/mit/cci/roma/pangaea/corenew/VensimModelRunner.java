@@ -10,6 +10,7 @@ import edu.mit.cci.roma.pangaea.core.PangaeaConnection;
 import edu.mit.cci.roma.pangaea.core.PangaeaException;
 import edu.mit.cci.roma.pangaea.core.VensimException;
 import edu.mit.cci.roma.pangaea.core.VensimHelper;
+import edu.mit.cci.roma.pangaea.corenew.config.VensimModelInputConfig;
 import edu.mit.cci.roma.pangaea.corenew.config.VensimModelOutputConfig;
 
 public class VensimModelRunner {
@@ -20,6 +21,7 @@ public class VensimModelRunner {
     
 	private VensimModelDefinition definition; 
     private VensimHelper vensim;
+    private VensimHelper baselineVensim;
 	
 	public VensimModelRunner(VensimModelDefinition definition) throws PangaeaException {
 		this.definition = definition;
@@ -30,6 +32,7 @@ public class VensimModelRunner {
 		for (int i = 0; i < VENSIM_CONTEXT_CREATION_MAX_FAILURE_COUNT && vensim == null; i++) {
 			try {
 				log.info("creating new vensim helper\n\tdll lib: " + libName + "\n\tmodel path: " + modelPath);
+				baselineVensim = new VensimHelper(libName, modelPath);
 				vensim = new VensimHelper(libName, modelPath);
 			} catch (Throwable e) {
 				log.error("An exception was thrown when initializing Vensim, try: " + i, e);
@@ -43,14 +46,19 @@ public class VensimModelRunner {
 	public VensimModelResults runTheModel(Map<String, String> inputs) throws PangaeaException {
 		
 		try {
+			baselineVensim.run();
+			// process inputs
+			for (VensimModelInputConfig inputConfig: definition.getInputs()) {
+				inputs = inputConfig.processInputValues(inputs);
+			}
 			for (Map.Entry<String, String> entry: inputs.entrySet()) {
 				vensim.setVariable(entry.getKey(), entry.getValue());
 			}
 			vensim.run();
 			
-			VensimModelResults vensimModelResults = new VensimModelResults(definition);
+			VensimModelResults vensimModelResults = new VensimModelResults(definition, vensim);
 			for (VensimModelOutputConfig output: definition.getOutputs()) {
-				vensimModelResults.addOutput(output, vensim.getVariableIndexed(output.getName()));
+				vensimModelResults.addOutput(output, output.computeOutputValues(vensim, baselineVensim));
 			}
 			return vensimModelResults;
 		}

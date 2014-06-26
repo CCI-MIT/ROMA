@@ -14,6 +14,7 @@ import com.vensim.Vensim;
 import au.com.bytecode.opencsv.CSVWriter;
 import edu.mit.cci.roma.pangaea.corenew.PangaeaPropsUtils;
 import edu.mit.cci.roma.pangaea.corenew.VensimModelDefinition;
+import edu.mit.cci.roma.pangaea.corenew.config.BaseVensimVariableInfo;
 import edu.mit.cci.roma.pangaea.corenew.config.VensimModelInputConfig;
 import edu.mit.cci.roma.pangaea.corenew.config.VensimModelOutputConfig;
 
@@ -33,9 +34,9 @@ public class EnRoadsROMAAssetsGeneratorTest {
 		
 
 		long nextId = new Date().getTime()/1000;
-		CSVWriter simCsv = new CSVWriter(new FileWriter(simFile));
-		CSVWriter outputsCsv = new CSVWriter(new FileWriter(outputsFile));
-		CSVWriter inputsCsv = new CSVWriter(new FileWriter(inputsFile));
+		CSVWriter simCsv = new CSVWriter(new FileWriter(simFile), ',', '\"', '\\');
+		CSVWriter outputsCsv = new CSVWriter(new FileWriter(outputsFile), ',', '\"', '\\');
+		CSVWriter inputsCsv = new CSVWriter(new FileWriter(inputsFile), ',', '\"', '\\');
 
 		outputsCsv.writeNext(new String[] {"description","id","internalname","name","profile","vartype","units","labels","external","varcontext","indexingid","defaultval","id","max","metadata","min","categories"});
 		inputsCsv.writeNext(new String[] {"description","id","internalname","name","profile","vartype","units","labels","external","varcontext","indexingid","defaultval","id","max","metadata","min","categories"});
@@ -69,80 +70,11 @@ public class EnRoadsROMAAssetsGeneratorTest {
 		
 		
 		for (VensimModelOutputConfig output: modelDefinition.getOutputs()) {
-			Map<Integer, String[]> attributes = vensim.getVariableAttributes(output.getName());
-			long outputId = nextId++;
-			String[] maxes = attributes.get(Vensim.ATTRIB_MAX);
-			String[] mins = attributes.get(Vensim.ATTRIB_MIN);
-			String defaultVar = "";
-			
-			if (maxes.length > 0 && mins.length > 0) {
-				try {
-					Float min = Float.parseFloat(mins[0]);
-					Float max = Float.parseFloat(maxes[0]);
-					defaultVar = String.valueOf(min + (max-min)/2);
-				}
-				catch (Exception e) {
-					// ignore
-				}
-			}
-			
-			outputsCsv.writeNext(new String[] {
-					output.getName(), 
-					String.valueOf(outputId),
-					output.getName(),
-					output.getName(),
-					"java.lang.Double",
-					"RANGE",
-					output.getName(),
-					attributes.get(Vensim.ATTRIB_UNITS)[0],
-					"",
-					"INDEXED",
-					String.valueOf(indexId),
-					"",
-					String.valueOf(outputId),
-					maxes != null && maxes.length > 0 ? maxes[0] : "NULL",
-					String.valueOf(outputId),
-					mins != null && mins.length > 0 ? mins[0] : "NULL",
-					"NULL"});
+			appendVariableDefinition(outputsCsv, vensim, output, nextId++, indexId);
 		}
 		
 		for (VensimModelInputConfig input: modelDefinition.getInputs()) {
-			Map<Integer, String[]> attributes = vensim.getVariableAttributes(input.getName());
-			long inputId = nextId++;
-			String[] maxes = attributes.get(Vensim.ATTRIB_MAX);
-			String[] mins = attributes.get(Vensim.ATTRIB_MIN);
-			String defaultVar = "";
-			
-			if (maxes.length > 0 && mins.length > 0) {
-				try {
-					Float min = Float.parseFloat(mins[0]);
-					Float max = Float.parseFloat(maxes[0]);
-					defaultVar = String.valueOf(min + (max-min)/2);
-				}
-				catch (Exception e) {
-					// ignore
-				}
-			}
-			
-			System.out.println(vensim.getVariableInfo(input.getName()));
-			inputsCsv.writeNext(new String[] {
-					input.getName(), 
-					String.valueOf(inputId),
-					input.getName(),
-					input.getName(),
-					"java.lang.Double",
-					"RANGE",
-					input.getName(),
-					attributes.get(Vensim.ATTRIB_UNITS)[0],
-					"",
-					"INDEXED",
-					String.valueOf(indexId),
-					defaultVar,
-					String.valueOf(inputId),
-					maxes != null && maxes.length > 0 ? maxes[0] : "NULL",
-					String.valueOf(inputId),
-					mins != null && mins.length > 0 ? mins[0] : "NULL",
-					"NULL"});
+			appendVariableDefinition(inputsCsv, vensim, input, nextId++, 0);
 		}
 		
 		
@@ -151,6 +83,108 @@ public class EnRoadsROMAAssetsGeneratorTest {
 			writer.flush();
 			writer.close();
 		}
+	}
+	
+	private void appendVariableDefinition(CSVWriter writer, VensimHelper vensim, BaseVensimVariableInfo variableInfo, long varId, long indexId) {
+		if (variableInfo.isInternalOnly()) {
+			return;
+		}
+		Map<Integer, String[]> attributes = vensim.getVariableAttributes(variableInfo.getVensimContextVariable() != null ? 
+				variableInfo.getVensimContextVariable() : variableInfo.getName());
+		//"description","id","internalname","name","profile","vartype","units","labels","external","varcontext","indexingid","defaultval","id","max","metadata","min","categories"
+		String description = variableInfo.getDescription();
+		String internalName = variableInfo.getName(); //variableInfo.getVensimContextVariable() == null ? variableInfo.getName() : variableInfo.getVensimContextVariable();
+		String name = variableInfo.getName();
+		String profile = variableInfo.getProfile();
+		String vartype = variableInfo.getVarType();
+		String units = variableInfo.getUnit();
+		String labels = variableInfo.getLabel();
+		String min = variableInfo.getMin();
+		String max = variableInfo.getMax();
+		String defaultVal = variableInfo.getDefaultVal();
+		
+		if (description == null) {
+			if (!attributes.isEmpty()) {
+				String[] comment = attributes.get(Vensim.ATTRIB_COMMENT);
+				if (comment.length > 0) description = comment[0];
+			}
+			else description = variableInfo.getName();
+		}
+		if (profile == null) {
+			if (!attributes.isEmpty()) {
+				String[] increment = attributes.get(Vensim.ATTRIB_INCREMENT);
+				if (increment.length > 0) {
+					float incrementVal = Float.parseFloat(increment[0]);
+					if (incrementVal >= 1) profile = "java.lang.Integer";
+				}
+				if (profile == null) profile = "java.lang.Double";
+			}
+		}
+		
+		if (vartype == null) {
+			vartype = "RANGE";
+		}
+		
+		if (units == null) {
+			if (!attributes.isEmpty()) {
+				String[] unitsAttr = attributes.get(Vensim.ATTRIB_UNITS);
+				if (unitsAttr.length > 0) {
+					units = unitsAttr[0];
+				}
+			}
+			if (units == null) {
+				units = variableInfo.getName();
+			}
+		}
+		
+		if (labels == null) {
+			labels = variableInfo.getName();
+		}
+		
+		if (min == null) {
+			if (!attributes.isEmpty()) {
+				String[] minAttr = attributes.get(Vensim.ATTRIB_MIN);
+				if (minAttr.length > 0) min = minAttr[0];
+			}
+		}
+		
+
+		if (max == null) {
+			if (!attributes.isEmpty()) {
+				String[] maxAttr = attributes.get(Vensim.ATTRIB_MAX);
+				if (maxAttr.length > 0) max = maxAttr[0];
+			}
+		}
+		if (defaultVal == null && min != null && max != null) {
+			try {
+				float minF = Float.parseFloat(min);
+				float maxF = Float.parseFloat(max);
+				defaultVal = String.valueOf(minF + (maxF-minF)/2);
+			}
+			catch (Exception e) {
+				// ignore
+			}
+		}
+		
+		writer.writeNext(new String[] {
+				description, 
+				String.valueOf(varId),
+				internalName,
+				name,
+				profile,
+				vartype,
+				units,
+				labels,
+				name,
+				"INDEXED",
+				String.valueOf(indexId),
+				defaultVal,
+				String.valueOf(varId),
+				max,
+				String.valueOf(varId),
+				min,
+				"NULL"});
+		
 	}
 
 }

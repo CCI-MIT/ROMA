@@ -30,7 +30,7 @@ public class CSVReader implements Iterable<Map<String,String>>{
 
     public CSVReader(String s) throws IOException {
         reader = new FileReader(s);
-        lines = CSVParser.parse(reader);
+        lines = CSVParser.parse(reader, "\\\"", "\"", "");
         for (String str:lines[0]) {
            headers.add(str);
 

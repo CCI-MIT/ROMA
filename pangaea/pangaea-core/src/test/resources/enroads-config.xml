@@ -1,92 +1,352 @@
 <vensimModelConfig>
 	<inputs>
-		<vensimInput name="Global population scenario" />
-		<vensimInput name="GDP per capita rate global" />
-		<vensimInput name="Annual improvement to energy efficiency of new capital stationary" />
-		<vensimInput name="Annual improvement to energy efficiency of new capital mobile" />
-		<vensimInput name="Source subsidy nuclear" />
-		<vensimInput name="Source subsidy start time nuclear" />
-		<vensimInput name="Source subsidy stop time nuclear" />
-		<vensimInput name="Source subsidy renewables" />
-		<vensimInput name="Source subsidy start time renewables" />
-		<vensimInput name="Source subsidy bio" />
-		<vensimInput name="Source subsidy start time bio" />
-		<vensimInput name="Source subsidy stop time bio" />
-		<vensimInput name="Source subsidy CCS" >
-			<type name="MultipleInputsPropagationInput">
+		<vensimInput vensimContextVariable="Global population scenario" name="Population Scenario">
+			<description><![CDATA[The EnROADS simulator projects the impact of varying rates of future population growth. The default setting is the Medium Fertility forecast of the <a href="http://esa.un.org/wpp/">Population Division of the United Nations Department of Economic and Social Affairs (DESA)</a>, which projects world population of 10.9 billion by 2100. Move the slider to the far left to select the UN’s Low Fertility forecast (world population of 6.8 billion in 2100) or to the far right for the UN’s High Fertility forecast (world population of 16.6 billion in 2100). Value between Low, Medium, and High can also be selected.]]></description>
+		</vensimInput>
+		<vensimInput vensimContextVariable="GDP per capita rate global" name="Average Annual Growth in per Capita World GDP">
+			<description><![CDATA[Move the slider to control average annual growth of per capital global gross domestic product (GDP). The default value is 2.2 percent, based on 3.0 percent growth over the next three decades, as the emerging economics catch up with the advanced economies, and 1.4 percent for the rest of the century. Average annual growth can vary from 0 to 4 percent. Note that GDP = Population x GDP per Capita.]]></description>
+		</vensimInput>
+		<vensimInput name="GDP per capita change start year" defaultVal="2015" />
+		<vensimInput vensimContextVariable="Annual improvement to energy efficiency of new capital stationary" name="Energy Efficiency of Buildings/Industry" />
+		<vensimInput vensimContextVariable="Annual improvement to energy efficiency of new capital mobile" name="Energy Efficiency of Transportation" />
+		<vensimInput vensimContextVariable="Source subsidy nuclear" name="Nuclear subsidy $/GJ" />
+		<vensimInput name="Source subsidy start time nuclear" label="Start year"/>
+		<vensimInput name="Source subsidy stop time nuclear" label="Stop year" />
+		<vensimInput vensimContextVariable="Source subsidy renewables" name="Renewables subsidy $/GJ" />
+		<vensimInput name="Source subsidy start time renewables" label="Start year" />
+		<vensimInput name="Source subsidy stop time renewables" label="Stop year" />
+		<vensimInput vensimContextVariable="Source subsidy bio" name="Biomass subsidy $/GJ" />
+		<vensimInput name="Source subsidy start time bio" label="Start year" />
+		<vensimInput name="Source subsidy stop time bio" label="Stop year" />
+		<vensimInput vensimContextVariable="Source subsidy CCS" name="Carbon Capture/Storage subsidy $/GJ">
+			<processorConfig name="MultipleInputsPropagationInputProcessor">
 				<configuration>Source subsidy bio CCS;Source subsidy coal CCS;Source subsidy natural gas CCS;Source subsidy oil CCS</configuration>
-			</type>
+			</processorConfig>
 		</vensimInput>
-		<vensimInput name="Source subsidy start time CCS" >
-			<type name="MultipleInputsPropagationInput">
+		<vensimInput name="Source subsidy start time CCS" label="Start year" >
+			<processorConfig name="MultipleInputsPropagationInputProcessor">
 				<configuration>Source subsidy start time bio CCS;Source subsidy start time coal CCS;Source subsidy start time natural gas CCS;Source subsidy start time oil CCS</configuration>
-			</type>
+			</processorConfig>
 		</vensimInput>
-		<vensimInput name="Source subsidy stop time CCS" >
-			<type name="MultipleInputsPropagationInput">
+		<vensimInput name="Source subsidy stop time CCS" label="Stop year"  >
+			<processorConfig name="MultipleInputsPropagationInputProcessor">
 				<configuration>Source subsidy stop time bio CCS;Source subsidy stop time coal CCS;Source subsidy stop time natural gas CCS;Source subsidy stop time oil CCS</configuration>
-			</type>
+			</processorConfig>
 		</vensimInput>
 		
-		<vensimInput name="Breakthrough cost reduction nuclear" />
-		<vensimInput name="Breakthrough commercial time nuclear">
-			<type name="SubstractFromInput">
-				<configuration>2013</configuration>\
-			</type>
-			<min>2014</min>
-			<max>2100</max>
+		<vensimInput vensimContextVariable="Breakthrough cost reduction nuclear" name="Cost improvement for nuclear"/>
+		<vensimInput name="Breakthrough commercial time nuclear" min="2014" max="2100" label="Breakthrough year" >
+			<processorConfig name="SubstractFromInputProcessor">
+				<configuration>2014</configuration>
+			</processorConfig>
 		</vensimInput>
 		
-		<vensimInput name="Breakthrough cost reduction renewables" />
-		<vensimInput name="Breakthrough commercial time renewables">
-			<type name="SubstractFromInput">
-				<configuration>2013</configuration>
-			</type>
-			<min>2014</min>
-			<max>2100</max>
+		<vensimInput vensimContextVariable="Breakthrough cost reduction renewables" name="Cost improvement for renewables" />
+		<vensimInput name="Breakthrough commercial time renewables" min="2014" max="2100" label="Breakthrough year" >
+			<processorConfig name="SubstractFromInputProcessor">
+				<configuration>2014</configuration>
+			</processorConfig>
 		</vensimInput>
 		
-		<vensimInput name="Breakthrough cost reduction bio" />
-		<vensimInput name="Breakthrough commercial time bio">
-			<type name="SubstractFromInput">
-				<configuration>2013</configuration>
-			</type>
-			<min>2014</min>
-			<max>2100</max>
+		<vensimInput vensimContextVariable="Breakthrough cost reduction bio" name="Cost improvement for biomass" />
+		<vensimInput name="Breakthrough commercial time bio" min="2014" max="2100" label="Breakthrough year" >
+			<processorConfig name="SubstractFromInputProcessor">
+				<configuration>2014</configuration>
+			</processorConfig>
 		</vensimInput>
 		
-		<vensimInput name="Breakthrough cost reduction new tech" />
-		<vensimInput name="Breakthrough year cost reduction new tech">
-			<type name="SubstractFromInput">
-				<configuration>2013</configuration>
-			</type>
-			<min>2014</min>
-			<max>2100</max>
+		<vensimInput vensimContextVariable="Breakthrough cost reduction new tech" name="Cost improvement for new technology" />
+		<vensimInput name="Breakthrough commercialization time new tech" min="2014" max="2100" label="Breakthrough year" >
+			<processorConfig name="SubstractFromInputProcessor">
+				<configuration>2014</configuration>
+			</processorConfig>
 		</vensimInput>
 		
-		<vensimInput name="Emissions price initial target" />
-		<vensimInput name="Emissions price phase 1 start" />
-		<vensimInput name="Emissions price time to achieve initial target">
-			<type name="SubstractFromInput">
-				<configuration>2013</configuration>
-			</type>
-			<min>2014</min>
-			<max>2100</max>
+		<vensimInput vensimContextVariable="Emissions price initial target" name="Carbon price $/ton" />
+		<vensimInput name="Emissions price phase 1 start" label="Start year" />
+		<vensimInput name="Emissions price time to achieve initial target" min="2014" max="2100" label="Year full price achieved" >
+			<processorConfig name="SubstractFromInputProcessor">
+				<configuration>2014</configuration>
+			</processorConfig>
 		</vensimInput>
 		
-		<vensimInput name="Percent CH4 leakage from natural gas" />
-		<vensimInput name="Target accelerated retirement rate coal" />
-		<vensimInput name="Target percent below BAU of LULUCF" />
-		<vensimInput name="Target percent below BAU of other GHGs" />
-		<vensimInput name="Other emissions cut start time" />
-		<vensimInput name="Other emissions target year" />
+		<vensimInput vensimContextVariable="Percent CH4 leakage from natural gas" name="Methane leakage %">
+			<description><![CDATA[The simulation can project the impact of actions that reduce the percentage of natural gas leaking into the atmosphere during production and distribution. Default value of 3 percent is based on studies by the U.S. Environmental Protection Agency, which estimated 2.8 percent leakage. High value of 10 percent is based on <a href="http://www.scientificamerican.com/article/air-sampling-reveals-high-meth/">2012 estimates of 9 percent leakage</a>.]]></description>
+		</vensimInput>
+		<vensimInput vensimContextVariable="Target accelerated retirement rate coal" name="Accelerated retirement of coal-fired power plants %">
+			<description>China has accelerated retirement of old coal plants in recent years, and the simulation can project the impact of doing this on a worldwide basis. Each percentage increase adds to the annual rate of retirement. A boost of 5 percent would be significant.</description>
+		</vensimInput>
+		<vensimInput vensimContextVariable="Target percent below BAU of LULUCF" name="Land use emissions reduction %" />
+		<vensimInput vensimContextVariable="Target percent below BAU of other GHGs" name="Other greenhouse gas emission reductions %" />
+		<vensimInput vensimContextVariable="Other emissions cut start time" label="Start year" name="Start year"/>
+		<vensimInput vensimContextVariable="Other emissions target year" label="Year reduction targets achieved"  name="Year reduction targets achieved" />
 		
 	</inputs>
 	<outputs>
-		<vensimOutput name="Global Population" />
-		<vensimOutput name="Global GDP per capita" />
-		<vensimOutput name="LULUCF emissions" />
-		<vensimOutput name="Other GHG emissions" />
+	
+		<vensimOutput name="Population" vensimContextVariable="Global population" label="Population">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Global population</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>/;1000000000</configuration>
+			</processorConfig>
+		</vensimOutput>
+		<vensimOutput name="Population baseline" vensimContextVariable="Global population" label="Population" >
+			<processorConfig name="GetVariableOutputProcessor" >
+				<configuration>From baseline: Global population</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>/;1000000000</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		<vensimOutput name="Global GDP per capita" unit="Constant $2010 per person/yr" label="Global GDP per capita">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Global GDP per capita</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		<vensimOutput name="Global GDP per capita - baseline" vensimContextVariable="Global GDP per capita" label="Global GDP per capita"  unit="Constant $2010 per person/yr">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Global GDP per capita</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		<vensimOutput name="Fossil fuel energy supply" unit="Ectajoules/yr">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Energy supply capacity[ECoal CCS]</configuration>
+			</processorConfig>
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Energy supply capacity[EGas]</configuration>
+			</processorConfig>
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Energy supply capacity[EOil]</configuration>
+			</processorConfig>
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Energy supply capacity[ECoal]</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>+</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>+</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>-</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		<vensimOutput name="Fossil fuel energy supply - baseline" unit="Ectajoules/yr" label="Fossil fuel energy supply">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>From baseline: Energy supply capacity[ECoal CCS]</configuration>
+			</processorConfig>
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>From baseline: Energy supply capacity[EGas]</configuration>
+			</processorConfig>
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>From baseline: Energy supply capacity[EOil]</configuration>
+			</processorConfig>
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>From baseline: Energy supply capacity[ECoal]</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>+</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>+</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>-</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		<vensimOutput name="Low carbon energy supply" unit="Ectajoules/yr">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Energy supply capacity[Nuclear]</configuration>
+			</processorConfig>
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Energy supply capacity[Hydro]</configuration>
+			</processorConfig>
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Energy supply capacity[New]</configuration>
+			</processorConfig>
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Energy supply capacity[Renew]</configuration>
+			</processorConfig>
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Energy supply capacity[EBio]</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>+</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>+</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>+</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>+</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		<vensimOutput name="Low carbon energy supply - baseline" unit="Ectajoules/yr" label="Low carbon energy supply">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>From baseline: Energy supply capacity[Nuclear]</configuration>
+			</processorConfig>
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>From baseline: Energy supply capacity[Hydro]</configuration>
+			</processorConfig>
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>From baseline: Energy supply capacity[New]</configuration>
+			</processorConfig>
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>From baseline: Energy supply capacity[Renew]</configuration>
+			</processorConfig>
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>From baseline: Energy supply capacity[EBio]</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>+</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>+</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>+</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>+</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		<vensimOutput name="Emissions from energy" unit="Gtons CO2/yr">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>CO2 emissions from energy</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		
+		<vensimOutput name="Emissions from energy - baseline" unit="Gtons CO2/yr" label="Emissions from energy">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>From baseline: CO2 emissions from energy</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		<vensimOutput name="Emissions from land use" unit="Gtons CO2/yr" >
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>LULUCF emissions</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		<vensimOutput name="Emissions from land use - baseline" unit="Gtons CO2/yr" label="Emissions from land use">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>From baseline: LULUCF emissions</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		<vensimOutput name="Other GHG emissions" >
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Other GHG emissions</configuration>
+			</processorConfig>
+		</vensimOutput>
+		<vensimOutput name="Other GHG emissions - baseline" label="Other GHG emissions" unit="Gtons CO2/yr" >
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>From baseline: Other GHG emissions</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		<vensimOutput name="Reduction in per capital income vs. baseline" unit="% reduction vs. baseline">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Global GDP per capita</configuration>
+			</processorConfig>
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>From baseline: Global GDP per capita</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>/</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>1;-</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		<vensimOutput name="Atmospheric concentration CO2 - deterministic" vensimContextVariable="Atm conc CO2" label="Atmospheric concentration CO2">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Atm conc CO2[Deterministic]</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		<vensimOutput name="Atmospheric concentration CO2 2C" vensimContextVariable="Atm conc CO2" label="Atmospheric concentration CO2">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Atm conc CO2["2C"]</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		<vensimOutput name="Atmospheric concentration CO2 4.5C" vensimContextVariable="Atm conc CO2" label="Atmospheric concentration CO2">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Atm conc CO2["4.5C"]</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		
+		<vensimOutput name="Atmospheric concentration CO2 deterministic - baseline" vensimContextVariable="Atm conc CO2"  label="Atmospheric concentration CO2">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>From baseline: Atm conc CO2[Deterministic]</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		<vensimOutput name="Atmospheric concentration CO2 2C - baseline" vensimContextVariable="Atm conc CO2" label="Atmospheric concentration CO2">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>From baseline: Atm conc CO2["2C"]</configuration>
+			</processorConfig>
+		</vensimOutput>
+		<vensimOutput name="Atmospheric concentration CO2 4.5C - baseline" vensimContextVariable="Atm conc CO2" label="Atmospheric concentration CO2">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>From baseline: Atm conc CO2["4.5C"]</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		
+		<vensimOutput name="Temperature increase" vensimContextVariable="Temperature change from 1990" label="Temperature increase">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Temperature change from 1990[Deterministic]</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		<vensimOutput name="Temperature increase - baseline" vensimContextVariable="Temperature change from 1990" label="Temperature increase">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>From baseline: Temperature change from 1990[Deterministic]</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		
+		<vensimOutput name="Temperature increase 2C" vensimContextVariable="Temperature change from 1990" label="Temperature increase">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Temperature change from 1990["2C"]</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		<vensimOutput name="Temperature increase 2C - baseline" vensimContextVariable="Temperature change from 1990" label="Temperature increase">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>From baseline: Temperature change from 1990["2C"]</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		
+		<vensimOutput name="Temperature increase 4.5C" vensimContextVariable="Temperature change from 1990" label="Temperature increase">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Temperature change from 1990["4.5C"]</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
+		<vensimOutput name="Temperature increase 4.5C - baseline" vensimContextVariable="Temperature change from 1990" label="Temperature increase">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>From baseline: Temperature change from 1990["4.5C"]</configuration>
+			</processorConfig>
+		</vensimOutput>
+		
 	</outputs>
 	<outputIndex>2000;2005;2010;2015;2020;2025;2030;2035;2040;2045;2050;2055;2060;2065;2070;2075;2080;2085;2090;2095;2100</outputIndex>
 </vensimModelConfig>

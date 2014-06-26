@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Properties;
 
 import edu.mit.cci.roma.pangaea.core.PangaeaException;
+import edu.mit.cci.roma.pangaea.corenew.processors.InputProcessor;
+import edu.mit.cci.roma.pangaea.corenew.processors.OutputProcessor;
 
 public class PangaeaPropsUtils {
 	private static PangaeaPropsUtils instance = new PangaeaPropsUtils();
@@ -19,6 +21,8 @@ public class PangaeaPropsUtils {
 	private final static String VENSIM_LIB_PATH = "vensim.lib.path";
 	private final static String VENSIM_MODEL_PREFIX = "vensim.model.";
 	private static final String MODEL_CONFIG = "model.config.";
+	private static final String INPUT_PROCESSORS = "model.input.processors";
+	private static final String OUTPUT_PROCESSORS = "model.output.processors";
 	/*
 	private final static String VENSIM_MODEL_OUTPUT_PREFIX = "model.output.";
 	private final static String VENSIM_MODEL_INPUT_PREFIX = "model.input.";
@@ -29,7 +33,9 @@ public class PangaeaPropsUtils {
 
 	private Properties pangaeaProperties = new Properties();
 	private String vensimLibName;
-	private Map<String, VensimModelDefinition> vensimModels = new HashMap<String, VensimModelDefinition>();
+	private final Map<String, VensimModelDefinition> vensimModels = new HashMap<String, VensimModelDefinition>();
+	private final Map<String, Class<InputProcessor>> inputProcessors = new HashMap<String, Class<InputProcessor>>();
+	private final Map<String, Class<OutputProcessor>> outputProcessors = new HashMap<String, Class<OutputProcessor>>();
 	
 	private PangaeaPropsUtils() {
 		URL pangaeaPropertiesUrl = PangaeaPropsUtils.class.getClassLoader().getResource(PANGAEA_PROPERTIES);
@@ -98,43 +104,43 @@ public class PangaeaPropsUtils {
 				try {
 					vensimModels.put(modelName, new VensimModelDefinition(modelName, modelFile.getAbsolutePath(), configFile));
 				} catch (Exception e) {
-					throw new RuntimeException("Can't initialize vensim model definition: " + modelName);
+					throw new RuntimeException("Can't initialize vensim model definition: " + modelName, e);
 				}
 			}
 		}
 		
-
-		// read models outputs 
-		/*
-		for (Object property: pangaeaProperties.keySet()) {
-			String propertyStr = property.toString();
-			if (propertyStr.startsWith(VENSIM_MODEL_OUTPUT_PREFIX)) {
-				
-				String[] modelAndOutputName = propertyStr.substring(VENSIM_MODEL_OUTPUT_PREFIX.length()).split("\\.");
-				VensimModelDefinition modelDef = vensimModels.get(modelAndOutputName[0]);
-				if (modelDef == null) {
-					throw new RuntimeException("Can't find model " + modelAndOutputName[0] + " for which output was defined " + pangaeaPropertiesFile.getAbsolutePath());
+		// get model input processors
+		if (pangaeaProperties.containsKey(INPUT_PROCESSORS)) {
+			for (String processorClassName: pangaeaProperties.getProperty(INPUT_PROCESSORS).split(";")) {
+				Class processorClass;
+				try {
+					processorClass = Class.forName(processorClassName);
+				} catch (ClassNotFoundException e) {
+					throw new RuntimeException("Unknown input processor class " + processorClassName, e);
 				}
-				modelDef.getOutputs().add(pangaeaProperties.getProperty(propertyStr));
-			}
-			else if (propertyStr.startsWith(VENSIM_MODEL_INPUT_PREFIX)) {
-				String[] modelAndInputName = propertyStr.substring(VENSIM_MODEL_INPUT_PREFIX.length()).split("\\.");
-				VensimModelDefinition modelDef = vensimModels.get(modelAndInputName[0]);
-				if (modelDef == null) {
-					throw new RuntimeException("Can't find model " + modelAndInputName[0] + " for which output was defined " + pangaeaPropertiesFile.getAbsolutePath());
+				if (!InputProcessor.class.isAssignableFrom(processorClass)) {
+					throw new RuntimeException("Unknown InputProcessor " + processorClassName + " it has to extend " + InputProcessor.class.getName());
 				}
-				modelDef.getInputs().add(pangaeaProperties.getProperty(propertyStr));
+				inputProcessors.put(processorClass.getSimpleName(), processorClass);
 			}
-			else if (propertyStr.startsWith(VENSIM_MODEL_OUTINDEX_PREFIX)) {
-				String modelName = propertyStr.substring(VENSIM_MODEL_OUTINDEX_PREFIX.length());
-				VensimModelDefinition modelDef = vensimModels.get(modelName);
-				
-				for (String singleIndexVal: pangaeaProperties.getProperty(propertyStr).split(",")) {
-					modelDef.addIndexVal(singleIndexVal);
+			
+		}
+		
+		// get model output processors
+		if (pangaeaProperties.containsKey(OUTPUT_PROCESSORS)) {
+			for (String processorClassName: pangaeaProperties.getProperty(OUTPUT_PROCESSORS).split(";")) {
+				Class processorClass;
+				try {
+					processorClass = Class.forName(processorClassName);
+				} catch (ClassNotFoundException e) {
+					throw new RuntimeException("Unknown ouptut processor class " + processorClassName, e);
 				}
-				
+				if (!OutputProcessor.class.isAssignableFrom(processorClass)) {
+					throw new RuntimeException("Unknown OutputProcessor " + processorClassName + " it has to extend " + OutputProcessor.class.getName());
+				}
+				outputProcessors.put(processorClass.getSimpleName(), processorClass);
 			}
-		}*/
+		}
 	}
 	
 	
@@ -152,5 +158,31 @@ public class PangaeaPropsUtils {
 	
 	public static String getVensimLibName() {
 		return instance.vensimLibName;
+	}
+	
+	public static InputProcessor getInputProcessorForName(String name) {
+		if (! instance.inputProcessors.containsKey(name)) {
+			throw new RuntimeException("Uknonwn input processor requested " + name);
+		}
+		try {
+			return instance.inputProcessors.get(name).newInstance();
+		} catch (InstantiationException e) {
+			throw new RuntimeException(e);
+		} catch (IllegalAccessException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public static OutputProcessor getOutputProcessorForName(String name) {
+		if (! instance.outputProcessors.containsKey(name)) {
+			throw new RuntimeException("Uknonwn output processor requested " + name);
+		}
+		try {
+			return instance.outputProcessors.get(name).newInstance();
+		} catch (InstantiationException e) {
+			throw new RuntimeException(e);
+		} catch (IllegalAccessException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

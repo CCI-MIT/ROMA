@@ -9,6 +9,7 @@ import java.util.Set;
 import org.apache.commons.lang3.tuple.Pair;
 
 import edu.mit.cci.roma.pangaea.core.PangaeaException;
+import edu.mit.cci.roma.pangaea.core.VensimHelper;
 import edu.mit.cci.roma.pangaea.corenew.config.VensimModelOutputConfig;
 
 public class VensimModelResults {
@@ -18,10 +19,12 @@ public class VensimModelResults {
 	
 	private final VensimModelDefinition definition;
 	private final Map<String, float[]> outputs = new HashMap<String, float[]>();
+	private final VensimHelper vensim;
 	
 
-	public VensimModelResults(VensimModelDefinition definition) {
+	public VensimModelResults(VensimModelDefinition definition, VensimHelper vensim) {
 		this.definition = definition;
+		this.vensim = vensim;
 	}
 	
 	public void addOutput(VensimModelOutputConfig output, Pair<float[], float[]> value) throws PangaeaException {
@@ -34,7 +37,7 @@ public class VensimModelResults {
 			}
 		}
 		if (valuesFilled != indexVals.size()) {
-			throw new PangaeaException("Not enough values in returned variable (not all number from index has corresponding value) [" + output.getName() + "], values:\n" + Arrays.toString(value.getRight()));
+			throw new PangaeaException("Not enough values in returned variable (not all number from index has corresponding value) [" + output.getName() + "], values:\n" + Arrays.toString(value.getRight()) + "\nindex: " + Arrays.toString(value.getLeft()));
 		}
 		outputs.put(output.getName(), valuesIndexed);
 	}
@@ -69,6 +72,10 @@ public class VensimModelResults {
 		}
 		
 		return sb.toString();
+	}
+
+	public VensimHelper getVensim() {
+		return vensim;
 	}
 
 }

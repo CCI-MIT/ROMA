@@ -57,7 +57,7 @@ public class  PangaeaRunnerResource {
 			VensimModelResults results = modelRunner.runTheModel(params);
 			r = Response.ok(results.toString()).build();
 		}
-		catch (PangaeaException e) {
+		catch (Throwable e) {
 			log.error("Exception has been thrown by pangaea core", e);
 			r = Response.serverError().build();
 		}
