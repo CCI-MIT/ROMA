@@ -6,7 +6,7 @@
 		<vensimInput vensimContextVariable="GDP per capita rate global" name="Average Annual Growth in per Capita World GDP">
 			<description><![CDATA[Move the slider to control average annual growth of per capital global gross domestic product (GDP). The default value is 2.2 percent, based on 3.0 percent growth over the next three decades, as the emerging economics catch up with the advanced economies, and 1.4 percent for the rest of the century. Average annual growth can vary from 0 to 4 percent. Note that GDP = Population x GDP per Capita.]]></description>
 		</vensimInput>
-		<vensimInput name="GDP per capita change start year" defaultVal="2015" />
+		<vensimInput name="GDP per capita change start year" defaultVal="2015" internalOnly="true" />
 		<vensimInput vensimContextVariable="Annual improvement to energy efficiency of new capital stationary" name="Energy Efficiency of Buildings/Industry" />
 		<vensimInput vensimContextVariable="Annual improvement to energy efficiency of new capital mobile" name="Energy Efficiency of Transportation" />
 		<vensimInput vensimContextVariable="Source subsidy nuclear" name="Nuclear subsidy $/GJ" />
@@ -18,6 +18,7 @@
 		<vensimInput vensimContextVariable="Source subsidy bio" name="Biomass subsidy $/GJ" />
 		<vensimInput name="Source subsidy start time bio" label="Start year" />
 		<vensimInput name="Source subsidy stop time bio" label="Stop year" />
+		<!-- 
 		<vensimInput vensimContextVariable="Source subsidy CCS" name="Carbon Capture/Storage subsidy $/GJ">
 			<processorConfig name="MultipleInputsPropagationInputProcessor">
 				<configuration>Source subsidy bio CCS;Source subsidy coal CCS;Source subsidy natural gas CCS;Source subsidy oil CCS</configuration>
@@ -33,6 +34,10 @@
 				<configuration>Source subsidy stop time bio CCS;Source subsidy stop time coal CCS;Source subsidy stop time natural gas CCS;Source subsidy stop time oil CCS</configuration>
 			</processorConfig>
 		</vensimInput>
+		 -->
+		<vensimInput vensimContextVariable="Source subsidy coal CCS" name="Carbon Capture/Storage subsidy $/GJ" />
+		<vensimInput vensimContextVariable="Source subsidy start time coal CCS" name="Start year" />
+		<vensimInput vensimContextVariable="Source subsidy stop time coal CCS" name="Stop year" />
 		
 		<vensimInput vensimContextVariable="Breakthrough cost reduction nuclear" name="Cost improvement for nuclear"/>
 		<vensimInput name="Breakthrough commercial time nuclear" min="2014" max="2100" label="Breakthrough year" >
@@ -109,10 +114,10 @@
 		
 		<vensimOutput name="Global GDP per capita - baseline" vensimContextVariable="Global GDP per capita" label="Global GDP per capita"  unit="Constant $2010 per person/yr">
 			<processorConfig name="GetVariableOutputProcessor">
-				<configuration>Global GDP per capita</configuration>
+				<configuration>From baseline: Global GDP per capita</configuration>
 			</processorConfig>
 		</vensimOutput>
-		
+		<!-- 
 		<vensimOutput name="Fossil fuel energy supply" unit="Ectajoules/yr">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>Energy supply capacity[ECoal CCS]</configuration>
@@ -160,6 +165,7 @@
 				<configuration>-</configuration>
 			</processorConfig>
 		</vensimOutput>
+		
 		
 		<vensimOutput name="Low carbon energy supply" unit="Ectajoules/yr">
 			<processorConfig name="GetVariableOutputProcessor">
@@ -220,7 +226,41 @@
 				<configuration>+</configuration>
 			</processorConfig>
 		</vensimOutput>
+		 -->
+		 
+		 <vensimOutput name="Coal" vensimContextVariable="Energy demand met by source type" label="Energy Demand Met by Source">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Energy demand met by source type[sCoal]</configuration>
+			</processorConfig>
+		 </vensimOutput>
 		
+		 <vensimOutput name="Oil" vensimContextVariable="Energy demand met by source type" label="Energy Demand Met by Source">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Energy demand met by source type[sOil]</configuration>
+			</processorConfig>
+		 </vensimOutput>
+		 <vensimOutput name="Gas" vensimContextVariable="Energy demand met by source type" label="Energy Demand Met by Source">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Energy demand met by source type[sGas]</configuration>
+			</processorConfig>
+		 </vensimOutput>
+		 <vensimOutput name="Renew/Bio/Hydro" vensimContextVariable="Energy demand met by source type" label="Energy Demand Met by Source">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Energy demand met by source type[sRenew]</configuration>
+			</processorConfig>
+		 </vensimOutput>
+		 <vensimOutput name="New Tech" vensimContextVariable="Energy demand met by source type" label="Energy Demand Met by Source">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Energy demand met by source type[sNew]</configuration>
+			</processorConfig>
+		 </vensimOutput>
+		 <vensimOutput name="Nuclear" vensimContextVariable="Energy demand met by source type" label="Energy Demand Met by Source">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Energy demand met by source type[sNuc]</configuration>
+			</processorConfig>
+		 </vensimOutput>
+		 
+		 
 		<vensimOutput name="Emissions from energy" unit="Gtons CO2/yr">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>CO2 emissions from energy</configuration>
@@ -272,78 +312,55 @@
 			</processorConfig>
 		</vensimOutput>
 		
-		<vensimOutput name="Atmospheric concentration CO2 - deterministic" vensimContextVariable="Atm conc CO2" label="Atmospheric concentration CO2">
+		<vensimOutput name="Atmospheric concentration CO2" vensimContextVariable="Atm conc CO2" label="Atmospheric concentration CO2">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>Atm conc CO2[Deterministic]</configuration>
 			</processorConfig>
 		</vensimOutput>
 		
-		<vensimOutput name="Atmospheric concentration CO2 2C" vensimContextVariable="Atm conc CO2" label="Atmospheric concentration CO2">
-			<processorConfig name="GetVariableOutputProcessor">
-				<configuration>Atm conc CO2["2C"]</configuration>
-			</processorConfig>
-		</vensimOutput>
-		
-		<vensimOutput name="Atmospheric concentration CO2 4.5C" vensimContextVariable="Atm conc CO2" label="Atmospheric concentration CO2">
-			<processorConfig name="GetVariableOutputProcessor">
-				<configuration>Atm conc CO2["4.5C"]</configuration>
-			</processorConfig>
-		</vensimOutput>
-		
-		
-		<vensimOutput name="Atmospheric concentration CO2 deterministic - baseline" vensimContextVariable="Atm conc CO2"  label="Atmospheric concentration CO2">
+		<vensimOutput name="Atmospheric concentration CO2 - baseline" vensimContextVariable="Atm conc CO2" label="Atmospheric concentration CO2">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>From baseline: Atm conc CO2[Deterministic]</configuration>
 			</processorConfig>
 		</vensimOutput>
 		
-		<vensimOutput name="Atmospheric concentration CO2 2C - baseline" vensimContextVariable="Atm conc CO2" label="Atmospheric concentration CO2">
+		
+		
+		<vensimOutput name="Temperature increase" vensimContextVariable="Temp change from preindust" label="Temperature increase">
 			<processorConfig name="GetVariableOutputProcessor">
-				<configuration>From baseline: Atm conc CO2["2C"]</configuration>
-			</processorConfig>
-		</vensimOutput>
-		<vensimOutput name="Atmospheric concentration CO2 4.5C - baseline" vensimContextVariable="Atm conc CO2" label="Atmospheric concentration CO2">
-			<processorConfig name="GetVariableOutputProcessor">
-				<configuration>From baseline: Atm conc CO2["4.5C"]</configuration>
+				<configuration>Temp change from preindust[Deterministic]</configuration>
 			</processorConfig>
 		</vensimOutput>
 		
-		
-		<vensimOutput name="Temperature increase" vensimContextVariable="Temperature change from 1990" label="Temperature increase">
+		<vensimOutput name="Temperature increase - baseline" vensimContextVariable="Temp change from preindust" label="Temperature increase">
 			<processorConfig name="GetVariableOutputProcessor">
-				<configuration>Temperature change from 1990[Deterministic]</configuration>
-			</processorConfig>
-		</vensimOutput>
-		
-		<vensimOutput name="Temperature increase - baseline" vensimContextVariable="Temperature change from 1990" label="Temperature increase">
-			<processorConfig name="GetVariableOutputProcessor">
-				<configuration>From baseline: Temperature change from 1990[Deterministic]</configuration>
+				<configuration>From baseline: Temp change from preindust[Deterministic]</configuration>
 			</processorConfig>
 		</vensimOutput>
 		
 		
-		<vensimOutput name="Temperature increase 2C" vensimContextVariable="Temperature change from 1990" label="Temperature increase">
+		<vensimOutput name="Temperature increase 2C" vensimContextVariable="Temp change from preindust" label="Temperature increase">
 			<processorConfig name="GetVariableOutputProcessor">
-				<configuration>Temperature change from 1990["2C"]</configuration>
+				<configuration>Temp change from preindust["2C"]</configuration>
 			</processorConfig>
 		</vensimOutput>
 		
-		<vensimOutput name="Temperature increase 2C - baseline" vensimContextVariable="Temperature change from 1990" label="Temperature increase">
+		<vensimOutput name="Temperature increase 2C - baseline" vensimContextVariable="Temp change from preindust" label="Temperature increase">
 			<processorConfig name="GetVariableOutputProcessor">
-				<configuration>From baseline: Temperature change from 1990["2C"]</configuration>
+				<configuration>From baseline: Temp change from preindust["2C"]</configuration>
 			</processorConfig>
 		</vensimOutput>
 		
 		
-		<vensimOutput name="Temperature increase 4.5C" vensimContextVariable="Temperature change from 1990" label="Temperature increase">
+		<vensimOutput name="Temperature increase 4.5C" vensimContextVariable="Temp change from preindust" label="Temperature increase">
 			<processorConfig name="GetVariableOutputProcessor">
-				<configuration>Temperature change from 1990["4.5C"]</configuration>
+				<configuration>Temp change from preindust["4.5C"]</configuration>
 			</processorConfig>
 		</vensimOutput>
 		
-		<vensimOutput name="Temperature increase 4.5C - baseline" vensimContextVariable="Temperature change from 1990" label="Temperature increase">
+		<vensimOutput name="Temperature increase 4.5C - baseline" vensimContextVariable="Temp change from preindust" label="Temperature increase">
 			<processorConfig name="GetVariableOutputProcessor">
-				<configuration>From baseline: Temperature change from 1990["4.5C"]</configuration>
+				<configuration>From baseline: Temp change from preindust["4.5C"]</configuration>
 			</processorConfig>
 		</vensimOutput>
 		

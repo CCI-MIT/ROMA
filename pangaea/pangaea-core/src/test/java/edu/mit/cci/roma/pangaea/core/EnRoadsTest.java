@@ -22,13 +22,15 @@ public class EnRoadsTest {
 		VensimModelRunner runner = new VensimModelRunner(PangaeaPropsUtils.getModelForName("enroads"));
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("Global population scenario", "3");
-		params.put("Source subsidy CCS", "1");
+		params.put("Source subsidy coal CCS", "1");
 		params.put("Emissions price time to achieve initial target", "2020");
 		params.put("Breakthrough commercialization time new tech", "2015.0");
 		VensimModelResults results = runner.runTheModel(params);
 		//System.out.println("Reference supply: " + Arrays.toString(results.getVensim().getVariable("Energy supply capacity[EBio]")));
 		System.out.println(Arrays.toString(results.getVensim().getVariable("Temperature change from 1990[Deterministic]")));
-		System.out.println(results.getVensim().getVariableInfo("Energy supply capacity"));
+		System.out.println(results.getVensim().getVariableInfo("\"R&D success year\""));
+		System.out.println(Arrays.toString(results.getVensim().getVariable("\"R&D success year nuclear\"")));
+		System.out.println(Arrays.toString(results.getVensim().getVariable("\"R&D success year\"[ECoal]")));
 		System.out.println(results.toString());
 		
 		
