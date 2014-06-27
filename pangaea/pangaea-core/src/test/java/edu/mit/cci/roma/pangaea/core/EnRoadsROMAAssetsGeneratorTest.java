@@ -43,9 +43,9 @@ public class EnRoadsROMAAssetsGeneratorTest {
 		simCsv.writeNext(new String[] {"description","id","name","url","state","creation","compositeString","configured","type"});
 
 		String modelName = "EnROADS " + new Date();
-		simCsv.writeNext(new String[] {modelName,String.valueOf(nextId),modelName,"","PUBLIC",format.format(new Date()),"NULL","NULL","none"});
-		
 		VensimModelDefinition modelDefinition = PangaeaPropsUtils.getModelForName("enroads");
+		simCsv.writeNext(new String[] {modelDefinition.getConfig().getDescription(),String.valueOf(nextId),modelDefinition.getConfig().getName(),"","PUBLIC",format.format(new Date()),"NULL","NULL","none"});
+		
 		VensimHelper vensim = new VensimHelper(PangaeaPropsUtils.getVensimLibName(), PangaeaPropsUtils.getModelForName("enroads").getPath());
 		
 		long indexId = nextId++;
@@ -183,7 +183,7 @@ public class EnRoadsROMAAssetsGeneratorTest {
 				max,
 				String.valueOf(varId),
 				min,
-				"NULL"});
+				String.valueOf(variableInfo.getCategories())});
 		
 	}
 

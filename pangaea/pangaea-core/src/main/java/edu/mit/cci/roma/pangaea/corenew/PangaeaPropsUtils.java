@@ -86,6 +86,7 @@ public class PangaeaPropsUtils {
 		
 		
 		// load vensim
+		
 		System.loadLibrary(vensimLibName);
 		
 		// create models map 

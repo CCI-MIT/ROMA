@@ -11,27 +11,43 @@ import org.junit.Test;
 import com.vensim.Vensim;
 
 import edu.mit.cci.roma.pangaea.corenew.PangaeaPropsUtils;
+import edu.mit.cci.roma.pangaea.corenew.VensimModelDefinition;
 import edu.mit.cci.roma.pangaea.corenew.VensimModelResults;
 import edu.mit.cci.roma.pangaea.corenew.VensimModelRunner;
+import edu.mit.cci.roma.pangaea.corenew.config.VensimModelInputConfig;
 
 
 public class EnRoadsTest {
 	
 	@Test
 	public void calculateBaseline() throws PangaeaException, VensimException {
-		VensimModelRunner runner = new VensimModelRunner(PangaeaPropsUtils.getModelForName("enroads"));
+		VensimModelDefinition def = PangaeaPropsUtils.getModelForName("enroads");
+		VensimModelRunner runner = new VensimModelRunner(def);
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("Global population scenario", "3");
-		params.put("Source subsidy coal CCS", "1");
-		params.put("Emissions price time to achieve initial target", "2020");
-		params.put("Breakthrough commercialization time new tech", "2015.0");
+		//params.put("GDP per capita rate global", "10");
+		//params.put("GDP per capita change start year", "2050");
+		runner.runTheModel(new HashMap<String, String>());
+		for (VensimModelInputConfig vmic: def.getInputs()) {
+			System.out.println(vmic.getName() + ": " + Arrays.toString(runner.getVensim().getVariable(vmic.getVensimContextVariable() == null ? vmic.getName() : vmic.getVensimContextVariable())));
+			
+		}
+		
+		
 		VensimModelResults results = runner.runTheModel(params);
 		//System.out.println("Reference supply: " + Arrays.toString(results.getVensim().getVariable("Energy supply capacity[EBio]")));
-		System.out.println(Arrays.toString(results.getVensim().getVariable("Temperature change from 1990[Deterministic]")));
-		System.out.println(results.getVensim().getVariableInfo("\"R&D success year\""));
-		System.out.println(Arrays.toString(results.getVensim().getVariable("\"R&D success year nuclear\"")));
-		System.out.println(Arrays.toString(results.getVensim().getVariable("\"R&D success year\"[ECoal]")));
-		System.out.println(results.toString());
+		//System.out.println(Arrays.toString(results.getVensim().getVariable("Temperature change from 1990[Deterministic]")));
+		//System.out.println(results.getVensim().getVariableInfo("\"R&D success year\""));
+		//System.out.println(Arrays.toString(results.getVensim().getVariable("\"R&D success year nuclear\"")));
+		/*System.out.println(Arrays.toString(results.getVensim().getVariableIndexed("Global GDP per capita").getLeft()));
+		System.out.println(Arrays.toString(results.getVensim().getVariableIndexed("Global GDP per capita").getRight()));
+		System.out.println(Arrays.toString(results.getVensim().getVariable("GDP per capita rate global")));
+		System.out.println(Arrays.toString(results.getVensim().getVariable("\"Choose GDP/capita rates by country/region\"")));
+		System.out.println(Arrays.toString(results.getVensim().getVariable("Time to approach long term capital rate")));
+		System.out.println(Arrays.toString(results.getVensim().getVariable("GDP per Capita Convergence Time")));
+		System.out.println(Arrays.toString(results.getVensim().getVariable("GDP per Capita Long Run Duration from Start Year")));
+		System.out.println(Arrays.toString(results.getVensim().getVariable("Switch for GDP Convergence")));
+		System.out.println(Arrays.toString(results.getVensim().getVariable("Target GDP per Capita")));*/
+		//System.out.println(results.toString());
 		
 		
 		

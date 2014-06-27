@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 
@@ -19,6 +20,12 @@ public class VensimModelConfig {
 	
 	@Element
 	private String outputIndex;
+
+	@Element
+	private String name;
+
+	@Element
+	private String description;
 	
 	private Set<Float> indexVals;
 
@@ -38,6 +45,14 @@ public class VensimModelConfig {
 			}
 		}
 		return indexVals;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 	
 }

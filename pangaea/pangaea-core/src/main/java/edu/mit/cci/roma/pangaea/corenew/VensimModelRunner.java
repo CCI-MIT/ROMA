@@ -69,5 +69,9 @@ public class VensimModelRunner {
 		
 	}
 	
+	public VensimHelper getVensim() {
+		return vensim;
+	}
+	
 
 }

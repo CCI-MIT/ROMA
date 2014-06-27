@@ -60,6 +60,10 @@ public class VensimModelDefinition {
 		return config.getInputs();
 	}
 	
+	public VensimModelConfig getConfig() {
+		return config;
+	}
+	
 	
 
 }

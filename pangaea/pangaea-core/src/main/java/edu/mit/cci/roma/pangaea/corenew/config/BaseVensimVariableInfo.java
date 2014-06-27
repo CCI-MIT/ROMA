@@ -40,6 +40,9 @@ public class BaseVensimVariableInfo {
 	
 	@Attribute(required=false)
 	private boolean internalOnly;
+
+	@Attribute(required=false)
+	private String categories;
 	
 
 	public String getName() {
@@ -90,5 +93,8 @@ public class BaseVensimVariableInfo {
 		return internalOnly;
 	}
 
-	
+	public String getCategories() {
+		return categories;
+	}
+
 }

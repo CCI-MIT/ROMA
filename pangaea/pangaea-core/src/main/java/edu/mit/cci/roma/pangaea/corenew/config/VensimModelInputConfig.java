@@ -28,7 +28,6 @@ public class VensimModelInputConfig extends BaseVensimVariableInfo {
 			ret = processor.processInputValues(inputValues);
 		}
 		
-		System.out.println(String.valueOf(getVensimContextVariable()) + " " + ret.containsKey(getName()) + " " + getName());
 		if (getVensimContextVariable() != null && ret.containsKey(getName())) {
 			// replace parameter for getName() with getVensimContextVariable as this is the variable that we need to set
 			ret.put(getVensimContextVariable(), ret.get(getName()));
