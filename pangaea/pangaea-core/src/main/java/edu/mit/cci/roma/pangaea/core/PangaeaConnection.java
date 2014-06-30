@@ -38,13 +38,13 @@ public class PangaeaConnection {
      * Parameters for initial and final time.
      */
     
-    /*
     private static final String INITIAL_TIME_VARNAME = "INITIAL TIME";
     private static final float INITIAL_TIME_VALUE = 2000;
 
     private static final String FINAL_TIME_VARNAME = "FINAL TIME";
     private static final float FINAL_TIME_VALUE = 2100;
 
+    /*
     private static final String EMISSIONS_REFERENCE_YEAR_VARNAME = "Emissions reference year";
     private static final float EMISSIONS_REFERENCE_YEAR_VALUE = 2005;
     
@@ -113,8 +113,8 @@ public class PangaeaConnection {
             // this doesn't work
             //vensimHelper.setVariable("TIME STEP", 2);
 
-            //vensimHelper.setVariable(INITIAL_TIME_VARNAME, INITIAL_TIME_VALUE);
-            //vensimHelper.setVariable(FINAL_TIME_VARNAME, FINAL_TIME_VALUE);
+            vensimHelper.setVariable(INITIAL_TIME_VARNAME, INITIAL_TIME_VALUE);
+            vensimHelper.setVariable(FINAL_TIME_VARNAME, FINAL_TIME_VALUE);
 
             vensimHelper.run();
 
