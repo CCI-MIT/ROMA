@@ -172,6 +172,6 @@ public class CreateSimulationEnroads {
     public static int inferPrecision(String profile) {
         if (profile.contains("Integer")) {
             return 0;
-        } else return 2;
+        } else return 3;
     }
 }
