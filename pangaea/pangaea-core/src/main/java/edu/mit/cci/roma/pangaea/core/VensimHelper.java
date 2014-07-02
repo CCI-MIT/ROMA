@@ -71,7 +71,17 @@ public class VensimHelper {
      * @param modelPath path to model that should be loaded 
      * @throws VensimException when there is a problem with Vensim communication
      */
-    public VensimHelper(String libName, String modelPath) throws VensimException {        
+    public VensimHelper(String libName, String modelPath) throws VensimException {
+    	this(libName, modelPath, -1);
+    }
+    /**
+     * Initializes Vensim with passed lib name.
+     * @param libName name of dll that should be used
+     * @param modelPath path to model that should be loaded 
+     * @param ctx vensim context to use, pass -1 to pick one 
+     * @throws VensimException when there is a problem with Vensim communication
+     */
+    public VensimHelper(String libName, String modelPath, int ctx) throws VensimException {        
         log.debug("Initializing vensim for dll: " + libName);
         vensim = new Vensim(libName);
          
@@ -90,8 +100,12 @@ public class VensimHelper {
         }
         log.debug("Will be operating on context: " + ctxId);
         */
-        
-        ctxId = VensimContextRepository.getInstance().getContext();
+        if (ctx < 0) {
+        	ctxId = VensimContextRepository.getInstance().getContext();
+        }
+        else {
+        	ctxId = ctx;
+        }
 
         log.debug("Will be operating on context: " + ctxId);
         
@@ -104,6 +118,25 @@ public class VensimHelper {
         	VensimContextRepository.getInstance().releaseContext(ctxId);
         	throw e;
         }
+    }
+    
+    /**
+     * Creates array of vensim helpers.  
+     * @param libName
+     * @param modelPath
+     * @param count
+     * @return
+     * @throws VensimException
+     */
+    public static VensimHelper[] getMultipleVensimHelpers(String libName, String modelPath, int count) throws VensimException {
+    	int contexts[] = VensimContextRepository.getInstance().getContexts(count);
+    	
+    	VensimHelper[] ret = new VensimHelper[count];
+    	for (int i=0; i < count; i++) {
+    		ret[i] = new VensimHelper(libName, modelPath, contexts[i]);
+    	}
+    	
+    	return ret;
     }
     
 

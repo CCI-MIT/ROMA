@@ -32,8 +32,9 @@ public class VensimModelRunner {
 		for (int i = 0; i < VENSIM_CONTEXT_CREATION_MAX_FAILURE_COUNT && vensim == null; i++) {
 			try {
 				log.info("creating new vensim helper\n\tdll lib: " + libName + "\n\tmodel path: " + modelPath);
-				baselineVensim = new VensimHelper(libName, modelPath);
-				vensim = new VensimHelper(libName, modelPath);
+				VensimHelper[] vensimHelpers = VensimHelper.getMultipleVensimHelpers(libName, modelPath, 2);
+				baselineVensim = vensimHelpers[0];
+				vensim = vensimHelpers[1];
 			} catch (Throwable e) {
 				log.error("An exception was thrown when initializing Vensim, try: " + i, e);
 			}

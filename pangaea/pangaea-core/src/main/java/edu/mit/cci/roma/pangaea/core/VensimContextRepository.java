@@ -76,15 +76,51 @@ public class VensimContextRepository {
 	}
 	
 	/**
+	 * Returns contexts that can be used. If no free context is available this method
+	 * blocks waiting for release of a context.
+	 * 
+	 * @return context ids
+	 * @throws VensimException in case of any error
+	 */
+	public int[] getContexts(int count) throws VensimException {
+		synchronized(mutex) {
+			if (availableContexts.size() < count) {
+				try {
+					while (availableContexts.size() < count) {
+						mutex.wait();
+					}
+	                
+                } catch (InterruptedException e) {
+	                throw new VensimException("Can't wait on a mutex in context repository", e);
+                }
+			}
+			int[] ret = new int[count];
+			for (int i=0; i < count; i++) {
+				ret[i] = availableContexts.iterator().next();
+				availableContexts.remove(ret[i]);
+			}
+			return ret;
+		}
+	}
+	
+	/**
 	 * Releases a context by adding it to pool of available contexts. If there is any thread
 	 * waiting for free context it will be woken up.
 	 * 
 	 * @param ctx released context
+	 * @throws VensimException 
 	 */
-	public void releaseContext(int ctx) {
+	public void releaseContext(int ctx) throws VensimException {
 		synchronized (mutex) {
-			availableContexts.add(ctx);
-			if (availableContexts.size() == 1) {
+			if (Vensim.ContextDrop(ctx) < 0) {
+				throw new VensimException("Can't release context " + ctx);
+			};
+			int nctx = Vensim.ContextAdd(1);
+			if (nctx < 0) {
+				throw new VensimException("Can't create new context after releasing: " + ctx);
+			}
+			availableContexts.add(nctx);
+			if (availableContexts.size() > 1) {
 				// wake up one thread
 				mutex.notify();
 			}
