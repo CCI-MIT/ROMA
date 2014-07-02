@@ -72,6 +72,12 @@ public class VensimModelRunner {
 	public VensimHelper getVensim() {
 		return vensim;
 	}
+
+	public void stop() throws VensimException {
+		baselineVensim.end();
+		vensim.end();
+		
+	}
 	
 
 }

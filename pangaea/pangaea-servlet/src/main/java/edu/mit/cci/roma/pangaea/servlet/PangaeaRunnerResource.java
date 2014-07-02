@@ -55,6 +55,7 @@ public class  PangaeaRunnerResource {
 			}
 			
 			VensimModelResults results = modelRunner.runTheModel(params);
+			modelRunner.stop();
 			r = Response.ok(results.toString()).build();
 		}
 		catch (Throwable e) {
