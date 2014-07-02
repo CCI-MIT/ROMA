@@ -43,8 +43,9 @@ public class  PangaeaRunnerResource {
 	
 	private Response doRunModel(String modelName, MultivaluedMap<String, String> parameters) {
 		Response r = null; 
+		VensimModelRunner modelRunner = null;
 		try {
-			VensimModelRunner modelRunner = new VensimModelRunner(PangaeaPropsUtils.getModelForName(modelName));
+			modelRunner = new VensimModelRunner(PangaeaPropsUtils.getModelForName(modelName));
 			Map<String, String> params = new HashMap<String, String>();
 			
 			
@@ -55,12 +56,22 @@ public class  PangaeaRunnerResource {
 			}
 			
 			VensimModelResults results = modelRunner.runTheModel(params);
-			modelRunner.stop();
 			r = Response.ok(results.toString()).build();
 		}
 		catch (Throwable e) {
 			log.error("Exception has been thrown by pangaea core", e);
 			r = Response.serverError().build();
+		}
+		finally {
+			try {
+				if (modelRunner != null) {
+					modelRunner.stop();
+				}
+			}
+			catch (Throwable e) {
+				log.error("Exception has been thrown by pangaea core", e);
+				r = Response.serverError().build();
+			}
 		}
 
 		return r;

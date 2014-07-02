@@ -74,9 +74,15 @@ public class VensimModelRunner {
 	}
 
 	public void stop() throws VensimException {
-		baselineVensim.end();
-		vensim.end();
+		if (baselineVensim != null) {
+			baselineVensim.end();
+			baselineVensim = null;
+		}
 		
+		if (vensim != null) {
+			vensim.end();
+			vensim = null;
+		}
 	}
 	
 
