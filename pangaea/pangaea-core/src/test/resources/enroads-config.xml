@@ -2,7 +2,7 @@
 	<name>Climate Interactive EnROADS (fast running simulator)</name>
 	<description> </description>
 	<inputs>
-		<vensimInput vensimContextVariable="Global population scenario" name="Population Scenario"  profile="java.lang.Double" categories="Low;Medium;High" defaultVal="2.0">
+		<vensimInput vensimContextVariable="Global population scenario" name="Population Scenario"  profile="java.lang.Integer" categories="Low;Medium;High" defaultVal="2">
 			<description><![CDATA[EnROADS projects the impact of varying rates of future population growth. The default setting of 2.0 corresponds with the the Medium Fertility forecast of the <a href='http://esa.un.org/wpp/' target="_blank">Population Division of the United Nations Department of Economic and Social Affairs (DESA)</a>, which projects world population of 10.9 billion by 2100. A setting of 1.0 corresponds to UN’s Low Fertility forecast (world population of 6.8 billion in 2100) and a setting of 3.0 to the UN’s High Fertility forecast (world population of 16.6 billion in 2100). Values that fall between the Low, Medium, and High forecasts may also be selected.]]></description>
 		</vensimInput>
 		<vensimInput vensimContextVariable="GDP per capita rate global" name="Average Annual Growth in per Capita World GDP" min="0" max="4" defaultVal="2.2">
@@ -109,31 +109,36 @@
 		<vensimInput vensimContextVariable="Breakthrough cost reduction new tech" name="Cost improvement for new technology" min="0.0" max="0.99" defaultVal="0.0" >
 			<description><![CDATA[What if breakthroughs in research and development (R&D) reduce the cost of low carbon sources of energy suddenly (and not slowly via the learning curve that has traditionally governed reductions in the cost of new technologies)? The number selected in the slider represents the reduction in cost when the breakthrough occurs, that is, 0.6 means a 60 percent decrease. The year of the breakthrough can be specified. The new technology slider allows users to simulate the impact of a radical breakthrough.]]></description>
 		</vensimInput>
-		<vensimInput name="Breakthrough commercialization time new tech" min="2014" max="2100" label="Breakthrough year"  profile="java.lang.Integer"  defaultVal="2025">
+		<vensimInput name="Breakthrough commercialization time new tech" min="2014" max="2100" label="Breakthrough year"  profile="java.lang.Integer"  defaultVal="2020">
 			<processorConfig name="SubstractFromInputProcessor">
 				<configuration>2014</configuration>
 			</processorConfig>
 			<description></description>
 		</vensimInput>
 		
-		<vensimInput vensimContextVariable="Emissions price initial target" name="Carbon price $/ton" min="1" max="100" defaultVal="1" >
-			<description>EnROADS projects the impact of policies that place a price on CO2 emissions, such as a widespread carbon tax or extensive cap-and-trade markets. The price is measured in $ per ton of emissions. A start and end year can be specified, with the price increasing after the start year and growing linearly to the full price over the designated time. A typical coal fired power plant emits a ton of CO2 in generating 1000 kilowatt hours of electricity (4 months of consumption for the average electrified household in the world), and burning 100 gallons of gasoline emits just under a ton of CO2. Some Scandinavian countries now have an emissions price of $20-30/ton, and some experts call for prices of well over $75.</description>
+		<vensimInput vensimContextVariable="Emissions price initial target" name="Carbon price $/ton" min="0" max="100" defaultVal="0" >
+			<description>EnROADS projects the impact of policies that place a price on CO2 emissions, such as a widespread carbon tax or extensive cap-and-trade markets. The price is measured in terms of $ per ton of CO2. A start and end year can be specified, with the price increasing after the start year and growing linearly to the full price over the designated time. A typical coal fired power plant emits a ton of CO2 in generating 1000 kilowatt hours of electricity (4 months of consumption for the average electrified household in the world), and burning 100 gallons of gasoline emits just under a ton of CO2. Some Scandinavian countries now have an emissions price of $20-30/ton, and some experts call for prices of well over $75.</description>
 		</vensimInput>
 		<vensimInput name="Emissions price phase 1 start" label="Start year"  profile="java.lang.Integer" min="2015" max="2100" defaultVal="2015">
 			<description></description>
 		</vensimInput>
+		<!-- 
 		<vensimInput name="Emissions price time to achieve initial target" min="2016" max="2100" label="Year full price achieved"  profile="java.lang.Integer" defaultVal="2100">
 			<description></description>
 			<processorConfig name="SubstractFromInputProcessor">
 				<configuration>2014</configuration>
 			</processorConfig>
 		</vensimInput>
+		 -->
 		
 		<vensimInput vensimContextVariable="Percent CH4 leakage from natural gas" name="Methane leakage %" min="0" max="6" defaultVal="3">
 			<description><![CDATA[The simulation can project the impact of actions that reduce the percentage of natural gas leaking into the atmosphere during production and distribution. Default value of 3 percent is based on studies by the U.S. Environmental Protection Agency, which estimated 2.8 percent leakage. High value of 10 percent is based on <a target="_blank"  href="http://www.scientificamerican.com/article/air-sampling-reveals-high-meth/">2012 estimates of 9 percent leakage</a>.]]></description>
 		</vensimInput>
-		<vensimInput vensimContextVariable="Target accelerated retirement rate coal" name="Accelerated retirement of coal-fired power plants %"  min="0" max="10" defaultVal="0.0">
+		<vensimInput vensimContextVariable="Target accelerated retirement rate coal" name="Accelerated retirement of coal-fired power plants %"  min="0" max="10" defaultVal="0" profile="java.lang.Integer" unit="%">
 			<description>China has accelerated retirement of old coal plants in recent years, and the simulation can project the impact of doing this on a worldwide basis. Each percentage increase adds to the annual rate of retirement. A boost of 5 percent would be significant.</description>
+			<processorConfig name="DivideInputProcessor">
+				<configuration>100</configuration>
+			</processorConfig>
 		</vensimInput>
 		<vensimInput vensimContextVariable="Target percent below BAU of LULUCF" name="Land use emissions reduction %" min="0" max="99" defaultVal="0.0">
 			<description>EnROADS can project the impact of reductions in land use, land use change, and forestry (LULUCF) emissions and in non-CO2 greenhouse gases, sometimes called the short-term forcers, which include methane, N2O, and the F-gases. The start year and target year when reductions are fully achieved can be specified, with a 10-year phase-in period assumed. Note that these are not absolute reductions, but are measured relative to the reference scenario.</description>
@@ -151,7 +156,7 @@
 	</inputs>
 	<outputs>
 	
-		<vensimOutput name="Population" vensimContextVariable="Global population" label="Population">
+		<vensimOutput name="Population" vensimContextVariable="Global population" label="Population" unit="billions">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>Global population</configuration>
 			</processorConfig>
@@ -169,9 +174,12 @@
 			</processorConfig>
 		</vensimOutput>
 		 -->
-		<vensimOutput name="Global GDP per capita" unit="Constant $2010 per person/yr" label="Global GDP per capita">
+		<vensimOutput name="Global GDP per capita" unit="Constant 2010 $K per person/yr" label="Global GDP per capita">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>Global GDP per capita</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>/;1000</configuration>
 			</processorConfig>
 		</vensimOutput>
 		<!-- 
@@ -325,58 +333,55 @@
 		 </vensimOutput>
 		 
 		 
-		<vensimOutput name="Emissions from energy" unit="Gtons CO2eq/yr">
+		<vensimOutput name="Emissions from energy" unit="Gtons CO2/yr">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>CO2 emissions from energy</configuration>
 			</processorConfig>
 		</vensimOutput>
 		
 		<!-- 
-		<vensimOutput name="Emissions from energy - baseline" unit="Gtons CO2eq/yr" label="Emissions from energy">
+		<vensimOutput name="Emissions from energy - baseline" unit="Gtons CO2/yr" label="Emissions from energy">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>From baseline: CO2 emissions from energy</configuration>
 			</processorConfig>
 		</vensimOutput>
 		 -->
 		
-		<vensimOutput name="Emissions from land use" unit="Gtons CO2eq/yr" >
+		<vensimOutput name="Emissions from land use" unit="Gtons CO2/yr" >
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>LULUCF emissions</configuration>
 			</processorConfig>
 		</vensimOutput>
 		<!-- 
-		<vensimOutput name="Emissions from land use - baseline" unit="Gtons CO2eq/yr" label="Emissions from land use">
+		<vensimOutput name="Emissions from land use - baseline" unit="Gtons CO2/yr" label="Emissions from land use">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>From baseline: LULUCF emissions</configuration>
 			</processorConfig>
 		</vensimOutput>
 		 -->
 		
-		<vensimOutput name="Other GHG emissions" >
+		<vensimOutput name="Other GHG emissions" unit="Gtons CO2/yr">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>Other GHG emissions</configuration>
 			</processorConfig>
 		</vensimOutput>
 		<!-- 
-		<vensimOutput name="Other GHG emissions - baseline" label="Other GHG emissions" unit="Gtons CO2eq/yr" >
+		<vensimOutput name="Other GHG emissions - baseline" label="Other GHG emissions" unit="Gtons CO2/yr" >
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>From baseline: Other GHG emissions</configuration>
 			</processorConfig>
 		</vensimOutput>
 		 -->
 		
-		<vensimOutput name="Reduction in per capital income vs. baseline" unit="% reduction vs. baseline">
-			<processorConfig name="GetVariableOutputProcessor">
-				<configuration>Global GDP per capita</configuration>
-			</processorConfig>
+		<vensimOutput name="Reduction in per capital income vs. baseline" unit="GDP vs. baseline" label="GDP vs. baseline">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>From baseline: Global GDP per capita</configuration>
 			</processorConfig>
-			<processorConfig name="ArithmeticOperationOutputProcessor">
-				<configuration>/</configuration>
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Global GDP per capita</configuration>
 			</processorConfig>
 			<processorConfig name="ArithmeticOperationOutputProcessor">
-				<configuration>1;-</configuration>
+				<configuration>/</configuration>
 			</processorConfig>
 		</vensimOutput>
 		
@@ -394,7 +399,7 @@
 		 -->
 		
 		
-		<vensimOutput name="Temperature increase" vensimContextVariable="Temp change from preindust" label="Temperature increase">
+		<vensimOutput name="Temperature increase" vensimContextVariable="Temp change from preindust" label="Temperature increase" unit="degrees Celsius" >
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>Temp change from preindust[Deterministic]</configuration>
 			</processorConfig>
@@ -408,7 +413,7 @@
 		</vensimOutput>
 		 -->
 		
-		<vensimOutput name="Temperature increase 2C" vensimContextVariable="Temp change from preindust" label="Temperature increase">
+		<vensimOutput name="Temperature increase 2C" vensimContextVariable="Temp change from preindust" label="Temperature increase" unit="degrees Celsius">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>Temp change from preindust["2C"]</configuration>
 			</processorConfig>
@@ -421,7 +426,7 @@
 		</vensimOutput>
 		 -->
 		
-		<vensimOutput name="Temperature increase 4.5C" vensimContextVariable="Temp change from preindust" label="Temperature increase">
+		<vensimOutput name="Temperature increase 4.5C" vensimContextVariable="Temp change from preindust" label="Temperature increase" unit="degrees Celsius">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>Temp change from preindust["4.5C"]</configuration>
 			</processorConfig>

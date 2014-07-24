@@ -24,13 +24,13 @@ public class EnRoadsTest {
 		VensimModelDefinition def = PangaeaPropsUtils.getModelForName("enroads");
 		VensimModelRunner runner = new VensimModelRunner(def);
 		Map<String, String> params = new HashMap<String, String>();
-		//params.put("GDP per capita rate global", "10");
+		params.put("Target accelerated retirement rate coal", "7");
 		//params.put("GDP per capita change start year", "2050");
 		runner.runTheModel(new HashMap<String, String>());
-		for (VensimModelInputConfig vmic: def.getInputs()) {
-			System.out.println(vmic.getName() + ": " + Arrays.toString(runner.getVensim().getVariable(vmic.getVensimContextVariable() == null ? vmic.getName() : vmic.getVensimContextVariable())));
+		//for (VensimModelInputConfig vmic: def.getInputs()) {
+			//System.out.println(vmic.getName() + ": " + Arrays.toString(runner.getVensim().getVariable(vmic.getVensimContextVariable() == null ? vmic.getName() : vmic.getVensimContextVariable())));
 			
-		}
+		//}
 		
 		
 		VensimModelResults results = runner.runTheModel(params);
@@ -54,7 +54,7 @@ public class EnRoadsTest {
 		
 	}
 	
-	//@Test
+	@Test
 	public void saveVarables() throws VensimException, PangaeaException, IOException {
 		VensimHelper helper = new VensimHelper(PangaeaPropsUtils.getVensimLibName(), PangaeaPropsUtils.getModelForName("enroads").getPath());
 		

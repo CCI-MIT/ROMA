@@ -8,9 +8,9 @@ public class MultipleInputsPropagationInputProcessor implements InputProcessor {
 	private String[] inputsToPopulate;
 	private String inputName; 
 	
-	public void init(String inputName, String configuration) {
+	public void init(String internalName, String externalName, String configuration) {
 		inputsToPopulate = configuration.split(SEPARATOR);
-		this.inputName = inputName;
+		this.inputName = externalName;
 	}
 
 	@Override

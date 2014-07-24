@@ -41,7 +41,7 @@ public class VensimModelInputConfig extends BaseVensimVariableInfo {
 	private InputProcessor getProcessor() {
 		if (processorConfig != null && processor == null) {
 			processor = PangaeaPropsUtils.getInputProcessorForName(processorConfig.getName());
-			processor.init(getVensimContextVariable() == null ? getName() : getVensimContextVariable(), processorConfig.getConfiguration());
+			processor.init(getVensimContextVariable() == null ? getName() : getVensimContextVariable(), getName(), processorConfig.getConfiguration());
 		}
 		return processor;
 	}

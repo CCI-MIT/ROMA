@@ -1,5 +1,6 @@
 package edu.mit.cci.roma.pangaea.corenew;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,10 +48,27 @@ public class VensimModelRunner {
 	public VensimModelResults runTheModel(Map<String, String> inputs) throws PangaeaException {
 		
 		try {
+			// set default values in baseline
+			Map<String, String> defaultValueInputs = new HashMap<String, String>();
+			for (VensimModelInputConfig inputConfig: definition.getInputs()) {
+				if (inputConfig.getDefaultVal() != null) {
+					defaultValueInputs.put(inputConfig.getName(), inputConfig.getDefaultVal());
+					inputConfig.processInputValues(defaultValueInputs);
+				}
+			}
+			for (Map.Entry<String, String> entry: defaultValueInputs.entrySet()) {
+				baselineVensim.setVariable(entry.getKey(), entry.getValue());
+			}
 			baselineVensim.run();
 			// process inputs
 			for (VensimModelInputConfig inputConfig: definition.getInputs()) {
 				inputs = inputConfig.processInputValues(inputs);
+			}
+			// set all not modified inputs to default values
+			for (Map.Entry<String, String> defaultValEntry: defaultValueInputs.entrySet()) {
+				if (! inputs.containsKey(defaultValEntry.getKey())) {
+					inputs.put(defaultValEntry.getKey(), defaultValEntry.getValue());
+				}
 			}
 			for (Map.Entry<String, String> entry: inputs.entrySet()) {
 				vensim.setVariable(entry.getKey(), entry.getValue());

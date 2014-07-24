@@ -6,8 +6,8 @@ public class SubstractFromInputProcessor implements InputProcessor {
 	private String inputName;
 	private float valueToSubstract;
 	
-	public void init(String inputName, String configuration) {
-		this.inputName = inputName;
+	public void init(String internalName, String externalName, String configuration) {
+		this.inputName = externalName;
 		valueToSubstract = Float.parseFloat(configuration.trim());
 		
 	}

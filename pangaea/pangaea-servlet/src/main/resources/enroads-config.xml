@@ -1,9 +1,9 @@
 <vensimModelConfig>
 	<name>Climate Interactive EnROADS (fast running simulator)</name>
-	<description></description>
+	<description> </description>
 	<inputs>
-		<vensimInput vensimContextVariable="Global population scenario" name="Population Scenario"  profile="java.lang.Integer" categories="Low;Medium;High" defaultVal="2.0">
-			<description><![CDATA[The EnROADS simulator projects the impact of varying rates of future population growth. The default setting is the Medium Fertility forecast of the <a target="_blank" href="http://esa.un.org/wpp/">Population Division of the United Nations Department of Economic and Social Affairs (DESA)</a>, which projects world population of 10.9 billion by 2100. Move the slider to the far left to select the UN’s Low Fertility forecast (world population of 6.8 billion in 2100) or to the far right for the UN’s High Fertility forecast (world population of 16.6 billion in 2100). Value between Low, Medium, and High can also be selected.]]></description>
+		<vensimInput vensimContextVariable="Global population scenario" name="Population Scenario"  profile="java.lang.Integer" categories="Low;Medium;High" defaultVal="2">
+			<description><![CDATA[EnROADS projects the impact of varying rates of future population growth. The default setting of 2.0 corresponds with the the Medium Fertility forecast of the <a href='http://esa.un.org/wpp/' target="_blank">Population Division of the United Nations Department of Economic and Social Affairs (DESA)</a>, which projects world population of 10.9 billion by 2100. A setting of 1.0 corresponds to UN’s Low Fertility forecast (world population of 6.8 billion in 2100) and a setting of 3.0 to the UN’s High Fertility forecast (world population of 16.6 billion in 2100). Values that fall between the Low, Medium, and High forecasts may also be selected.]]></description>
 		</vensimInput>
 		<vensimInput vensimContextVariable="GDP per capita rate global" name="Average Annual Growth in per Capita World GDP" min="0" max="4" defaultVal="2.2">
 			<description><![CDATA[Move the slider to control average annual growth of per capital global gross domestic product (GDP). The default value is 2.2 percent, based on 3.0 percent growth over the next three decades, as the emerging economics catch up with the advanced economies, and 1.4 percent for the rest of the century. Average annual growth can vary from 0 to 4 percent. Note that GDP = Population x GDP per Capita.]]></description>
@@ -17,10 +17,10 @@
 		</vensimInput>		
 		
 		<vensimInput vensimContextVariable="Annual improvement to energy efficiency of new capital stationary" name="Energy Efficiency of Buildings/Industry" min="0" max="7" defaultVal="1.0">
-			<description>The energy intensity of the economy, a key measure of energy efficiency, is the amount of GDP produced per unit of energy. In the EnROADS simulation’s Reference Scenario, energy intensity is assumed to go down by 1 percent per year in the future, in line with the historical trend since the 1970s. EnROADS tracks the aging of stationary capital that uses energy (buildings and industrial equipment) and mobile capital (cars, trucks, planes, and ships) used in the transportation sector. Over time, new capital gradually replace the existing capital stock. If the energy intensity of new capital goes down faster than in the past, this will cause energy intensity to go down faster than it has historically. For example, a 7 percent annual improvement in the efficiency of all new capital stock would result in a 3.5 percent annual reduction in average energy intensity through 2050, an improvement some energy experts believe is possible.</description>
+			<description>In the EnROADS Reference Scenario, energy efficiency increases 1 percent per year, in line with historical trends since the 1970s. EnROADS tracks the aging and replacement of energy-using stationary equipment (buildings and industrial facilities) and mobile equipment (cars, trucks, planes, and ships). Over time, new equipment gradually replaces existing equipment, and moving the slider allows changes the pace of future improvements in the efficiency of the new equipment. A 7 percent annual improvement in efficiency of new equipment will cause a 3.5 percent increase in energy efficiency of the economy overall through 2050, an improvement some experts believe is feasible.</description>
 		</vensimInput>
 		<vensimInput vensimContextVariable="Annual improvement to energy efficiency of new capital mobile" name="Energy Efficiency of Transportation" min="0" max="7" defaultVal="1.0">
-			<description>The energy intensity of the economy, a key measure of energy efficiency, is the amount of GDP produced per unit of energy. In the EnROADS simulation’s Reference Scenario, energy intensity is assumed to go down by 1 percent per year in the future, in line with the historical trend since the 1970s. EnROADS tracks the aging of stationary capital that uses energy (buildings and industrial equipment) and mobile capital (cars, trucks, planes, and ships) used in the transportation sector. Over time, new capital gradually replace the existing capital stock. If the energy intensity of new capital goes down faster than in the past, this will cause energy intensity to go down faster than it has historically. For example, a 7 percent annual improvement in the efficiency of all new capital stock would result in a 3.5 percent annual reduction in average energy intensity through 2050, an improvement some energy experts believe is possible.</description>
+			<description>In the EnROADS Reference Scenario, energy efficiency increases 1 percent per year, in line with historical trends since the 1970s. EnROADS tracks the aging and replacement of energy-using stationary equipment (buildings and industrial facilities) and mobile equipment (cars, trucks, planes, and ships). Over time, new equipment gradually replaces existing equipment, and moving the slider allows changes the pace of future improvements in the efficiency of the new equipment. A 7 percent annual improvement in efficiency of new equipment will cause a 3.5 percent increase in energy efficiency of the economy overall through 2050, an improvement some experts believe is feasible.</description>
 		</vensimInput>
 		<vensimInput vensimContextVariable="Source subsidy nuclear" name="Nuclear subsidy $/GJ" min="0" max="10" defaultVal="0.0">
 			<description>EnROADS can project the effect of subsidies for low carbon energy technologies. Subsidies are measured in $ per gigajoule (GJ), and the years in which the subsidy starts and ends can be designated. A gigajoule is equivalent to slightly more than 8 gallons of gasoline and nearly 280 kilowatt hours of energy (the latter is roughly the monthly consumption of the average electrified household in the world). Moving the slider to 5 would indicate a subsidy of $5 per GJ and would decrease the cost of the chosen energy source by that much. $6-8 is a sizeable subsidy.</description>
@@ -77,7 +77,7 @@
 		</vensimInput>
 		
 		<vensimInput vensimContextVariable="Breakthrough cost reduction nuclear" name="Cost improvement for nuclear" min="0" max="0.99" defaultVal="0.0">
-			<description><![CDATA[What if breakthroughs in research and development (R&D) reduce the cost of low carbon sources of energy suddenly (and not slowly via the learning curve that has traditionally governed reductions in the cost of new technologies)? The number selected in the slider represents the reduction in cost when the breakthrough occurs, that is, 0.6 means a 60 percent decrease. The year of the breakthrough can be specified. A 40-60 percent drop would be enormous, except for new technology, which is included to simulate the impact of a radical breakthrough, where a 95-98% cost reduction is required.]]></description>
+			<description><![CDATA[What if breakthroughs in research and development (R&D) reduce the cost of low carbon sources of energy suddenly (and not slowly via the learning curve that has traditionally governed reductions in the cost of new technologies)? The number selected in the slider represents the reduction in cost when the breakthrough occurs, that is, 0.6 means a 60 percent decrease. The year of the breakthrough can be specified. The new technology slider allows users to simulate the impact of a radical breakthrough.]]></description>
 		</vensimInput>
 		<vensimInput name="Breakthrough commercial time nuclear" min="2014" max="2100" label="Breakthrough year"  profile="java.lang.Integer" defaultVal="2020">
 			<description></description>
@@ -87,7 +87,7 @@
 		</vensimInput>
 		
 		<vensimInput vensimContextVariable="Breakthrough cost reduction renewables" name="Cost improvement for renewables" min="0" max="0.99" defaultVal="0.0" >
-			<description><![CDATA[What if breakthroughs in research and development (R&D) reduce the cost of low carbon sources of energy suddenly (and not slowly via the learning curve that has traditionally governed reductions in the cost of new technologies)? The number selected in the slider represents the reduction in cost when the breakthrough occurs, that is, 0.6 means a 60 percent decrease. The year of the breakthrough can be specified. A 40-60 percent drop would be enormous, except for new technology, which is included to simulate the impact of a radical breakthrough, where a 95-98% cost reduction is required.]]></description>
+			<description><![CDATA[What if breakthroughs in research and development (R&D) reduce the cost of low carbon sources of energy suddenly (and not slowly via the learning curve that has traditionally governed reductions in the cost of new technologies)? The number selected in the slider represents the reduction in cost when the breakthrough occurs, that is, 0.6 means a 60 percent decrease. The year of the breakthrough can be specified. The new technology slider allows users to simulate the impact of a radical breakthrough.]]></description>
 		</vensimInput>
 		<vensimInput name="Breakthrough commercial time renewables" min="2014" max="2100" label="Breakthrough year"  profile="java.lang.Integer" defaultVal="2020" >
 			<description></description>
@@ -97,7 +97,7 @@
 		</vensimInput>
 		
 		<vensimInput vensimContextVariable="Breakthrough cost reduction bio" name="Cost improvement for biomass" min="0" max="0.99" defaultVal="0.0">
-			<description><![CDATA[What if breakthroughs in research and development (R&D) reduce the cost of low carbon sources of energy suddenly (and not slowly via the learning curve that has traditionally governed reductions in the cost of new technologies)? The number selected in the slider represents the reduction in cost when the breakthrough occurs, that is, 0.6 means a 60 percent decrease. The year of the breakthrough can be specified. A 40-60 percent drop would be enormous, except for new technology, which is included to simulate the impact of a radical breakthrough, where a 95-98% cost reduction is required.]]></description>
+			<description><![CDATA[What if breakthroughs in research and development (R&D) reduce the cost of low carbon sources of energy suddenly (and not slowly via the learning curve that has traditionally governed reductions in the cost of new technologies)? The number selected in the slider represents the reduction in cost when the breakthrough occurs, that is, 0.6 means a 60 percent decrease. The year of the breakthrough can be specified. The new technology slider allows users to simulate the impact of a radical breakthrough.]]></description>
 		</vensimInput>
 		<vensimInput name="Breakthrough commercial time bio" min="2014" max="2100" label="Breakthrough year"  profile="java.lang.Integer" defaultVal="2020">
 			<description></description>
@@ -106,40 +106,45 @@
 			</processorConfig>
 		</vensimInput>
 		
-		<vensimInput vensimContextVariable="Breakthrough cost reduction new tech" name="Cost improvement for new technology" min="0.95" max="0.99" defaultVal="0.95" >
-			<description><![CDATA[What if breakthroughs in research and development (R&D) reduce the cost of low carbon sources of energy suddenly (and not slowly via the learning curve that has traditionally governed reductions in the cost of new technologies)? The number selected in the slider represents the reduction in cost when the breakthrough occurs, that is, 0.6 means a 60 percent decrease. The year of the breakthrough can be specified. A 40-60 percent drop would be enormous, except for new technology, which is included to simulate the impact of a radical breakthrough, where a 95-98% cost reduction is required.]]></description>
+		<vensimInput vensimContextVariable="Breakthrough cost reduction new tech" name="Cost improvement for new technology" min="0.0" max="0.99" defaultVal="0.0" >
+			<description><![CDATA[What if breakthroughs in research and development (R&D) reduce the cost of low carbon sources of energy suddenly (and not slowly via the learning curve that has traditionally governed reductions in the cost of new technologies)? The number selected in the slider represents the reduction in cost when the breakthrough occurs, that is, 0.6 means a 60 percent decrease. The year of the breakthrough can be specified. The new technology slider allows users to simulate the impact of a radical breakthrough.]]></description>
 		</vensimInput>
-		<vensimInput name="Breakthrough commercialization time new tech" min="2014" max="2100" label="Breakthrough year"  profile="java.lang.Integer"  defaultVal="2025">
+		<vensimInput name="Breakthrough commercialization time new tech" min="2014" max="2100" label="Breakthrough year"  profile="java.lang.Integer"  defaultVal="2020">
 			<processorConfig name="SubstractFromInputProcessor">
 				<configuration>2014</configuration>
 			</processorConfig>
 			<description></description>
 		</vensimInput>
 		
-		<vensimInput vensimContextVariable="Emissions price initial target" name="Carbon price $/ton" min="1" max="100" defaultVal="1" >
-			<description>The EnROADS simulation projects the impact of policies that place a price on CO2 emissions, such as a widespread carbon tax or extensive cap-and-trade markets. The price is measured in $ per ton of CO2 emissions. A start year and the year when the full price is achieved can be specified, with the price increasing after the start year and growing linearly to the full price over the designated time. A typical coal fired power plant emits a ton of CO2 in generating 1000 kilowatt hours of electricity (4 months of consumption for the average electrified household in the world). Burning 100 gallons of gasoline emits just under a ton of CO2. Some Scandinavian countries now have an emissions price of $20-30/ton, and climate activists call for prices of well over $75.</description>
+		<vensimInput vensimContextVariable="Emissions price initial target" name="Carbon price $/ton" min="0" max="100" defaultVal="0" >
+			<description>EnROADS projects the impact of policies that place a price on CO2 emissions, such as a widespread carbon tax or extensive cap-and-trade markets. The price is measured in terms of $ per ton of CO2. A start and end year can be specified, with the price increasing after the start year and growing linearly to the full price over the designated time. A typical coal fired power plant emits a ton of CO2 in generating 1000 kilowatt hours of electricity (4 months of consumption for the average electrified household in the world), and burning 100 gallons of gasoline emits just under a ton of CO2. Some Scandinavian countries now have an emissions price of $20-30/ton, and some experts call for prices of well over $75.</description>
 		</vensimInput>
 		<vensimInput name="Emissions price phase 1 start" label="Start year"  profile="java.lang.Integer" min="2015" max="2100" defaultVal="2015">
 			<description></description>
 		</vensimInput>
+		<!-- 
 		<vensimInput name="Emissions price time to achieve initial target" min="2016" max="2100" label="Year full price achieved"  profile="java.lang.Integer" defaultVal="2100">
 			<description></description>
 			<processorConfig name="SubstractFromInputProcessor">
 				<configuration>2014</configuration>
 			</processorConfig>
 		</vensimInput>
+		 -->
 		
 		<vensimInput vensimContextVariable="Percent CH4 leakage from natural gas" name="Methane leakage %" min="0" max="6" defaultVal="3">
 			<description><![CDATA[The simulation can project the impact of actions that reduce the percentage of natural gas leaking into the atmosphere during production and distribution. Default value of 3 percent is based on studies by the U.S. Environmental Protection Agency, which estimated 2.8 percent leakage. High value of 10 percent is based on <a target="_blank"  href="http://www.scientificamerican.com/article/air-sampling-reveals-high-meth/">2012 estimates of 9 percent leakage</a>.]]></description>
 		</vensimInput>
-		<vensimInput vensimContextVariable="Target accelerated retirement rate coal" name="Accelerated retirement of coal-fired power plants %"  min="0" max="10" defaultVal="0.0">
+		<vensimInput vensimContextVariable="Target accelerated retirement rate coal" name="Accelerated retirement of coal-fired power plants %"  min="0" max="10" defaultVal="0" profile="java.lang.Integer" unit="%">
 			<description>China has accelerated retirement of old coal plants in recent years, and the simulation can project the impact of doing this on a worldwide basis. Each percentage increase adds to the annual rate of retirement. A boost of 5 percent would be significant.</description>
+			<processorConfig name="DivideInputProcessor">
+				<configuration>100</configuration>
+			</processorConfig>
 		</vensimInput>
 		<vensimInput vensimContextVariable="Target percent below BAU of LULUCF" name="Land use emissions reduction %" min="0" max="99" defaultVal="0.0">
-			<description>EnROADS can project the impact of reductions in land use, land use change, and forestry (LULUCF) emissions and in non-CO2 greenhouse gases, sometimes called the short-term forcers, which include methane, N2O, and the F-gases. The start year and the target year when reductions are fully achieved can be specified, with a 10-year phase-in period assumed. Note that these are not absolute reductions, but are measured relative to the reference scenario. To achieve significant reductions in land use emissions, deforestation will have to be halted in many countries, led by Brazil and Indonesia.</description>
+			<description>EnROADS can project the impact of reductions in land use, land use change, and forestry (LULUCF) emissions and in non-CO2 greenhouse gases, sometimes called the short-term forcers, which include methane, N2O, and the F-gases. The start year and target year when reductions are fully achieved can be specified, with a 10-year phase-in period assumed. Note that these are not absolute reductions, but are measured relative to the reference scenario.</description>
 		</vensimInput>
 		<vensimInput vensimContextVariable="Target percent below BAU of other GHGs" name="Other greenhouse gas emission reductions %"  min="0" max="99" defaultVal="0.0" >
-			<description>EnROADS can project the impact of reductions in land use, land use change, and forestry (LULUCF) emissions and in non-CO2 greenhouse gases, sometimes called the short-term forcers, which include methane, N2O, and the F-gases. The start year and the target year when reductions are fully achieved can be specified, with a 10-year phase-in period assumed. Note that these are not absolute reductions, but are measured relative to the reference scenario. To achieve significant reductions in land use emissions, deforestation will have to be halted in many countries, led by Brazil and Indonesia.</description>
+			<description>EnROADS can project the impact of reductions in land use, land use change, and forestry (LULUCF) emissions and in non-CO2 greenhouse gases, sometimes called the short-term forcers, which include methane, N2O, and the F-gases. The start year and target year when reductions are fully achieved can be specified, with a 10-year phase-in period assumed. Note that these are not absolute reductions, but are measured relative to the reference scenario.</description>
 		</vensimInput>
 		<vensimInput vensimContextVariable="Other emissions cut start time" label="Start year" name="Start year"  profile="java.lang.Integer"  min="2015" max="2100" defaultVal="2015">
 			<description></description>
@@ -151,7 +156,7 @@
 	</inputs>
 	<outputs>
 	
-		<vensimOutput name="Population" vensimContextVariable="Global population" label="Population">
+		<vensimOutput name="Population" vensimContextVariable="Global population" label="Population" unit="billions">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>Global population</configuration>
 			</processorConfig>
@@ -169,9 +174,12 @@
 			</processorConfig>
 		</vensimOutput>
 		 -->
-		<vensimOutput name="Global GDP per capita" unit="Constant $2010 per person/yr" label="Global GDP per capita">
+		<vensimOutput name="Global GDP per capita" unit="Constant 2010 $K per person/yr" label="Global GDP per capita">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>Global GDP per capita</configuration>
+			</processorConfig>
+			<processorConfig name="ArithmeticOperationOutputProcessor">
+				<configuration>/;1000</configuration>
 			</processorConfig>
 		</vensimOutput>
 		<!-- 
@@ -325,58 +333,55 @@
 		 </vensimOutput>
 		 
 		 
-		<vensimOutput name="Emissions from energy" unit="Gtons CO2eq/yr">
+		<vensimOutput name="Emissions from energy" unit="Gtons CO2/yr">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>CO2 emissions from energy</configuration>
 			</processorConfig>
 		</vensimOutput>
 		
 		<!-- 
-		<vensimOutput name="Emissions from energy - baseline" unit="Gtons CO2eq/yr" label="Emissions from energy">
+		<vensimOutput name="Emissions from energy - baseline" unit="Gtons CO2/yr" label="Emissions from energy">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>From baseline: CO2 emissions from energy</configuration>
 			</processorConfig>
 		</vensimOutput>
 		 -->
 		
-		<vensimOutput name="Emissions from land use" unit="Gtons CO2eq/yr" >
+		<vensimOutput name="Emissions from land use" unit="Gtons CO2/yr" >
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>LULUCF emissions</configuration>
 			</processorConfig>
 		</vensimOutput>
 		<!-- 
-		<vensimOutput name="Emissions from land use - baseline" unit="Gtons CO2eq/yr" label="Emissions from land use">
+		<vensimOutput name="Emissions from land use - baseline" unit="Gtons CO2/yr" label="Emissions from land use">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>From baseline: LULUCF emissions</configuration>
 			</processorConfig>
 		</vensimOutput>
 		 -->
 		
-		<vensimOutput name="Other GHG emissions" >
+		<vensimOutput name="Other GHG emissions" unit="Gtons CO2/yr">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>Other GHG emissions</configuration>
 			</processorConfig>
 		</vensimOutput>
 		<!-- 
-		<vensimOutput name="Other GHG emissions - baseline" label="Other GHG emissions" unit="Gtons CO2eq/yr" >
+		<vensimOutput name="Other GHG emissions - baseline" label="Other GHG emissions" unit="Gtons CO2/yr" >
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>From baseline: Other GHG emissions</configuration>
 			</processorConfig>
 		</vensimOutput>
 		 -->
 		
-		<vensimOutput name="Reduction in per capital income vs. baseline" unit="% reduction vs. baseline">
-			<processorConfig name="GetVariableOutputProcessor">
-				<configuration>Global GDP per capita</configuration>
-			</processorConfig>
+		<vensimOutput name="Reduction in per capital income vs. baseline" unit="GDP vs. baseline" label="GDP vs. baseline">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>From baseline: Global GDP per capita</configuration>
 			</processorConfig>
-			<processorConfig name="ArithmeticOperationOutputProcessor">
-				<configuration>/</configuration>
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Global GDP per capita</configuration>
 			</processorConfig>
 			<processorConfig name="ArithmeticOperationOutputProcessor">
-				<configuration>1;-</configuration>
+				<configuration>/</configuration>
 			</processorConfig>
 		</vensimOutput>
 		
@@ -394,7 +399,7 @@
 		 -->
 		
 		
-		<vensimOutput name="Temperature increase" vensimContextVariable="Temp change from preindust" label="Temperature increase">
+		<vensimOutput name="Temperature increase" vensimContextVariable="Temp change from preindust" label="Temperature increase" unit="degrees Celsius" >
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>Temp change from preindust[Deterministic]</configuration>
 			</processorConfig>
@@ -408,7 +413,7 @@
 		</vensimOutput>
 		 -->
 		
-		<vensimOutput name="Temperature increase 2C" vensimContextVariable="Temp change from preindust" label="Temperature increase">
+		<vensimOutput name="Temperature increase 2C" vensimContextVariable="Temp change from preindust" label="Temperature increase" unit="degrees Celsius">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>Temp change from preindust["2C"]</configuration>
 			</processorConfig>
@@ -421,7 +426,7 @@
 		</vensimOutput>
 		 -->
 		
-		<vensimOutput name="Temperature increase 4.5C" vensimContextVariable="Temp change from preindust" label="Temperature increase">
+		<vensimOutput name="Temperature increase 4.5C" vensimContextVariable="Temp change from preindust" label="Temperature increase" unit="degrees Celsius">
 			<processorConfig name="GetVariableOutputProcessor">
 				<configuration>Temp change from preindust["4.5C"]</configuration>
 			</processorConfig>
