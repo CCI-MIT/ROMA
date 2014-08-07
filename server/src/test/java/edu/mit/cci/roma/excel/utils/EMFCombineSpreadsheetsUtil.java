@@ -24,13 +24,15 @@ import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
 
 public class EMFCombineSpreadsheetsUtil {
-	private final static File sreadsheetsDir = new File("/home/janusz/workdir/pangaea/emf_spreadsheets");
-	private final static File outputSpreadsheetFile = new File("/home/janusz/workdir/pangaea/ROMA/server/src/test/resources/2014_may_models/emf_combined/emf_20140520.xlsx");
-	private final static File outputsCsvFile = new File("/home/janusz/workdir/pangaea/ROMA/server/src/test/resources/2014_may_models/emf_combined/emf_20140520_outputs.csv");
-	private final static File inputsCsvFile = new File("/home/janusz/workdir/pangaea/ROMA/server/src/test/resources/2014_may_models/emf_combined/emf_20140520_inputs.csv");
-	private final static File simCsvFile = new File("/home/janusz/workdir/pangaea/ROMA/server/src/test/resources/2014_may_models/emf_combined/emf_20140520_sim.csv");
-	private final static File outputsConfigurationFile = new File("/home/janusz/workdir/pangaea/emf_spreadsheets/conf.csv");
-	
+
+    private final static String basePath = "/Users/patrickhiesel/Desktop/ClimateCoLab/emf_excel";
+	private final static File spreadsheetsDir = new File(basePath);
+	private final static File outputSpreadsheetFile = new File(basePath + "/emf_combined/emf_20140520.xlsx");
+	private final static File outputsCsvFile = new File(basePath + "/emf_combined/emf_20140520_outputs.csv");
+	private final static File inputsCsvFile = new File(basePath + "/emf_combined/emf_20140520_inputs.csv");
+	private final static File simCsvFile = new File(basePath + "/emf_combined/emf_20140520_sim.csv");
+	private final static File outputsConfigurationFile = new File(basePath + "/conf.csv");
+
 	public static void main(String[] args) throws InvalidFormatException, IOException {
 		Map<String, Set<String>> perOutputModels = new HashMap<String, Set<String>>();
 		Set<String> availableScenarios = new TreeSet<String>();
@@ -40,15 +42,15 @@ public class EMFCombineSpreadsheetsUtil {
 		inputsCsvFile.delete();
 		simCsvFile.delete();
 		
-		Workbook outputSpreadseet = new HSSFWorkbook();
+		Workbook outputSpreadsheet = new HSSFWorkbook();
 		
 		CSVWriter outputsCsv = new CSVWriter(new FileWriter(outputsCsvFile));
 		CSVWriter inputsCsv = new CSVWriter( new FileWriter(inputsCsvFile)); 
 		CSVWriter simCsv = new CSVWriter(new FileWriter(simCsvFile));
 		CSVReader outputsConfCsv = new CSVReader(new FileReader(outputsConfigurationFile));
 		
-		//CopySheets.mergeExcelFiles(outputSpreadseet,  sreadsheetsDir.listFiles());
-		for (File inFile: sreadsheetsDir.listFiles(new FileFilter() {
+		//Copy all sheets from all workbooks in the workbook directory and combine them into a single workbook
+		for (File inFile: spreadsheetsDir.listFiles(new FileFilter() {
 			
 			@Override
 			public boolean accept(File pathname) {
@@ -57,21 +59,25 @@ public class EMFCombineSpreadsheetsUtil {
 		})) {
 			System.out.println("processing file: " + inFile.getAbsolutePath());
 			Workbook wbFrom = WorkbookFactory.create(inFile);
-			copySheets(wbFrom, outputSpreadseet, inFile);
-			copySheets(wbFrom, outputSpreadseet, inFile);
+			copySheets(wbFrom, outputSpreadsheet, inFile);
+			copySheets(wbFrom, outputSpreadsheet, inFile);
 		}
-		long nextId = new Date().getTime()/1000;
+		// Generate an ID that hasn't been used before based on the current timestamp in [s]
+        long nextId = new Date().getTime()/1000;
 		
-		
+		// Write header for input and output CSV files
 		outputsCsv.writeNext(new String[] {"description","id","internalname","name","profile","vartype","units","labels","external","varcontext","indexingid","defaultval","id","max","metadata","min","categories","sheet","rowsrange"});
 		inputsCsv.writeNext(new String[] {"description","id","internalname","name","profile","vartype","units","labels","external","varcontext","indexingid","defaultval","id","max","metadata","min","categories","sheet","rowsrange"});
-		for (int i=0; i < outputSpreadseet.getNumberOfSheets(); i++) {
-			Sheet modelSheet = outputSpreadseet.getSheetAt(i);
 
+
+        for (int i=0; i < outputSpreadsheet.getNumberOfSheets(); i++) {
+			Sheet modelSheet = outputSpreadsheet.getSheetAt(i);
+
+            // Only treat input/copied sheets
 			if (modelSheet.getSheetName().contains("Inputs_Inputs") || modelSheet.getSheetName().endsWith("_out")) continue;
 			System.out.println("Adding outputs to sheet: " + modelSheet.getSheetName());
 			
-			Sheet outputSheet = outputSpreadseet.createSheet(modelSheet.getSheetName() + "_out");
+			Sheet outputSheet = outputSpreadsheet.createSheet(modelSheet.getSheetName() + "_out");
 			// find all of the distinct model names, for every name create a row with "model", "concat(model, inputs_inputs!B1)", vlookup....
 			Set<String> models = new TreeSet<String>();
 			for (int r=1; r <= modelSheet.getLastRowNum(); r++) {
@@ -84,6 +90,7 @@ public class EMFCombineSpreadsheetsUtil {
 				models.add(row.getCell(0).getStringCellValue());
 				availableScenarios.add(row.getCell(1).getStringCellValue());
 			}
+            // save model names
 			perOutputModels.put(outputSheet.getSheetName(), models);
 			
 			// create index row
@@ -93,7 +100,7 @@ public class EMFCombineSpreadsheetsUtil {
 				c.setCellFormula("'" + modelSheet.getSheetName() + "'!" + ((char) ('F' + tmp)) + "1");
 			}
 			
-			
+			// output rows for each model
 			for (String model: models) {
 				Row outputRow = outputSheet.createRow(outputSheet.getLastRowNum()+1);
 				
@@ -197,7 +204,7 @@ public class EMFCombineSpreadsheetsUtil {
 
 		
 		FileOutputStream fos = new FileOutputStream(outputSpreadsheetFile);
-		outputSpreadseet.write(fos);
+		outputSpreadsheet.write(fos);
 		fos.flush();
 		fos.close();
 		outputsCsv.flush();
