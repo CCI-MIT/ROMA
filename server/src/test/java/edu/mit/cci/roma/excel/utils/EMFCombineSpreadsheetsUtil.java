@@ -70,6 +70,13 @@ public class EMFCombineSpreadsheetsUtil {
 		inputsCsv.writeNext(new String[] {"description","id","internalname","name","profile","vartype","units","labels","external","varcontext","indexingid","defaultval","id","max","metadata","min","categories","sheet","rowsrange"});
 
 
+        Sheet inputsInputs = outputSpreadsheet.createSheet("Inputs_Inputs");
+        inputsInputs.createRow(0);
+        inputsInputs.getRow(0).createCell(0).setCellValue("EMF Scenario");
+        inputsInputs.getRow(0).createCell(1).setCellValue("EMF27G1");
+        inputsInputs.getRow(0).createCell(4).setCellFormula("CONCATENATE(A1,B1)");
+
+
         for (int i=0; i < outputSpreadsheet.getNumberOfSheets(); i++) {
 			Sheet modelSheet = outputSpreadsheet.getSheetAt(i);
 
