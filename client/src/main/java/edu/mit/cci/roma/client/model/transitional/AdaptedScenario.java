@@ -148,7 +148,12 @@ public class AdaptedScenario extends AdaptedObject<edu.mit.cci.roma.api.Scenario
     public EntityState getState() {
         return EntityState.PUBLIC;
     }
-    
+
+    @Override
+    public String getErrorStackTrace() {
+        return null;
+    }
+
     public Variable getVariableForInternalname(String internalname) {
         if (internalname==null) return null;
         for (Variable input:getInputSet()) {

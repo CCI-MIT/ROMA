@@ -29,6 +29,7 @@ public class ClientScenario implements Scenario {
     private Simulation simulation;
     private EntityState state;
     private String name;
+    private String errorStackTrace;
 
 
     public ClientScenario() {
@@ -130,6 +131,15 @@ public class ClientScenario implements Scenario {
     public void setSimulation(Simulation s) {
         this.simulation = s;
 
+    }
+
+    public void setErrorStackTrace(String errorStackTrace){
+        this.errorStackTrace=errorStackTrace;
+    }
+
+    @XmlElement(name="errorStackTrace")
+    public String getErrorStackTrace(){
+           return errorStackTrace;
     }
 
 

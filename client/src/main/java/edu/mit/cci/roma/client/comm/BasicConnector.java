@@ -103,7 +103,11 @@ public class BasicConnector implements DeserializingConnector {
         }
         ResponseHandler<String> handler = new BasicResponseHandler();
         String s = client.execute(post, handler);
-        return deserializer.deserialize(new StringReader(s));
+        if(s.contains("<!DOCTYPE HTML")){
+            /* In case of error return stacktrace */
+            return s;
+        }
+        else return deserializer.deserialize(new StringReader(s));
     }
 
     @Override

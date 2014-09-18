@@ -38,4 +38,7 @@ public interface Scenario extends HasId {
     public void setState(EntityState name);
     public EntityState getState();
 
+    public String getErrorStackTrace();
+
+
 }

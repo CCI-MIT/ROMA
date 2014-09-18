@@ -8,6 +8,7 @@ import edu.mit.cci.roma.client.model.impl.ClientMetaData;
 import edu.mit.cci.roma.client.model.impl.ClientScenario;
 import edu.mit.cci.roma.client.model.impl.ClientSimulation;
 
+import edu.mit.cci.roma.client.model.transitional.AdaptedScenario;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -106,11 +107,20 @@ public class ClientRepository {
 
         params.put("userId",userid+"");
 
-        Object o = manager.getAdaptor(deserializingConnector.post(ModelAccessPoint.RUN_MODEL_URL, params, String.valueOf(s.getId())));
+        Object returnValue = deserializingConnector.post(ModelAccessPoint.RUN_MODEL_URL, params, String.valueOf(s.getId()));
+        if (returnValue instanceof String){
+            /* In case of error return Stack trace */
+            ClientScenario scenario = new ClientScenario();
+            scenario.setErrorStackTrace((String) returnValue);
+            return scenario;
+        }
+
+        Object o = manager.getAdaptor(returnValue);
         if (o instanceof Scenario) return (Scenario) o;
         else {
             log.warn("Error running model");
         }
+
         return null;
     }
 
