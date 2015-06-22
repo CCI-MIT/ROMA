@@ -11,6 +11,8 @@ import javax.persistence.*;
 import org.hibernate.annotations.AccessType;
 import org.springframework.beans.factory.annotation.Configurable;
 
+import edu.mit.cci.roma.api.Scenario;
+import edu.mit.cci.roma.api.Simulation;
 import edu.mit.cci.roma.api.SimulationException;
 import edu.mit.cci.roma.api.TupleStatus;
 import edu.mit.cci.roma.api.Variable;
@@ -105,6 +107,16 @@ public class MappedServerSimulation extends DefaultServerSimulation {
 
                 return U.createStringRepresentationFromTuple(results);
             }
+
+			@Override
+			public void prePersistScenario(Scenario scenario) throws SimulationException {
+				
+			}
+
+			@Override
+			public Simulation getResultSimulation(Simulation defaultServerSimulation) {
+				return defaultServerSimulation;
+			}
         });
     }
 

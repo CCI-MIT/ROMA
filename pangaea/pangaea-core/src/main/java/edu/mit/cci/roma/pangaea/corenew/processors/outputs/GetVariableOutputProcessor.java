@@ -1,4 +1,4 @@
-package edu.mit.cci.roma.pangaea.corenew.processors;
+package edu.mit.cci.roma.pangaea.corenew.processors.outputs;
 
 import java.util.Stack;
 

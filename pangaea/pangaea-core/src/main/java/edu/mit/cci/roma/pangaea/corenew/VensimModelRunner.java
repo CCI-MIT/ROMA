@@ -1,10 +1,8 @@
 package edu.mit.cci.roma.pangaea.corenew;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.apache.log4j.Logger;
 
 import edu.mit.cci.roma.pangaea.core.PangaeaConnection;
@@ -13,6 +11,8 @@ import edu.mit.cci.roma.pangaea.core.VensimException;
 import edu.mit.cci.roma.pangaea.core.VensimHelper;
 import edu.mit.cci.roma.pangaea.corenew.config.VensimModelInputConfig;
 import edu.mit.cci.roma.pangaea.corenew.config.VensimModelOutputConfig;
+import edu.mit.cci.roma.pangaea.corenew.inputs.InputValue;
+import edu.mit.cci.roma.pangaea.corenew.inputs.StringInputValue;
 
 public class VensimModelRunner {
 
@@ -45,33 +45,38 @@ public class VensimModelRunner {
 		}
 	}
 	
-	public VensimModelResults runTheModel(Map<String, String> inputs) throws PangaeaException {
+	public VensimModelResults runTheModel(final Map<String, String> inputs) throws PangaeaException {
 		
 		try {
 			// set default values in baseline
-			Map<String, String> defaultValueInputs = new HashMap<String, String>();
+			Map<String, InputValue> defaultValueInputs = new HashMap<String, InputValue>();
 			for (VensimModelInputConfig inputConfig: definition.getInputs()) {
 				if (inputConfig.getDefaultVal() != null) {
-					defaultValueInputs.put(inputConfig.getName(), inputConfig.getDefaultVal());
+					defaultValueInputs.put(inputConfig.getName(), new StringInputValue(inputConfig.getName(), inputConfig.getDefaultVal()));
 					inputConfig.processInputValues(defaultValueInputs);
 				}
 			}
-			for (Map.Entry<String, String> entry: defaultValueInputs.entrySet()) {
-				baselineVensim.setVariable(entry.getKey(), entry.getValue());
+			for (Map.Entry<String, InputValue> entry: defaultValueInputs.entrySet()) {
+				entry.getValue().setValue(entry.getKey(), baselineVensim);
 			}
+			
 			baselineVensim.run();
 			// process inputs
+			Map<String, InputValue> inputValues = new HashMap<String, InputValue>();
+			for (Map.Entry<String, String> inputValueEntry: inputs.entrySet()) {
+				inputValues.put(inputValueEntry.getKey(), new StringInputValue(inputValueEntry.getKey(), inputValueEntry.getValue()));
+			}
 			for (VensimModelInputConfig inputConfig: definition.getInputs()) {
-				inputs = inputConfig.processInputValues(inputs);
+				inputValues = inputConfig.processInputValues(inputValues);
 			}
 			// set all not modified inputs to default values
-			for (Map.Entry<String, String> defaultValEntry: defaultValueInputs.entrySet()) {
+			for (Map.Entry<String, InputValue> defaultValEntry: defaultValueInputs.entrySet()) {
 				if (! inputs.containsKey(defaultValEntry.getKey())) {
-					inputs.put(defaultValEntry.getKey(), defaultValEntry.getValue());
+					inputValues.put(defaultValEntry.getKey(), defaultValEntry.getValue());
 				}
 			}
-			for (Map.Entry<String, String> entry: inputs.entrySet()) {
-				vensim.setVariable(entry.getKey(), entry.getValue());
+			for (Map.Entry<String, InputValue> entry: inputValues.entrySet()) {
+				entry.getValue().setValue(entry.getKey(), vensim);
 			}
 			vensim.run();
 			

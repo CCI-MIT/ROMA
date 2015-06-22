@@ -17,9 +17,9 @@
   
   <spring:url value="/resources/styles/jquery-ui/start/jquery-ui-1.8.10.custom.css" var="jquery_ui_css" />
   
-  <link rel="stylesheet" type="text/css" media="screen" href="${roo_css_url}"><!-- required for FF3 and Opera --></link>
-  <link rel="stylesheet" type="text/css" href="${tundra_url}"><!-- required for FF3 and Opera --></link>
-  <link rel="stylesheet" type="text/css" href="${jquery_ui_css}"><!-- required for FF3 and Opera --></link>
+  <link rel="stylesheet" type="text/css" media="screen" href="${roo_css_url}" />
+  <link rel="stylesheet" type="text/css" href="${tundra_url}" />
+  <link rel="stylesheet" type="text/css" href="${jquery_ui_css}" />
   <link rel="SHORTCUT ICON" href="${favicon}" />
 
   <!-- Get the user local from the page context (it was set by Spring MVC's locale resolver) -->

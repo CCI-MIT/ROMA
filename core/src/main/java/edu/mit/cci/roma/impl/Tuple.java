@@ -120,7 +120,7 @@ public class Tuple {
 
 
 
-    private Long id;
+    protected Long id;
 
 
     @XmlAttribute

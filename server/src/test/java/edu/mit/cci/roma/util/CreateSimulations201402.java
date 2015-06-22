@@ -43,7 +43,6 @@ public class CreateSimulations201402 {
     	DefaultServerSimulation sim = (DefaultServerSimulation) createBaseSim("./target/test-classes/2014_may_models/emf_combined/emf_20140520", 1, 11, true);
     }
     
-    
     public Simulation createBaseSim(String path, int inputArity, int outputArity, boolean isExcel) throws IOException, ParseException {
 
         DefaultServerSimulation sim = (DefaultServerSimulation) readSimulation(path);

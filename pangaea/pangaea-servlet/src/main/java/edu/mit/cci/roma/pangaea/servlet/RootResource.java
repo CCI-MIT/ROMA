@@ -46,6 +46,8 @@ public class  RootResource {
 			@FormParam("Developing B target year") String devingBTarget,
 			@FormParam("Goal for CO2 in the atmosphere") String co2inAtm) {
 
+		System.out.println(System.getProperty("user.dir"));
+		
 		SimulationInput input = new SimulationInput();
 		try {
 			input.setVariable(SimulationInput.InputVariable.DEVELOPED_FF_CHANGE, getDouble(devdchange, 1., "Pct change in Developed FF emissions", null));

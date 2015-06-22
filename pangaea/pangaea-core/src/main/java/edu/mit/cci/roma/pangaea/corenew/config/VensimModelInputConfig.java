@@ -5,7 +5,9 @@ import java.util.Map;
 import org.simpleframework.xml.Element;
 
 import edu.mit.cci.roma.pangaea.corenew.PangaeaPropsUtils;
-import edu.mit.cci.roma.pangaea.corenew.processors.InputProcessor;
+import edu.mit.cci.roma.pangaea.corenew.inputs.InputValue;
+import edu.mit.cci.roma.pangaea.corenew.inputs.StringInputValue;
+import edu.mit.cci.roma.pangaea.corenew.processors.inputs.InputProcessor;
 
 public class VensimModelInputConfig extends BaseVensimVariableInfo {
 
@@ -14,14 +16,14 @@ public class VensimModelInputConfig extends BaseVensimVariableInfo {
 	
 	private InputProcessor processor;
 	
-	public Map<String, String> processInputValues(Map<String, String> inputValues) {
-		Map<String, String> ret = inputValues;
+	public Map<String, InputValue> processInputValues(Map<String, InputValue> inputValues) {
+		Map<String, InputValue> ret = inputValues;
 		InputProcessor processor = getProcessor();
 		if (processor == null) {
 			// do nothing as we don't need to process the value
 			String varName = getVensimContextVariable() == null ? getName() : getVensimContextVariable(); 
 			if (getDefaultVal() != null && !inputValues.containsKey(varName) ) {
-				inputValues.put(varName, getDefaultVal());
+				inputValues.put(varName, new StringInputValue(varName, getDefaultVal()));
 			}
 		}
 		else {

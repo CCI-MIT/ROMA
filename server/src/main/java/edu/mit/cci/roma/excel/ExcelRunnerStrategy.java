@@ -19,6 +19,8 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.util.AreaReference;
 
 import edu.mit.cci.roma.api.DataType;
+import edu.mit.cci.roma.api.Scenario;
+import edu.mit.cci.roma.api.Simulation;
 import edu.mit.cci.roma.api.SimulationException;
 import edu.mit.cci.roma.api.TupleStatus;
 import edu.mit.cci.roma.api.Variable;
@@ -206,7 +208,16 @@ public class ExcelRunnerStrategy implements RunStrategy {
 
     }
 
+	@Override
+	public void prePersistScenario(Scenario scenario) throws SimulationException {
+		
+	}
 
+
+	@Override
+	public Simulation getResultSimulation(Simulation defaultServerSimulation) {
+		return defaultServerSimulation;
+	}
 
 
 }

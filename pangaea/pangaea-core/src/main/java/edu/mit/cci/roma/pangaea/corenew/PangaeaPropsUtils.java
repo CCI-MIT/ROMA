@@ -10,8 +10,8 @@ import java.util.Map;
 import java.util.Properties;
 
 import edu.mit.cci.roma.pangaea.core.PangaeaException;
-import edu.mit.cci.roma.pangaea.corenew.processors.InputProcessor;
-import edu.mit.cci.roma.pangaea.corenew.processors.OutputProcessor;
+import edu.mit.cci.roma.pangaea.corenew.processors.inputs.InputProcessor;
+import edu.mit.cci.roma.pangaea.corenew.processors.outputs.OutputProcessor;
 
 public class PangaeaPropsUtils {
 	private static PangaeaPropsUtils instance = new PangaeaPropsUtils();

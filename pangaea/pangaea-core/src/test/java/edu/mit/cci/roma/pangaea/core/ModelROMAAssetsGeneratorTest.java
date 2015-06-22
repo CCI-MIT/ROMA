@@ -18,19 +18,26 @@ import edu.mit.cci.roma.pangaea.corenew.config.BaseVensimVariableInfo;
 import edu.mit.cci.roma.pangaea.corenew.config.VensimModelInputConfig;
 import edu.mit.cci.roma.pangaea.corenew.config.VensimModelOutputConfig;
 
-public class EnRoadsROMAAssetsGeneratorTest {
+public class ModelROMAAssetsGeneratorTest {
 	
 	private File destDir = new File("/tmp/pangaeaEnroads");
     public static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
+
 	@Test
-	public void generateRomaAssets() throws IOException, VensimException, PangaeaException {
+	public void generateRomaAssetsTest() throws IOException, VensimException, PangaeaException {
+		generateRomaAssets("enroads");
+		generateRomaAssets("clearn_v75");
+	
+	}
+	
+	public void generateRomaAssets(String modelName) throws IOException, VensimException, PangaeaException {
 		destDir.mkdirs();
 		
 		// output simulation info
-		File simFile = new File(destDir, "pangaeaEnroads_sim.csv");
-		File outputsFile = new File(destDir, "pangaeaEnroads_outputs.csv");
-		File inputsFile = new File(destDir, "pangaeaEnroads_inputs.csv");
+		File simFile = new File(destDir, modelName + "_sim.csv");
+		File outputsFile = new File(destDir, modelName + "_outputs.csv");
+		File inputsFile = new File(destDir, modelName + "_inputs.csv");
 		
 
 		long nextId = new Date().getTime()/1000;
@@ -42,8 +49,8 @@ public class EnRoadsROMAAssetsGeneratorTest {
 		inputsCsv.writeNext(new String[] {"description","id","internalname","name","profile","vartype","units","labels","external","varcontext","indexingid","defaultval","id","max","metadata","min","categories"});
 		simCsv.writeNext(new String[] {"description","id","name","url","state","creation","compositeString","configured","type"});
 
-		String modelName = "EnROADS " + new Date();
-		VensimModelDefinition modelDefinition = PangaeaPropsUtils.getModelForName("enroads");
+		
+		VensimModelDefinition modelDefinition = PangaeaPropsUtils.getModelForName(modelName);
 		simCsv.writeNext(new String[] {modelDefinition.getConfig().getDescription(),String.valueOf(nextId),modelDefinition.getConfig().getName(),"","PUBLIC",format.format(new Date()),"NULL","NULL","none"});
 		
 		VensimHelper vensim = new VensimHelper(PangaeaPropsUtils.getVensimLibName(), PangaeaPropsUtils.getModelForName("enroads").getPath());

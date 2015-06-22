@@ -9,12 +9,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import edu.mit.cci.roma.impl.DefaultVariable;
-import edu.mit.cci.roma.jaxb.JaxbCollection;
 import org.apache.log4j.Logger;
 import org.hibernate.annotations.AccessType;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -27,6 +43,9 @@ import edu.mit.cci.roma.excel.ExcelRunnerStrategy;
 import edu.mit.cci.roma.excel.ExcelSimulation;
 import edu.mit.cci.roma.impl.DefaultSimulation;
 import edu.mit.cci.roma.impl.Tuple;
+import edu.mit.cci.roma.java.JavaRunnerStrategy;
+import edu.mit.cci.roma.java.JavaSimulation;
+import edu.mit.cci.roma.util.SimulationValidationException;
 
 /**
  * User: jintrone Date: 1/29/13 Time: 10:40 AM
@@ -138,6 +157,10 @@ public class DefaultServerSimulation extends DefaultSimulation {
         result.getValues_().addAll(inputMap.values());
         result.getValues_().addAll(response);
         result.setCreated(new Date());
+        
+        // allow post calculation modifications
+        getRunStrategy().prePersistScenario(result);
+        
         result.persist();
         return result;
 
@@ -148,11 +171,16 @@ public class DefaultServerSimulation extends DefaultSimulation {
     }
 
     @Transient
-    public RunStrategy getRunStrategy() {
-        if (getUrl() != null && getUrl().startsWith(ExcelSimulation.EXCEL_URL)
-                && !(runStrategy instanceof ExcelRunnerStrategy)) {
-            new ExcelRunnerStrategy(this);
+    public RunStrategy getRunStrategy() throws SimulationValidationException {
+        if (getUrl() != null) {
+        	if (getUrl().startsWith(ExcelSimulation.EXCEL_URL) && !(runStrategy instanceof ExcelRunnerStrategy)) {
+        		new ExcelRunnerStrategy(this);
+        	}
+        	else if (getUrl().startsWith(JavaSimulation.JAVA_URL) && ! (runStrategy instanceof JavaRunnerStrategy)) {
+        		new JavaRunnerStrategy(this);
+        	}
         }
+        
         return runStrategy;
     }
 
@@ -181,9 +209,9 @@ public class DefaultServerSimulation extends DefaultSimulation {
         response = getRunStrategy().run(url, selectedinputs);
 
         result.addAll(edu.mit.cci.roma.server.util.U.parseVariableMap(response,
-                getOutputs()));
+        		getRunStrategy().getResultSimulation(this).getOutputs()));
         result.addAll(edu.mit.cci.roma.server.util.U.parseVariableMap(response,
-                getInputs()));
+        		getRunStrategy().getResultSimulation(this).getInputs()));
 
         return result;
     }

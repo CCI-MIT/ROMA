@@ -1,0 +1,27 @@
+<vensimModelConfig>
+	<name>CLearn v75</name>
+	<description> </description>
+	<inputs>
+		<!-- set input mode to 5 to be able to define lookup variables -->
+		<vensimInput name="Input Mode for each group" defaultVal="5" internalOnly="true"  profile="java.lang.Integer" >
+			<description></description>
+		</vensimInput>		
+		
+		<vensimInput vensimContextVariable="Global Emissions from graph LOOKUP" name="Global emissions by Year">
+			<processorConfig name="LookupVariableInputProcessor">
+				<configuration>Global emissions by Year</configuration>
+			</processorConfig>
+			<description>Global Emissions indexed by year.</description>
+			
+		</vensimInput>
+	</inputs>
+	<outputs>
+	
+		<vensimOutput name="Atmosphere CO2 concentration" vensimContextVariable='Atm conc CO2["Deterministic"]' label="CO2 concentration" unit="billions">
+			<processorConfig name="GetVariableOutputProcessor">
+				<configuration>Atm conc CO2["Deterministic"]</configuration>
+			</processorConfig>
+		</vensimOutput>
+	</outputs>
+	<outputIndex>2000;2002;2004;2006;2008;2010;2012;2014;2016;2018;2020;2022;2024;2026;2028;2030;2032;2034;2036;2038;2040;2042;2044;2046;2048;2050;2052;2054;2056;2058;2060;2062;2064;2066;2068;2070;2072;2074;2076;2078;2080;2082;2084;2086;2088;2090;2092;2094;2096;2098;2100</outputIndex>
+</vensimModelConfig>

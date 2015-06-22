@@ -33,6 +33,7 @@ public class EnRoadsTest {
 		//}
 		
 		
+		//params.put("Population scenario", "2");
 		VensimModelResults results = runner.runTheModel(params);
 		//System.out.println("Reference supply: " + Arrays.toString(results.getVensim().getVariable("Energy supply capacity[EBio]")));
 		//System.out.println(Arrays.toString(results.getVensim().getVariable("Temperature change from 1990[Deterministic]")));
@@ -54,7 +55,7 @@ public class EnRoadsTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void saveVarables() throws VensimException, PangaeaException, IOException {
 		VensimHelper helper = new VensimHelper(PangaeaPropsUtils.getVensimLibName(), PangaeaPropsUtils.getModelForName("enroads").getPath());
 		

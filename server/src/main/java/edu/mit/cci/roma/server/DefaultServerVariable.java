@@ -98,7 +98,20 @@ public class DefaultServerVariable extends DefaultVariable {
         super(name,description,arity,precision,min,max);
     }
 
-    @PersistenceContext
+    public DefaultServerVariable(Variable copiedVariable) {
+		setIndexingVariable(copiedVariable.getIndexingVariable());
+		setArity(copiedVariable.getArity());
+		setOptions(copiedVariable.getOptions());
+		setDataType(copiedVariable.getDataType());
+		setDefaultValue(copiedVariable.getDefaultValue());
+		setLabels(copiedVariable.getLabels());
+		setUnits(copiedVariable.getUnits());
+		setMax_(copiedVariable.getMax_());
+		setMin_(copiedVariable.getMin_());
+		setPrecision_(copiedVariable.getPrecision_());
+	}
+
+	@PersistenceContext
     transient EntityManager entityManager;
 
 

@@ -1,17 +1,18 @@
 package edu.mit.cci.roma.server;
 
 import edu.mit.cci.roma.api.DataType;
+import edu.mit.cci.roma.api.Scenario;
+import edu.mit.cci.roma.api.Simulation;
 import edu.mit.cci.roma.api.SimulationException;
 import edu.mit.cci.roma.api.Variable;
 import edu.mit.cci.roma.excel.ExcelRunnerStrategy;
 import edu.mit.cci.roma.excel.ExcelSimulation;
 import edu.mit.cci.roma.excel.ExcelVariable;
-
 import edu.mit.cci.roma.impl.DefaultVariable;
 import edu.mit.cci.roma.impl.DelegatingSim;
-
 import edu.mit.cci.roma.impl.Tuple;
 import edu.mit.cci.roma.util.U;
+
 import org.junit.runner.RunWith;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
@@ -83,6 +84,16 @@ public class SimulationMockFactory {
                         data.put(v, new String[]{output + ""});
                         return U.createStringRepresentation(data);
                     }
+
+					@Override
+					public void prePersistScenario(Scenario scenario) throws SimulationException {
+						
+					}
+
+					@Override
+					public Simulation getResultSimulation(Simulation defaultServerSimulation) {
+						return defaultServerSimulation;
+					}
                 });
             }
         };
@@ -112,6 +123,16 @@ public class SimulationMockFactory {
                         }
                         return U.createStringRepresentation(data);
                     }
+
+					@Override
+					public void prePersistScenario(Scenario scenario) throws SimulationException {
+						
+					}
+
+					@Override
+					public Simulation getResultSimulation(Simulation defaultServerSimulation) {
+						return defaultServerSimulation;
+					}
                 });
             }
         };

@@ -10,7 +10,7 @@ import org.simpleframework.xml.ElementList;
 import edu.mit.cci.roma.pangaea.core.VensimException;
 import edu.mit.cci.roma.pangaea.core.VensimHelper;
 import edu.mit.cci.roma.pangaea.corenew.PangaeaPropsUtils;
-import edu.mit.cci.roma.pangaea.corenew.processors.OutputProcessor;
+import edu.mit.cci.roma.pangaea.corenew.processors.outputs.OutputProcessor;
 
 
 public class VensimModelOutputConfig extends BaseVensimVariableInfo {

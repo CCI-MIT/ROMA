@@ -54,6 +54,11 @@ public class VensimHelper {
      */
     private static final String V_SET_VARIABLE = "SIMULATE>SETVAL|";
 
+    /**
+     * Command for setting input variable value. 
+     */
+    private static final String V_SET_LOOKUP = "LOOKUP ";
+    
     /** 
      * Vensim instance.
      */
@@ -187,6 +192,17 @@ public class VensimHelper {
 
         doCommand(V_SET_VARIABLE + name + "=" + val);
     }
+    
+    
+    /* (non-Javadoc)
+	 * @see edu.mit.cci.roma.pangaea.core.IVensimHelper#setVariable(java.lang.String, float)
+	 */
+    public void setLookup(String name, String val) throws VensimException {
+        validateContext();
+
+        doCommand(V_SET_VARIABLE + name + " (" + val + ")");
+    }
+    
     
     
     /* (non-Javadoc)

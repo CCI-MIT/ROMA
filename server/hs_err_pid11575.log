@@ -1,0 +1,522 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0xf7005cce, pid=11575, tid=2917567296
+#
+# JRE version: 6.0_21-b06
+# Java VM: Java HotSpot(TM) Server VM (17.0-b16 mixed mode linux-x86 )
+# Problematic frame:
+# V  [libjvm.so+0x5facce]
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0xf68f1800):  VMThread [stack: 0xadde8000,0xade69000] [id=11591]
+
+siginfo:si_signo=SIGSEGV: si_errno=0, si_code=1 (SEGV_MAPERR), si_addr=0x00000000
+
+Registers:
+EAX=0x00000000, EBX=0xf7185748, ECX=0x00000028, EDX=0x00000000
+ESP=0xade67310, EBP=0xade67318, ESI=0xade67360, EDI=0xade67360
+EIP=0xf7005cce, CR2=0x00000000, EFLAGS=0x00010286
+
+Top of Stack: (sp=0xade67310)
+0xade67310:   f7185748 ade67b40 ade67348 f70062d7
+0xade67320:   ade67360 00000028 ade67348 f6cba09c
+0xade67330:   b0cbfe08 000022ca 00000000 000000a1
+0xade67340:   ade67b40 ade67360 ade677b8 f6d4d5ea
+0xade67350:   ade67360 00000000 00000000 40000000
+0xade67360:   f716fba8 00000000 00000000 00000000
+0xade67370:   0000000c ade67790 00000000 f7185748
+0xade67380:   4fffffff 4fffffff 4fffffff f6f7b8ae 
+
+Instructions: (pc=0xf7005cce)
+0xf7005cbe:   04 8b 56 08 e8 00 00 00 00 5b 81 c3 81 fa 17 00
+0xf7005cce:   8b 00 83 c0 0a 0f be 04 02 39 c8 74 21 51 8d 93 
+
+Stack: [0xadde8000,0xade69000],  sp=0xade67310,  free space=1fcade66b40k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0x5facce]
+V  [libjvm.so+0x5fb2d7]
+V  [libjvm.so+0x3425ea]
+V  [libjvm.so+0x3413e7]
+V  [libjvm.so+0x33e919]
+V  [libjvm.so+0x33e846]
+V  [libjvm.so+0x33e443]
+V  [libjvm.so+0x342b75]
+V  [libjvm.so+0x56fefd]
+V  [libjvm.so+0x5707f8]
+V  [libjvm.so+0x571109]
+V  [libjvm.so+0x37194d]
+V  [libjvm.so+0x54d4ac]
+V  [libjvm.so+0x6a186b]
+V  [libjvm.so+0x4aa5f3]
+V  [libjvm.so+0x6b8b96]
+V  [libjvm.so+0x6b80e3]
+V  [libjvm.so+0x6b8350]
+V  [libjvm.so+0x6b7e40]
+V  [libjvm.so+0x57a89e]
+C  [libpthread.so.0+0x6f16]
+
+VM_Operation (0xae77dd90): GetOrSetLocal, mode: safepoint, requested by thread 0xad80f800
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0xacaf0400 JavaThread "Abandoned connection cleanup thread" daemon [_thread_blocked, id=11610, stack(0xac7af000,0xac800000)]
+  0xaccf3800 JavaThread "ReaderThread" [_thread_in_native, id=11609, stack(0xacb46000,0xacb97000)]
+  0xad817800 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=11607, stack(0xae12e000,0xae17f000)]
+  0xad815c00 JavaThread "CompilerThread1" daemon [_thread_blocked, id=11606, stack(0xad57f000,0xad600000)]
+  0xad813c00 JavaThread "CompilerThread0" daemon [_thread_blocked, id=11605, stack(0xadd67000,0xadde8000)]
+  0xad600800 JavaThread "JDWP Command Reader" daemon [_thread_in_native, id=11600, stack(0xae32e000,0xae37f000)]
+  0xad812000 JavaThread "JDWP Event Helper Thread" daemon [_thread_blocked, id=11598, stack(0xae52e000,0xae57f000)]
+  0xad80f800 JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_blocked, id=11596, stack(0xae72e000,0xae77f000)]
+  0xf68ff800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=11594, stack(0xae92e000,0xae97f000)]
+  0xf68f5800 JavaThread "Finalizer" daemon [_thread_blocked, id=11593, stack(0xaeb2e000,0xaeb7f000)]
+  0xf68f4000 JavaThread "Reference Handler" daemon [_thread_blocked, id=11592, stack(0xaed2e000,0xaed7f000)]
+  0xf680d000 JavaThread "main" [_thread_blocked, id=11581, stack(0xf6974000,0xf69c5000)]
+
+Other Threads:
+=>0xf68f1800 VMThread [stack: 0xadde8000,0xade69000] [id=11591]
+  0xad821800 WatcherThread [stack: 0xad4fe000,0xad57f000] [id=11608]
+
+VM state:at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0xf680af40] Threads_lock - owner thread: 0xf68f1800
+
+Heap
+ PSYoungGen      total 140672K, used 54307K [0xdde20000, 0xe8af0000, 0xf3370000)
+  eden space 126528K, 31% used [0xdde20000,0xe055b1a0,0xe59b0000)
+  from space 14144K, 99% used [0xe59b0000,0xe677dc10,0xe6780000)
+  to   space 17984K, 0% used [0xe7960000,0xe7960000,0xe8af0000)
+ PSOldGen        total 146240K, used 107027K [0xb3370000, 0xbc240000, 0xdde20000)
+  object space 146240K, 73% used [0xb3370000,0xb9bf4e08,0xbc240000)
+ PSPermGen       total 54400K, used 25925K [0xaf370000, 0xb2890000, 0xb3370000)
+  object space 54400K, 47% used [0xaf370000,0xb0cc1490,0xb2890000)
+
+Dynamic libraries:
+08048000-08052000 r-xp 00000000 08:11 14957135                           /home/janusz/programy/jdk1.6.0_21/bin/java
+08052000-08053000 rwxp 00009000 08:11 14957135                           /home/janusz/programy/jdk1.6.0_21/bin/java
+08ca3000-08d45000 rwxp 00000000 00:00 0                                  [heap]
+a9900000-a99ff000 rwxp 00000000 00:00 0 
+a99ff000-a9a00000 ---p 00000000 00:00 0 
+a9a00000-a9aff000 rwxp 00000000 00:00 0 
+a9aff000-a9b00000 ---p 00000000 00:00 0 
+a9b00000-a9bfb000 rwxp 00000000 00:00 0 
+a9bfb000-a9c00000 ---p 00000000 00:00 0 
+a9c00000-a9cfa000 rwxp 00000000 00:00 0 
+a9cfa000-a9d00000 ---p 00000000 00:00 0 
+a9d00000-a9efa000 rwxp 00000000 00:00 0 
+a9efa000-a9f00000 ---p 00000000 00:00 0 
+a9f00000-aa0fd000 rwxp 00000000 00:00 0 
+aa0fd000-aa100000 ---p 00000000 00:00 0 
+aa100000-aa200000 rwxp 00000000 00:00 0 
+aa500000-aa5f9000 rwxp 00000000 00:00 0 
+aa5f9000-aa600000 ---p 00000000 00:00 0 
+aa600000-aa700000 rwxp 00000000 00:00 0 
+aa700000-aa7dd000 rwxp 00000000 00:00 0 
+aa7dd000-aa800000 ---p 00000000 00:00 0 
+aa800000-aa8ff000 rwxp 00000000 00:00 0 
+aa8ff000-aa900000 ---p 00000000 00:00 0 
+aa900000-aaa00000 rwxp 00000000 00:00 0 
+aaa00000-aab00000 rwxp 00000000 00:00 0 
+aab00000-aabfa000 rwxp 00000000 00:00 0 
+aabfa000-aac00000 ---p 00000000 00:00 0 
+aac00000-aad00000 rwxp 00000000 00:00 0 
+aad00000-aaf00000 rwxp 00000000 00:00 0 
+aaf00000-ab000000 rwxp 00000000 00:00 0 
+ab000000-ab1f9000 rwxp 00000000 00:00 0 
+ab1f9000-ab200000 ---p 00000000 00:00 0 
+ab200000-ab400000 rwxp 00000000 00:00 0 
+ab400000-ab600000 rwxp 00000000 00:00 0 
+ab600000-ab700000 rwxp 00000000 00:00 0 
+aba00000-abaf9000 rwxp 00000000 00:00 0 
+abaf9000-abb00000 ---p 00000000 00:00 0 
+abb00000-abc00000 rwxp 00000000 00:00 0 
+abc00000-abcfd000 rwxp 00000000 00:00 0 
+abcfd000-abd00000 ---p 00000000 00:00 0 
+abd00000-abdf9000 rwxp 00000000 00:00 0 
+abdf9000-abe00000 ---p 00000000 00:00 0 
+abe00000-abeec000 rwxp 00000000 00:00 0 
+abeec000-abf00000 ---p 00000000 00:00 0 
+abf00000-abffb000 rwxp 00000000 00:00 0 
+abffb000-ac000000 ---p 00000000 00:00 0 
+ac000000-ac0f8000 rwxp 00000000 00:00 0 
+ac0f8000-ac100000 ---p 00000000 00:00 0 
+ac100000-ac1ff000 rwxp 00000000 00:00 0 
+ac1ff000-ac200000 ---p 00000000 00:00 0 
+ac200000-ac2f6000 rwxp 00000000 00:00 0 
+ac2f6000-ac300000 ---p 00000000 00:00 0 
+ac300000-ac3fb000 rwxp 00000000 00:00 0 
+ac3fb000-ac400000 ---p 00000000 00:00 0 
+ac400000-ac4dd000 rwxp 00000000 00:00 0 
+ac4dd000-ac500000 ---p 00000000 00:00 0 
+ac500000-ac5fc000 rwxp 00000000 00:00 0 
+ac5fc000-ac600000 ---p 00000000 00:00 0 
+ac600000-ac6fa000 rwxp 00000000 00:00 0 
+ac6fa000-ac700000 ---p 00000000 00:00 0 
+ac7af000-ac7b2000 ---p 00000000 00:00 0 
+ac7b2000-ac800000 rwxp 00000000 00:00 0                                  [stack:11610]
+ac800000-ac8fe000 rwxp 00000000 00:00 0 
+ac8fe000-ac900000 ---p 00000000 00:00 0 
+ac900000-ac9fe000 rwxp 00000000 00:00 0 
+ac9fe000-aca00000 ---p 00000000 00:00 0 
+aca00000-acafb000 rwxp 00000000 00:00 0 
+acafb000-acb00000 ---p 00000000 00:00 0 
+acb38000-acb3e000 r-xs 00092000 08:11 15217988                           /home/janusz/programy/jdk1.6.0_21/jre/lib/jsse.jar
+acb3e000-acb46000 r-xs 00115000 08:11 15218011                           /home/janusz/programy/jdk1.6.0_21/jre/lib/resources.jar
+acb46000-acb49000 ---p 00000000 00:00 0 
+acb49000-acb97000 rwxp 00000000 00:00 0                                  [stack:11609]
+acb97000-acbaa000 r-xp 00000000 08:11 15218070                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/libnet.so
+acbaa000-acbab000 rwxp 00013000 08:11 15218070                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/libnet.so
+acbab000-acbae000 r-xs 00013000 08:11 16518097                           /home/janusz/.m2/repository/net/sf/ezmorph/ezmorph/1.0.6/ezmorph-1.0.6.jar
+acbae000-acbb1000 r-xs 00024000 08:11 16518096                           /home/janusz/.m2/repository/net/sf/json-lib/json-lib/2.4/json-lib-2.4-jdk15.jar
+acbb1000-acbb5000 r-xs 00038000 08:11 12715092                           /home/janusz/.m2/repository/commons-lang/commons-lang/2.3/commons-lang-2.3.jar
+acbb5000-acbc0000 r-xs 000c7000 08:11 16779547                           /home/janusz/.m2/repository/javax/faces/jsf-impl/1.2_15/jsf-impl-1.2_15.jar
+acbc0000-acbc5000 r-xs 00046000 08:11 19272834                           /home/janusz/.m2/repository/javax/faces/jsf-api/1.2/jsf-api-1.2.jar
+acbc5000-acbd4000 r-xs 00087000 08:11 16779551                           /home/janusz/.m2/repository/org/icefaces/icefaces-facelets/1.8.2/icefaces-facelets-1.8.2.jar
+acbd4000-acbde000 r-xs 001e8000 08:11 16779549                           /home/janusz/.m2/repository/org/icefaces/icefaces-comps/1.8.2/icefaces-comps-1.8.2.jar
+acbde000-acbe3000 r-xs 00043000 08:11 16779542                           /home/janusz/.m2/repository/com/sun/xml/fastinfoset/FastInfoset/1.2.2/FastInfoset-1.2.2.jar
+acbe3000-acc00000 r-xs 00112000 08:11 16779550                           /home/janusz/.m2/repository/org/icefaces/icefaces/1.8.2/icefaces-1.8.2.jar
+acc00000-accff000 rwxp 00000000 00:00 0 
+accff000-acd00000 ---p 00000000 00:00 0 
+acd00000-ace00000 rwxp 00000000 00:00 0 
+ace00000-ace03000 r-xs 00018000 08:11 19272826                           /home/janusz/.m2/repository/org/glassfish/web/el-impl/2.2/el-impl-2.2.jar
+ace03000-ace2f000 r-xs 000c4000 08:11 19142639                           /home/janusz/.m2/repository/javax/javaee-api/6.0/javaee-api-6.0.jar
+ace2f000-ace6c000 r-xs 0024f000 08:11 16648858                           /home/janusz/.m2/repository/org/apache/xmlbeans/xmlbeans/2.3.0/xmlbeans-2.3.0.jar
+ace6c000-acf00000 r-xs 00401000 08:11 26744439                           /home/janusz/.m2/repository/org/apache/poi/poi-ooxml-schemas/3.9/poi-ooxml-schemas-3.9.jar
+acf00000-acffc000 rwxp 00000000 00:00 0 
+acffc000-ad000000 ---p 00000000 00:00 0 
+ad000000-ad0fe000 rwxp 00000000 00:00 0 
+ad0fe000-ad100000 ---p 00000000 00:00 0 
+ad100000-ad1fe000 rwxp 00000000 00:00 0 
+ad1fe000-ad200000 ---p 00000000 00:00 0 
+ad200000-ad2fd000 rwxp 00000000 00:00 0 
+ad2fd000-ad300000 ---p 00000000 00:00 0 
+ad300000-ad3ff000 rwxp 00000000 00:00 0 
+ad3ff000-ad400000 ---p 00000000 00:00 0 
+ad401000-ad402000 r-xs 00004000 08:11 12714760                           /home/janusz/.m2/repository/net/sf/opencsv/opencsv/2.3/opencsv-2.3.jar
+ad402000-ad404000 r-xs 00007000 08:11 19272855                           /home/janusz/.m2/repository/javax/el/el-api/2.2/el-api-2.2.jar
+ad404000-ad405000 r-xs 0000a000 08:11 14684181                           /home/janusz/.m2/repository/commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.jar
+ad405000-ad40d000 r-xs 00048000 08:11 16779541                           /home/janusz/.m2/repository/backport-util-concurrent/backport-util-concurrent/2.2/backport-util-concurrent-2.2.jar
+ad40d000-ad414000 r-xs 0007a000 08:11 19142640                           /home/janusz/.m2/repository/org/ostermiller/utils/1.07.00/utils-1.07.00.jar
+ad414000-ad416000 r-xs 0000c000 08:11 19142452                           /home/janusz/.m2/repository/org/springframework/spring-oxm/3.0.0.RELEASE/spring-oxm-3.0.0.RELEASE.jar
+ad416000-ad419000 r-xs 00024000 08:11 12714882                           /home/janusz/.m2/repository/commons-io/commons-io/2.0.1/commons-io-2.0.1.jar
+ad419000-ad41b000 r-xs 00005000 08:11 12452259                           /home/janusz/.m2/repository/stax/stax-api/1.0.1/stax-api-1.0.1.jar
+ad41b000-ad427000 r-xs 000d9000 08:11 26744438                           /home/janusz/.m2/repository/org/apache/poi/poi-ooxml/3.9/poi-ooxml-3.9.jar
+ad427000-ad447000 r-xs 001a9000 08:11 16782809                           /home/janusz/.m2/repository/org/apache/poi/poi/3.9/poi-3.9.jar
+ad447000-ad44e000 r-xs 00028000 08:11 16648835                           /home/janusz/.m2/repository/concurrent/concurrent/1.3.4/concurrent-1.3.4.jar
+ad44e000-ad45c000 r-xs 00081000 08:11 19142634                           /home/janusz/.m2/repository/colt/colt/1.2.0/colt-1.2.0.jar
+ad45c000-ad45d000 r-xs 00002000 08:11 19142638                           /home/janusz/.m2/repository/com/sun/jersey/contribs/jersey-simple-server/1.6-ea04/jersey-simple-server-1.6-ea04.jar
+ad45d000-ad45e000 r-xs 0000a000 08:11 16648862                           /home/janusz/.m2/repository/asm/asm/3.1/asm-3.1.jar
+ad45e000-ad469000 r-xs 00065000 08:11 19142631                           /home/janusz/.m2/repository/com/sun/jersey/jersey-core/1.5/jersey-core-1.5.jar
+ad469000-ad47a000 r-xs 00096000 08:11 19142576                           /home/janusz/.m2/repository/com/sun/jersey/jersey-server/1.5/jersey-server-1.5.jar
+ad47a000-ad481000 r-xs 00035000 08:11 19142629                           /home/janusz/.m2/repository/org/simpleframework/simple/4.1.21/simple-4.1.21.jar
+ad481000-ad483000 r-xs 00011000 08:11 19142628                           /home/janusz/.m2/repository/org/eclipse/jetty/jetty-io/7.2.2.v20101205/jetty-io-7.2.2.v20101205.jar
+ad483000-ad486000 r-xs 00016000 08:11 19142624                           /home/janusz/.m2/repository/org/eclipse/jetty/jetty-http/7.2.2.v20101205/jetty-http-7.2.2.v20101205.jar
+ad486000-ad487000 r-xs 00004000 08:11 19142622                           /home/janusz/.m2/repository/org/eclipse/jetty/jetty-continuation/7.2.2.v20101205/jetty-continuation-7.2.2.v20101205.jar
+ad487000-ad48c000 r-xs 00040000 08:11 19142621                           /home/janusz/.m2/repository/org/eclipse/jetty/jetty-server/7.2.2.v20101205/jetty-server-7.2.2.v20101205.jar
+ad48c000-ad48e000 r-xs 00006000 08:11 19142620                           /home/janusz/.m2/repository/org/eclipse/jetty/jetty-websocket/7.2.2.v20101205/jetty-websocket-7.2.2.v20101205.jar
+ad48e000-ad48f000 r-xs 0000a000 08:11 19142616                           /home/janusz/.m2/repository/org/eclipse/jetty/jetty-start/7.2.2.v20101205/jetty-start-7.2.2.v20101205.jar
+ad48f000-ad491000 r-xs 00004000 08:11 19142615                           /home/janusz/.m2/repository/asm/asm-tree/3.1/asm-tree-3.1.jar
+ad491000-ad492000 r-xs 00007000 08:11 19142611                           /home/janusz/.m2/repository/asm/asm-commons/3.1/asm-commons-3.1.jar
+ad492000-ad494000 r-xs 00002000 08:11 19142612                           /home/janusz/.m2/repository/org/apache/geronimo/specs/geronimo-annotation_1.0_spec/1.1.1/geronimo-annotation_1.0_spec-1.1.1.jar
+ad494000-ad496000 r-xs 00009000 08:11 19142610                           /home/janusz/.m2/repository/org/eclipse/jetty/jetty-annotations/7.2.2.v20101205/jetty-annotations-7.2.2.v20101205.jar
+ad496000-ad497000 r-xs 00001000 08:11 19142607                           /home/janusz/.m2/repository/org/eclipse/jetty/jetty-jsp-2.1/7.2.2.v20101205/jetty-jsp-2.1-7.2.2.v20101205.jar
+ad497000-ad4a6000 r-xs 000ee000 08:11 19142606                           /home/janusz/.m2/repository/ant/ant/1.6.5/ant-1.6.5.jar
+ad4a6000-ad4aa000 r-xs 0001d000 08:11 19142602                           /home/janusz/.m2/repository/org/mortbay/jetty/jsp-api-2.1-glassfish/2.1.v20100127/jsp-api-2.1-glassfish-2.1.v20100127.jar
+ad4aa000-ad4fe000 r-xs 003ed000 08:11 12715643                           /home/janusz/.m2/repository/org/springframework/webflow/spring-js-resources/2.2.1.RELEASE/spring-js-resources-2.2.1.RELEASE.jar
+ad4fe000-ad4ff000 ---p 00000000 00:00 0 
+ad4ff000-ad57f000 rwxp 00000000 00:00 0                                  [stack:11608]
+ad57f000-ad582000 ---p 00000000 00:00 0 
+ad582000-ad600000 rwxp 00000000 00:00 0                                  [stack:11606]
+ad600000-ad6f8000 rwxp 00000000 00:00 0 
+ad6f8000-ad700000 ---p 00000000 00:00 0 
+ad700000-ad7e8000 rwxp 00000000 00:00 0 
+ad7e8000-ad800000 ---p 00000000 00:00 0 
+ad800000-ad8fe000 rwxp 00000000 00:00 0 
+ad8fe000-ad900000 ---p 00000000 00:00 0 
+ad900000-ad921000 rwxp 00000000 00:00 0 
+ad921000-ada00000 ---p 00000000 00:00 0 
+ada00000-ada21000 rwxp 00000000 00:00 0 
+ada21000-adb00000 ---p 00000000 00:00 0 
+adb00000-adb21000 rwxp 00000000 00:00 0 
+adb21000-adc00000 ---p 00000000 00:00 0 
+adc00000-adc21000 rwxp 00000000 00:00 0 
+adc21000-add00000 ---p 00000000 00:00 0 
+add00000-add0e000 r-xs 0018b000 08:11 19142600                           /home/janusz/.m2/repository/org/eclipse/jdt/core/compiler/ecj/3.5.1/ecj-3.5.1.jar
+add0e000-add1f000 r-xs 000ea000 08:11 19142597                           /home/janusz/.m2/repository/org/mortbay/jetty/jsp-2.1-glassfish/2.1.v20100127/jsp-2.1-glassfish-2.1.v20100127.jar
+add1f000-add21000 r-xs 00007000 08:11 19142595                           /home/janusz/.m2/repository/org/eclipse/jetty/jetty-jmx/7.2.2.v20101205/jetty-jmx-7.2.2.v20101205.jar
+add21000-add28000 r-xs 00067000 08:11 12452020                           /home/janusz/.m2/repository/javax/mail/mail/1.4.1/mail-1.4.1.jar
+add28000-add2a000 r-xs 00006000 08:11 19142601                           /home/janusz/.m2/repository/org/eclipse/jetty/jetty-jndi/7.2.2.v20101205/jetty-jndi-7.2.2.v20101205.jar
+add2a000-add2b000 r-xs 00003000 08:11 19142593                           /home/janusz/.m2/repository/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.1.1/geronimo-jta_1.1_spec-1.1.1.jar
+add2b000-add2e000 r-xs 00010000 08:11 19142599                           /home/janusz/.m2/repository/org/eclipse/jetty/jetty-plus/7.2.2.v20101205/jetty-plus-7.2.2.v20101205.jar
+add2e000-add31000 r-xs 0001f000 08:11 19142591                           /home/janusz/.m2/repository/jtidy/jtidy/4aug2000r7-dev/jtidy-4aug2000r7-dev.jar
+add31000-add33000 r-xs 00008000 08:11 12454211                           /home/janusz/.m2/repository/org/apache/maven/maven-plugin-descriptor/2.0.6/maven-plugin-descriptor-2.0.6.jar
+add33000-add34000 r-xs 00001000 08:11 12453060                           /home/janusz/.m2/repository/org/apache/maven/doxia/doxia-sink-api/1.0-alpha-7/doxia-sink-api-1.0-alpha-7.jar
+add34000-add36000 r-xs 0000c000 08:11 19142590                           /home/janusz/.m2/repository/org/apache/maven/plugin-tools/maven-plugin-tools-api/2.5.1/maven-plugin-tools-api-2.5.1.jar
+add36000-add67000 r-xs 002c0000 08:11 17704962                           /home/janusz/.m2/repository/org/hibernate/hibernate-core/3.6.0.Final/hibernate-core-3.6.0.Final.jar
+add67000-add6a000 ---p 00000000 00:00 0 
+add6a000-adde8000 rwxp 00000000 00:00 0                                  [stack:11605]
+adde8000-adde9000 ---p 00000000 00:00 0 
+adde9000-ade69000 rwxp 00000000 00:00 0                                  [stack:11591]
+ade69000-ae000000 r-xs 03014000 08:11 15218039                           /home/janusz/programy/jdk1.6.0_21/jre/lib/rt.jar
+ae000000-ae021000 rwxp 00000000 00:00 0 
+ae021000-ae100000 ---p 00000000 00:00 0 
+ae100000-ae101000 r-xs 00002000 08:11 12453409                           /home/janusz/.m2/repository/org/apache/maven/reporting/maven-reporting-api/2.0.6/maven-reporting-api-2.0.6.jar
+ae101000-ae105000 r-xs 00012000 08:11 16127224                           /home/janusz/.m2/repository/org/apache/maven/maven-artifact/2.0.8/maven-artifact-2.0.8.jar
+ae105000-ae107000 r-xs 00002000 08:11 16127223                           /home/janusz/.m2/repository/org/apache/maven/maven-plugin-api/2.0.8/maven-plugin-api-2.0.8.jar
+ae107000-ae109000 r-xs 00008000 08:11 12715658                           /home/janusz/.m2/repository/classworlds/classworlds/1.1-alpha-2/classworlds-1.1-alpha-2.jar
+ae109000-ae110000 r-xs 00029000 08:11 12585195                           /home/janusz/.m2/repository/org/codehaus/plexus/plexus-container-default/1.0-alpha-9-stable-1/plexus-container-default-1.0-alpha-9-stable-1.jar
+ae110000-ae113000 r-xs 0002f000 08:11 12585350                           /home/janusz/.m2/repository/org/codehaus/plexus/plexus-utils/1.4.6/plexus-utils-1.4.6.jar
+ae113000-ae115000 r-xs 00006000 08:11 16127220                           /home/janusz/.m2/repository/org/apache/maven/maven-plugin-registry/2.0.8/maven-plugin-registry-2.0.8.jar
+ae115000-ae117000 r-xs 0000a000 08:11 14821439                           /home/janusz/.m2/repository/org/apache/maven/wagon/wagon-provider-api/1.0-beta-2/wagon-provider-api-1.0-beta-2.jar
+ae117000-ae118000 r-xs 00005000 08:11 16127218                           /home/janusz/.m2/repository/org/apache/maven/maven-repository-metadata/2.0.8/maven-repository-metadata-2.0.8.jar
+ae118000-ae11a000 r-xs 0000c000 08:11 16127217                           /home/janusz/.m2/repository/org/apache/maven/maven-artifact-manager/2.0.8/maven-artifact-manager-2.0.8.jar
+ae11a000-ae11d000 r-xs 00013000 08:11 14821438                           /home/janusz/.m2/repository/org/apache/maven/maven-model/2.0.8/maven-model-2.0.8.jar
+ae11d000-ae11f000 r-xs 00007000 08:11 16127214                           /home/janusz/.m2/repository/org/apache/maven/maven-profile/2.0.8/maven-profile-2.0.8.jar
+ae11f000-ae120000 r-xs 0000b000 08:11 16127213                           /home/janusz/.m2/repository/org/apache/maven/maven-settings/2.0.8/maven-settings-2.0.8.jar
+ae120000-ae123000 r-xs 0001a000 08:11 16127211                           /home/janusz/.m2/repository/org/apache/maven/maven-project/2.0.8/maven-project-2.0.8.jar
+ae123000-ae126000 r-xs 00010000 08:11 19142587                           /home/janusz/.m2/repository/org/eclipse/jetty/jetty-security/7.2.2.v20101205/jetty-security-7.2.2.v20101205.jar
+ae126000-ae128000 r-xs 00012000 08:11 19142584                           /home/janusz/.m2/repository/org/eclipse/jetty/jetty-servlet/7.2.2.v20101205/jetty-servlet-7.2.2.v20101205.jar
+ae128000-ae12c000 r-xs 0002d000 08:11 19142583                           /home/janusz/.m2/repository/org/eclipse/jetty/jetty-util/7.2.2.v20101205/jetty-util-7.2.2.v20101205.jar
+ae12c000-ae12e000 r-xs 00006000 08:11 19142578                           /home/janusz/.m2/repository/org/eclipse/jetty/jetty-xml/7.2.2.v20101205/jetty-xml-7.2.2.v20101205.jar
+ae12e000-ae131000 ---p 00000000 00:00 0 
+ae131000-ae17f000 rwxp 00000000 00:00 0                                  [stack:11607]
+ae17f000-ae180000 ---p 00000000 00:00 0 
+ae180000-ae200000 rwxp 00000000 00:00 0                                  [stack:11590]
+ae200000-ae221000 rwxp 00000000 00:00 0 
+ae221000-ae300000 ---p 00000000 00:00 0 
+ae300000-ae302000 r-xs 00015000 08:11 19142579                           /home/janusz/.m2/repository/org/eclipse/jetty/jetty-webapp/7.2.2.v20101205/jetty-webapp-7.2.2.v20101205.jar
+ae302000-ae304000 r-xs 0000c000 08:11 19142580                           /home/janusz/.m2/repository/org/mortbay/jetty/jetty-maven-plugin/7.2.2.v20101205/jetty-maven-plugin-7.2.2.v20101205.jar
+ae304000-ae306000 r-xs 0000a000 08:11 12715656                           /home/janusz/.m2/repository/commons-codec/commons-codec/1.3/commons-codec-1.3.jar
+ae306000-ae30b000 r-xs 00026000 08:11 12452765                           /home/janusz/.m2/repository/org/apache/httpcomponents/httpcore/4.0.1/httpcore-4.0.1.jar
+ae30b000-ae312000 r-xs 00041000 08:11 14684640                           /home/janusz/.m2/repository/org/apache/httpcomponents/httpclient/4.0.3/httpclient-4.0.3.jar
+ae312000-ae315000 r-xs 00016000 08:11 12452075                           /home/janusz/.m2/repository/javax/servlet/jsp/jsp-api/2.1/jsp-api-2.1.jar
+ae315000-ae324000 r-xs 00074000 08:11 12452429                           /home/janusz/.m2/repository/joda-time/joda-time/1.6/joda-time-1.6.jar
+ae324000-ae32e000 r-xs 0005c000 08:11 12452044                           /home/janusz/.m2/repository/javax/servlet/jstl/1.2/jstl-1.2.jar
+ae32e000-ae331000 ---p 00000000 00:00 0 
+ae331000-ae37f000 rwxp 00000000 00:00 0                                  [stack:11600]
+ae37f000-ae380000 ---p 00000000 00:00 0 
+ae380000-ae400000 rwxp 00000000 00:00 0                                  [stack:11589]
+ae400000-ae421000 rwxp 00000000 00:00 0 
+ae421000-ae500000 ---p 00000000 00:00 0 
+ae500000-ae502000 r-xs 0000d000 08:11 12452565                           /home/janusz/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar
+ae502000-ae505000 r-xs 0000c000 08:11 12452368                           /home/janusz/.m2/repository/commons-fileupload/commons-fileupload/1.2.1/commons-fileupload-1.2.1.jar
+ae505000-ae50a000 r-xs 00034000 08:11 12452492                           /home/janusz/.m2/repository/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.jar
+ae50a000-ae50e000 r-xs 00021000 08:11 12451918                           /home/janusz/.m2/repository/commons-digester/commons-digester/2.0/commons-digester-2.0.jar
+ae50e000-ae517000 r-xs 0005e000 08:11 12585066                           /home/janusz/.m2/repository/org/springframework/spring-webmvc/3.0.5.RELEASE/spring-webmvc-3.0.5.RELEASE.jar
+ae517000-ae521000 r-xs 00057000 08:11 12584956                           /home/janusz/.m2/repository/org/springframework/spring-web/3.0.5.RELEASE/spring-web-3.0.5.RELEASE.jar
+ae521000-ae523000 r-xs 0000c000 08:11 12582994                           /home/janusz/.m2/repository/org/apache/tiles/tiles-servlet/2.2.1/tiles-servlet-2.2.1.jar
+ae523000-ae525000 r-xs 0000a000 08:11 12582953                           /home/janusz/.m2/repository/org/apache/tiles/tiles-jsp/2.2.1/tiles-jsp-2.2.1.jar
+ae525000-ae527000 r-xs 00006000 08:11 12582967                           /home/janusz/.m2/repository/org/apache/tiles/tiles-api/2.2.1/tiles-api-2.2.1.jar
+ae527000-ae52b000 r-xs 00022000 08:11 12582956                           /home/janusz/.m2/repository/org/apache/tiles/tiles-core/2.2.1/tiles-core-2.2.1.jar
+ae52b000-ae52e000 r-xs 00022000 08:11 12714864                           /home/janusz/.m2/repository/commons-dbcp/commons-dbcp/1.3/commons-dbcp-1.3.jar
+ae52e000-ae531000 ---p 00000000 00:00 0 
+ae531000-ae57f000 rwxp 00000000 00:00 0                                  [stack:11598]
+ae57f000-ae580000 ---p 00000000 00:00 0 
+ae580000-ae600000 rwxp 00000000 00:00 0                                  [stack:11588]
+ae600000-ae621000 rwxp 00000000 00:00 0 
+ae621000-ae700000 ---p 00000000 00:00 0 
+ae700000-ae703000 r-xs 00015000 08:11 12452558                           /home/janusz/.m2/repository/commons-pool/commons-pool/1.5.4/commons-pool-1.5.4.jar
+ae703000-ae70b000 r-xs 0004a000 08:11 19142450                           /home/janusz/.m2/repository/org/springframework/spring-orm/3.0.5.RELEASE/spring-orm-3.0.5.RELEASE.jar
+ae70b000-ae715000 r-xs 00055000 08:11 19011018                           /home/janusz/.m2/repository/org/springframework/spring-jdbc/3.0.5.RELEASE/spring-jdbc-3.0.5.RELEASE.jar
+ae715000-ae71b000 r-xs 00049000 08:11 12452353                           /home/janusz/.m2/repository/cglib/cglib-nodep/2.2/cglib-nodep-2.2.jar
+ae71b000-ae72e000 r-xs 000c7000 08:11 18098465                           /home/janusz/.m2/repository/com/sun/xml/bind/jaxb-impl/2.2.3-1/jaxb-impl-2.2.3-1.jar
+ae72e000-ae731000 ---p 00000000 00:00 0 
+ae731000-ae77f000 rwxp 00000000 00:00 0                                  [stack:11596]
+ae77f000-ae780000 ---p 00000000 00:00 0 
+ae780000-ae800000 rwxp 00000000 00:00 0                                  [stack:11587]
+ae800000-ae827000 rwxp 00000000 00:00 0 
+ae827000-ae900000 ---p 00000000 00:00 0 
+ae900000-ae901000 r-xs 00004000 08:11 12582983                           /home/janusz/.m2/repository/org/apache/tiles/tiles-template/2.2.1/tiles-template-2.2.1.jar
+ae901000-ae904000 r-xs 00009000 08:11 12452157                           /home/janusz/.m2/repository/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA.jar
+ae904000-ae906000 r-xs 0000e000 08:11 12452007                           /home/janusz/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar
+ae906000-ae908000 r-xs 00004000 08:11 12452094                           /home/janusz/.m2/repository/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar
+ae908000-ae90b000 r-xs 00017000 08:11 18228782                           /home/janusz/.m2/repository/javax/xml/bind/jaxb-api/2.2.2/jaxb-api-2.2.2.jar
+ae90b000-ae912000 r-xs 00040000 08:11 12583517                           /home/janusz/.m2/repository/org/hibernate/hibernate-validator/4.1.0.Final/hibernate-validator-4.1.0.Final.jar
+ae912000-ae917000 r-xs 00014000 08:11 12583374                           /home/janusz/.m2/repository/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.0.Final/hibernate-jpa-2.0-api-1.0.0.Final.jar
+ae917000-ae920000 r-xs 00092000 08:11 12452329                           /home/janusz/.m2/repository/javassist/javassist/3.12.0.GA/javassist-3.12.0.GA.jar
+ae920000-ae929000 r-xs 0005d000 08:11 17966687                           /home/janusz/.m2/repository/org/hibernate/hibernate-entitymanager/3.6.0.Final/hibernate-entitymanager-3.6.0.Final.jar
+ae929000-ae92e000 r-xs 00048000 08:11 12452496                           /home/janusz/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar
+ae92e000-ae931000 ---p 00000000 00:00 0 
+ae931000-ae97f000 rwxp 00000000 00:00 0                                  [stack:11594]
+ae97f000-ae980000 ---p 00000000 00:00 0 
+ae980000-aea00000 rwxp 00000000 00:00 0                                  [stack:11586]
+aea00000-aea21000 rwxp 00000000 00:00 0 
+aea21000-aeb00000 ---p 00000000 00:00 0 
+aeb00000-aeb03000 r-xs 0000f000 08:11 12583356                           /home/janusz/.m2/repository/org/hibernate/hibernate-commons-annotations/3.2.0.Final/hibernate-commons-annotations-3.2.0.Final.jar
+aeb03000-aeb10000 r-xs 0007c000 08:11 12452606                           /home/janusz/.m2/repository/commons-collections/commons-collections/3.1/commons-collections-3.1.jar
+aeb10000-aeb16000 r-xs 00067000 08:11 12714925                           /home/janusz/.m2/repository/antlr/antlr/2.7.6/antlr-2.7.6.jar
+aeb16000-aeb1e000 r-xs 000c8000 08:11 17704964                           /home/janusz/.m2/repository/mysql/mysql-connector-java/5.1.25/mysql-connector-java-5.1.25.jar
+aeb1e000-aeb25000 r-xs 00032000 08:11 17573825                           /home/janusz/.m2/repository/org/springframework/spring-tx/3.0.5.RELEASE/spring-tx-3.0.5.RELEASE.jar
+aeb25000-aeb2e000 r-xs 00046000 08:11 12714323                           /home/janusz/.m2/repository/org/springframework/spring-aop/3.0.5.RELEASE/spring-aop-3.0.5.RELEASE.jar
+aeb2e000-aeb31000 ---p 00000000 00:00 0 
+aeb31000-aeb7f000 rwxp 00000000 00:00 0                                  [stack:11593]
+aeb7f000-aeb80000 ---p 00000000 00:00 0 
+aeb80000-aec00000 rwxp 00000000 00:00 0                                  [stack:11585]
+aec00000-aec21000 rwxp 00000000 00:00 0 
+aec21000-aed00000 ---p 00000000 00:00 0 
+aed00000-aed01000 r-xs 00003000 08:11 12451984                           /home/janusz/.m2/repository/javax/transaction/jta/1.1/jta-1.1.jar
+aed01000-aed04000 r-xs 00016000 08:11 12585346                           /home/janusz/.m2/repository/org/springframework/spring-context-support/3.0.5.RELEASE/spring-context-support-3.0.5.RELEASE.jar
+aed04000-aed06000 r-xs 00007000 08:11 17442381                           /home/janusz/.m2/repository/org/springframework/spring-aspects/3.0.5.RELEASE/spring-aspects-3.0.5.RELEASE.jar
+aed06000-aed0a000 r-xs 00026000 08:11 12714116                           /home/janusz/.m2/repository/org/springframework/spring-expression/3.0.5.RELEASE/spring-expression-3.0.5.RELEASE.jar
+aed0a000-aed16000 r-xs 0007c000 08:11 12584882                           /home/janusz/.m2/repository/org/springframework/spring-beans/3.0.5.RELEASE/spring-beans-3.0.5.RELEASE.jar
+aed16000-aed28000 r-xs 00092000 08:11 12714034                           /home/janusz/.m2/repository/org/springframework/spring-context/3.0.5.RELEASE/spring-context-3.0.5.RELEASE.jar
+aed28000-aed2e000 r-xs 0002d000 08:11 17305615                           /home/janusz/.m2/repository/org/springframework/spring-test/3.0.5.RELEASE/spring-test-3.0.5.RELEASE.jar
+aed2e000-aed31000 ---p 00000000 00:00 0 
+aed31000-aed7f000 rwxp 00000000 00:00 0                                  [stack:11592]
+aed7f000-aed80000 ---p 00000000 00:00 0 
+aed80000-aee00000 rwxp 00000000 00:00 0                                  [stack:11584]
+aee00000-aee21000 rwxp 00000000 00:00 0 
+aee21000-aef00000 ---p 00000000 00:00 0 
+aef00000-aef02000 r-xs 00000000 08:11 12452393                           /home/janusz/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar
+aef02000-aef0b000 r-xs 00055000 08:11 12584832                           /home/janusz/.m2/repository/org/springframework/spring-core/3.0.5.RELEASE/spring-core-3.0.5.RELEASE.jar
+aef0b000-aef0e000 r-xs 00010000 08:11 12714755                           /home/janusz/.m2/repository/net/sf/flexjson/flexjson/2.0/flexjson-2.0.jar
+aef0e000-aef24000 r-xs 00187000 08:11 17174044                           /home/janusz/.m2/repository/org/aspectj/aspectjweaver/1.6.11/aspectjweaver-1.6.11.jar
+aef24000-aef58000 rwxp 00000000 00:00 0 
+aef58000-aef59000 ---p 00000000 00:00 0 
+aef59000-aeff4000 rwxp 00000000 00:00 0                                  [stack:11583]
+aeff4000-aeff9000 rwxp 00000000 00:00 0 
+aeff9000-af041000 rwxp 00000000 00:00 0 
+af041000-af14f000 rwxp 00000000 00:00 0 
+af14f000-af16a000 rwxp 00000000 00:00 0 
+af16a000-af16f000 rwxp 00000000 00:00 0 
+af16f000-af1b7000 rwxp 00000000 00:00 0 
+af1b7000-af2c4000 rwxp 00000000 00:00 0 
+af2c4000-af31b000 rwxp 00000000 00:00 0 
+af31b000-af36f000 rwxp 00000000 00:00 0 
+af36f000-b2890000 rwxp 00000000 00:00 0 
+b2890000-b3370000 rwxp 00000000 00:00 0 
+b3370000-bc240000 rwxp 00000000 00:00 0 
+bc240000-dde20000 rwxp 00000000 00:00 0 
+dde20000-e8af0000 rwxp 00000000 00:00 0 
+e8af0000-f3370000 rwxp 00000000 00:00 0 
+f3370000-f3372000 r-xs 00018000 08:11 12452052                           /home/janusz/.m2/repository/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar
+f3372000-f3376000 r-xs 00019000 08:11 17043309                           /home/janusz/.m2/repository/org/aspectj/aspectjrt/1.6.11/aspectjrt-1.6.11.jar
+f3376000-f3378000 r-xs 00003000 08:11 12584455                           /home/janusz/.m2/repository/org/slf4j/jcl-over-slf4j/1.6.1/jcl-over-slf4j-1.6.1.jar
+f3378000-f337a000 r-xs 00005000 08:11 12584376                           /home/janusz/.m2/repository/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar
+f337a000-f3385000 rwxp 00000000 00:00 0 
+f3385000-f343a000 rwxp 00000000 00:00 0 
+f343a000-f36da000 rwxp 00000000 00:00 0 
+f36da000-f643a000 rwxp 00000000 00:00 0 
+f643a000-f6445000 r-xp 00000000 08:01 1310747                            /lib/i386-linux-gnu/libnss_files-2.19.so
+f6445000-f6446000 r-xp 0000a000 08:01 1310747                            /lib/i386-linux-gnu/libnss_files-2.19.so
+f6446000-f6447000 rwxp 0000b000 08:01 1310747                            /lib/i386-linux-gnu/libnss_files-2.19.so
+f6447000-f6451000 r-xp 00000000 08:01 1310725                            /lib/i386-linux-gnu/libnss_nis-2.19.so
+f6451000-f6452000 r-xp 00009000 08:01 1310725                            /lib/i386-linux-gnu/libnss_nis-2.19.so
+f6452000-f6453000 rwxp 0000a000 08:01 1310725                            /lib/i386-linux-gnu/libnss_nis-2.19.so
+f6453000-f6585000 r-xp 006e1000 08:01 11672590                           /usr/lib/locale/locale-archive
+f6585000-f65c5000 r-xp 002ec000 08:01 11672590                           /usr/lib/locale/locale-archive
+f65c5000-f67c5000 r-xp 00000000 08:01 11672590                           /usr/lib/locale/locale-archive
+f67c5000-f67ff000 r-xp 00000000 08:11 15218051                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/libjdwp.so
+f67ff000-f6800000 rwxp 00039000 08:11 15218051                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/libjdwp.so
+f6800000-f6900000 rwxp 00000000 00:00 0 
+f6900000-f6901000 r-xs 0000c000 08:11 12584788                           /home/janusz/.m2/repository/org/springframework/spring-asm/3.0.5.RELEASE/spring-asm-3.0.5.RELEASE.jar
+f6901000-f690a000 r-xs 0006d000 08:11 12452416                           /home/janusz/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16.jar
+f690a000-f691f000 r-xp 00000000 08:01 1310820                            /lib/i386-linux-gnu/libnsl-2.19.so
+f691f000-f6920000 r-xp 00015000 08:01 1310820                            /lib/i386-linux-gnu/libnsl-2.19.so
+f6920000-f6921000 rwxp 00016000 08:01 1310820                            /lib/i386-linux-gnu/libnsl-2.19.so
+f6921000-f6923000 rwxp 00000000 00:00 0 
+f6923000-f6929000 r-xs 00034000 08:11 12452288                           /home/janusz/.m2/repository/junit/junit/4.8.1/junit-4.8.1.jar
+f6929000-f692c000 r-xp 00000000 08:11 15218071                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/libdt_socket.so
+f692c000-f692d000 rwxp 00003000 08:11 15218071                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/libdt_socket.so
+f692d000-f693c000 r-xp 00000000 08:11 15218066                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/libzip.so
+f693c000-f693e000 rwxp 0000e000 08:11 15218066                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/libzip.so
+f693e000-f6946000 rwxs 00000000 08:01 5506449                            /tmp/hsperfdata_janusz/11575
+f6946000-f6969000 r-xp 00000000 08:11 15218069                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/libjava.so
+f6969000-f696b000 rwxp 00023000 08:11 15218069                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/libjava.so
+f696b000-f6972000 r-xp 00000000 08:01 1310739                            /lib/i386-linux-gnu/librt-2.19.so
+f6972000-f6973000 r-xp 00006000 08:01 1310739                            /lib/i386-linux-gnu/librt-2.19.so
+f6973000-f6974000 rwxp 00007000 08:01 1310739                            /lib/i386-linux-gnu/librt-2.19.so
+f6974000-f6977000 ---p 00000000 00:00 0 
+f6977000-f69c5000 rwxp 00000000 00:00 0                                  [stack:11581]
+f69c5000-f6a09000 r-xp 00000000 08:01 1310824                            /lib/i386-linux-gnu/libm-2.19.so
+f6a09000-f6a0a000 r-xp 00043000 08:01 1310824                            /lib/i386-linux-gnu/libm-2.19.so
+f6a0a000-f6a0b000 rwxp 00044000 08:01 1310824                            /lib/i386-linux-gnu/libm-2.19.so
+f6a0b000-f7137000 r-xp 00000000 08:11 15218084                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/server/libjvm.so
+f7137000-f718a000 rwxp 0072c000 08:11 15218084                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/server/libjvm.so
+f718a000-f75aa000 rwxp 00000000 00:00 0 
+f75aa000-f7751000 r-xp 00000000 08:01 1311607                            /lib/i386-linux-gnu/libc-2.19.so
+f7751000-f7753000 r-xp 001a7000 08:01 1311607                            /lib/i386-linux-gnu/libc-2.19.so
+f7753000-f7754000 rwxp 001a9000 08:01 1311607                            /lib/i386-linux-gnu/libc-2.19.so
+f7754000-f7757000 rwxp 00000000 00:00 0 
+f7757000-f775a000 r-xp 00000000 08:01 1311619                            /lib/i386-linux-gnu/libdl-2.19.so
+f775a000-f775b000 r-xp 00002000 08:01 1311619                            /lib/i386-linux-gnu/libdl-2.19.so
+f775b000-f775c000 rwxp 00003000 08:01 1311619                            /lib/i386-linux-gnu/libdl-2.19.so
+f775c000-f7763000 r-xp 00000000 08:11 15218064                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/jli/libjli.so
+f7763000-f7765000 rwxp 00006000 08:11 15218064                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/jli/libjli.so
+f7765000-f7766000 rwxp 00000000 00:00 0 
+f7766000-f777e000 r-xp 00000000 08:01 1311601                            /lib/i386-linux-gnu/libpthread-2.19.so
+f777e000-f7780000 r-xp 00017000 08:01 1311601                            /lib/i386-linux-gnu/libpthread-2.19.so
+f7780000-f7781000 rwxp 00019000 08:01 1311601                            /lib/i386-linux-gnu/libpthread-2.19.so
+f7781000-f7783000 rwxp 00000000 00:00 0 
+f7783000-f7784000 r-xs 00002000 08:11 12584321                           /home/janusz/.m2/repository/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1.jar
+f7784000-f778b000 r-xp 00000000 08:01 1311609                            /lib/i386-linux-gnu/libnss_compat-2.19.so
+f778b000-f778c000 r-xp 00006000 08:01 1311609                            /lib/i386-linux-gnu/libnss_compat-2.19.so
+f778c000-f778d000 rwxp 00007000 08:01 1311609                            /lib/i386-linux-gnu/libnss_compat-2.19.so
+f778d000-f7790000 r-xp 00000000 08:11 15218080                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/libnpt.so
+f7790000-f7791000 rwxp 00002000 08:11 15218080                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/libnpt.so
+f7791000-f7797000 r-xp 00000000 08:11 15218055                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/native_threads/libhpi.so
+f7797000-f7798000 rwxp 00006000 08:11 15218055                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/native_threads/libhpi.so
+f7798000-f7799000 rwxp 00000000 00:00 0 
+f7799000-f779a000 ---p 00000000 00:00 0 
+f779a000-f77a5000 r-xp 00000000 08:11 15218097                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/libverify.so
+f77a5000-f77a6000 rwxp 0000b000 08:11 15218097                           /home/janusz/programy/jdk1.6.0_21/jre/lib/i386/libverify.so
+f77a6000-f77a8000 rwxp 00000000 00:00 0 
+f77a8000-f77a9000 r-xp 00000000 00:00 0                                  [vdso]
+f77a9000-f77ab000 r--p 00000000 00:00 0                                  [vvar]
+f77ab000-f77cb000 r-xp 00000000 08:01 1310817                            /lib/i386-linux-gnu/ld-2.19.so
+f77cb000-f77cc000 r-xp 0001f000 08:01 1310817                            /lib/i386-linux-gnu/ld-2.19.so
+f77cc000-f77cd000 rwxp 00020000 08:01 1310817                            /lib/i386-linux-gnu/ld-2.19.so
+ffc87000-ffcab000 rwxp 00000000 00:00 0                                  [stack]
+
+VM Arguments:
+jvm_args: -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:40962 -Duser.language=en -Duser.country=US -Duser.variant=US -Dfile.encoding=UTF-8 
+java_command: org.eclipse.jdt.internal.junit.runner.RemoteTestRunner -version 3 -port 44916 -testLoaderClass org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader -loaderpluginname org.eclipse.jdt.junit4.runtime -classNames edu.mit.cci.roma.java.CreateAndTestAggregateRegionalModelsTest
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+LD_LIBRARY_PATH=/home/janusz/programy/jdk1.6.0_21/jre/lib/i386/server:/home/janusz/programy/jdk1.6.0_21/jre/lib/i386:/home/janusz/programy/jdk1.6.0_21/jre/../lib/i386
+SHELL=/bin/bash
+DISPLAY=:0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x6a9eb0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGBUS: [libjvm.so+0x6a9eb0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGFPE: [libjvm.so+0x578180], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGPIPE: [libjvm.so+0x578180], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGXFSZ: [libjvm.so+0x578180], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGILL: [libjvm.so+0x578180], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: [libjvm.so+0x57adc0], sa_mask[0]=0x00000004, sa_flags=0x10000004
+SIGHUP: [libjvm.so+0x57aaf0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGINT: [libjvm.so+0x57aaf0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGTERM: [libjvm.so+0x57aaf0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGQUIT: [libjvm.so+0x57aaf0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+
+
+---------------  S Y S T E M  ---------------
+
+OS:jessie/sid
+
+uname:Linux 3.16.0-41-generic #55-Ubuntu SMP Sun Jun 14 18:31:10 UTC 2015 x86_64
+libc:glibc 2.19 NPTL 2.19 
+rlimit: STACK 8192k, CORE 0k, NPROC 128223, NOFILE 4096, AS infinity
+load average:0,42 0,34 0,33
+
+CPU:total 8 (8 cores per cpu, 2 threads per core) family 6 model 60 stepping 3, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, ht
+
+Memory: 4k page, physical 32847556k(14497552k free), swap 9765884k(9765884k free)
+
+vm_info: Java HotSpot(TM) Server VM (17.0-b16) for linux-x86 JRE (1.6.0_21-b06), built on Jun 22 2010 01:04:46 by "java_re" with gcc 3.2.1-7a (J2SE release)
+
+time: Sun Jun 21 13:18:03 2015
+elapsed time: 28 seconds
+
