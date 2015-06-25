@@ -26,7 +26,7 @@ public class RegionalModelTestUtils {
 	public static DefaultServerSimulation findSimulation(String name, boolean required) {
 		DefaultServerSimulation toReturn = null;
 		for (DefaultServerSimulation sim : DefaultServerSimulation.findAllDefaultServerSimulations()) {
-			if (sim.getName().equals(name)) {
+			if (name.equals(sim.getName())) {
 				if (toReturn == null || toReturn.getId() < sim.getId());
 				toReturn = sim;
 			}
@@ -108,7 +108,8 @@ public class RegionalModelTestUtils {
 			DefaultServerVariable outVariable = new DefaultServerVariable(toAggregate.iterator().next());
 			outVariable.setName(outputToAggregateEntry.getKey());
 			outVariable.setExternalName(outputToAggregateEntry.getKey());
-			outVariable.setLabels(outputToAggregateEntry.getKey());
+			outVariable.setLabels("Year;GHG Emissions");
+			outVariable.setUnits("Time;GHG emissions (Gigatons)");
 			aggregateOutputsSimulation.getOutputs().add(outVariable);
 
 		}
@@ -152,9 +153,14 @@ public class RegionalModelTestUtils {
 		DefaultServerVariable regionVariable = new DefaultServerVariable();
 		regionVariable.setArity(1);
 		regionVariable.setDataType(DataType.TXT);
-		regionVariable.setName(RegionalScalingSimulationRunner.REGION_PARAM);
 		regionVariable.setExternalName(RegionalScalingSimulationRunner.REGION_PARAM);
 		regionVariable.setName(RegionalScalingSimulationRunner.REGION_PARAM);
+		regionVariable.setPrecision_(1);
+		regionVariable.setUnits("region_name");
+		regionVariable.setDescription("Region");
+		regionVariable.setLabels("region");
+		regionVariable.setOptions(new String[]{"US", "EU", "China", "India", "Other Developed", "Other Developing"});
+		
 		regionalScalingSimulation.getInputs().add(regionVariable);
 
 		regionalScalingSimulation.setOutputs(new HashSet<Variable>(baseSimulation.getOutputs()));
@@ -281,6 +287,13 @@ public class RegionalModelTestUtils {
 		scenariosVariable.setDataType(DataType.TXT);
 		scenariosVariable.setName(AggregateScenariosSimulationRunner.SCENARIO_IDS_PARAM);
 		scenariosVariable.setExternalName(AggregateScenariosSimulationRunner.SCENARIO_IDS_PARAM);
+		scenariosVariable.setPrecision_(1);
+		scenariosVariable.setUnits("scenarios_to_aggregate");
+		scenariosVariable.setDescription("Scenario");
+		scenariosVariable.setLabels("Scenarios");
+		scenariosVariable.setOptions(null);
+		
+		
 		scenariosAggregatingSimulation.getInputs().add(scenariosVariable);
 
 		scenariosAggregatingSimulation.setOutputs(new HashSet<Variable>());

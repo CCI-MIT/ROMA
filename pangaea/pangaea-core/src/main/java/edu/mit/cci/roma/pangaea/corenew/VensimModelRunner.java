@@ -71,7 +71,7 @@ public class VensimModelRunner {
 			}
 			// set all not modified inputs to default values
 			for (Map.Entry<String, InputValue> defaultValEntry: defaultValueInputs.entrySet()) {
-				if (! inputs.containsKey(defaultValEntry.getKey())) {
+				if (! inputValues.containsKey(defaultValEntry.getKey())) {
 					inputValues.put(defaultValEntry.getKey(), defaultValEntry.getValue());
 				}
 			}

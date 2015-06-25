@@ -70,6 +70,7 @@ public class AggregateOutputsSimulationRunner implements JavaSimulationRunner {
 				}
 
 				for (int i = 0; i < aggregatedInputValues.length; i++) {
+					if (aggregatedInputValues[i] == null) continue;
 					aggregatedValues[i] += Double.parseDouble(aggregatedInputValues[i]);
 				}
 			}

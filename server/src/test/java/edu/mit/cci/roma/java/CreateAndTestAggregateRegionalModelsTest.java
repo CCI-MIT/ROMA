@@ -11,6 +11,7 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +46,7 @@ public class CreateAndTestAggregateRegionalModelsTest {
 					+ "\"763\":\"0\",\"764\":\"2015\",\"765\":\"2050\", \"region\":\"US\"}");
 
 	@Test
+	@Rollback(false)
 	public void testRegionalEMF() throws SimulationValidationException, SimulationException {
 		Map<String, String[]> outputsToAggregate = new HashMap<String, String[]>();
 		outputsToAggregate.put("BET", new String[] { "CO2Fossil-Ind_Gtons_outBET", "CO2LandUse_Gtons_outBET" });
@@ -82,7 +84,9 @@ public class CreateAndTestAggregateRegionalModelsTest {
 		createAndTestRegionalAggregated(baseModelName, outputsToAggregate, inputValues);
 	}
 
+
 	@Test
+	@Rollback(false)
 	public void testRegionalEnRoads() throws SimulationValidationException, SimulationException {
 		Map<String, String[]> outputsToAggregate = new HashMap<String, String[]>();
 		outputsToAggregate.put(AGGREGATED_OUTPUT_NAME, new String[] { "Emissions from energy",
@@ -94,9 +98,11 @@ public class CreateAndTestAggregateRegionalModelsTest {
 
 	}
 
+	
 	@Test
+	@Rollback(false)
 	public void testCombiningScenarios() throws SimulationValidationException, SimulationException {
-		testRegionalEnRoads();
+		testRegionalEnRoads(); 
 		DefaultServerSimulation scenarioAggregatingSimulation = findOrCreateScenarioAggregatingSimulation();
 
 		DefaultServerSimulation regionalEnroadsSimulation = RegionalModelTestUtils

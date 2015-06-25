@@ -26,15 +26,21 @@ public class EnRoadsTest {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("Target accelerated retirement rate coal", "7");
 		//params.put("GDP per capita change start year", "2050");
-		runner.runTheModel(new HashMap<String, String>());
+		//runner.runTheModel(new HashMap<String, String>());
 		//for (VensimModelInputConfig vmic: def.getInputs()) {
 			//System.out.println(vmic.getName() + ": " + Arrays.toString(runner.getVensim().getVariable(vmic.getVensimContextVariable() == null ? vmic.getName() : vmic.getVensimContextVariable())));
 			
 		//}
 		
 		
-		//params.put("Population scenario", "2");
+		params.put("Population Scenario", "1");
 		VensimModelResults results = runner.runTheModel(params);
+		System.out.println(Arrays.toString(results.getVensim().getVariable("Global population")));
+		
+		params.put("Population Scenario", "3");
+		results = runner.runTheModel(params);
+		System.out.println(Arrays.toString(results.getVensim().getVariable("Global population")));
+		
 		//System.out.println("Reference supply: " + Arrays.toString(results.getVensim().getVariable("Energy supply capacity[EBio]")));
 		//System.out.println(Arrays.toString(results.getVensim().getVariable("Temperature change from 1990[Deterministic]")));
 		//System.out.println(results.getVensim().getVariableInfo("\"R&D success year\""));

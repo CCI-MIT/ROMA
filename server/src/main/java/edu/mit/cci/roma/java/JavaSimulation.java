@@ -124,11 +124,12 @@ public class JavaSimulation {
 			simulationRunnerClass = (Class<JavaSimulationRunner>) Class.forName(runnerClass);
 			
 			javaSimulationRunner = simulationRunnerClass.newInstance();
+			
 			javaSimulationRunner.init(configuration == null ? Collections.EMPTY_MAP :  new JSONDeserializer<Map>().deserialize(configuration) );
 			return javaSimulationRunner.run(params, simulation.getOutputs());
 			
 		} catch (Exception e) {
-			String msg = String.format("Can't create java simulation runner for class %s", runnerClass);
+			String msg = String.format("Can't create java simulation runner for class %s, error: %s", runnerClass, e.getMessage());
 			throw new SimulationException(msg, e);
 		}
 	}

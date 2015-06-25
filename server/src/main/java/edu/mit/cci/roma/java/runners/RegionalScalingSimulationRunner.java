@@ -29,7 +29,7 @@ public class RegionalScalingSimulationRunner implements JavaSimulationRunner {
 	public Map<Variable, Object[]> run(List<Tuple> params, Set<Variable> outputs) throws SimulationException {
 		
 		Tuple regionNameTuple = getRegionFromParams(params);
-		if (regionNameTuple == null) {
+		if (regionNameTuple == null || regionNameTuple.getValues() == null || regionNameTuple.getValues().length != 1) {
 			throw new SimulationException(String.format("Can't find region parameter %s", REGION_PARAM));
 		}
 		String regionName = regionNameTuple.getValues()[0];
@@ -103,7 +103,7 @@ public class RegionalScalingSimulationRunner implements JavaSimulationRunner {
 
 	@Override
 	public void prePersistScenario(Scenario scenario) throws SimulationException {
-		
+
 	}
 
 

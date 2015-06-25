@@ -5,7 +5,7 @@
 	<artifactId>pangaea-core</artifactId>
 	<name>Pangaea Simulation Engine - Core</name>
 	<packaging>jar</packaging>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.3-SNAPSHOT</version>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<docker.image.prefix>roma</docker.image.prefix>
