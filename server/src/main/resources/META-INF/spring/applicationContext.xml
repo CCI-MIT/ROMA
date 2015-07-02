@@ -60,7 +60,6 @@
             </props>
         </property>
     </bean>
-
     <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
         <property name="driverClassName" value="${database.driverClassName}"/>
         <property name="url" value="${database.url}"/>
@@ -69,6 +68,11 @@
         <property name="validationQuery" value="SELECT 1 FROM DUAL"/>
         <property name="testOnBorrow" value="true"/>
     </bean>
+    <!-- 
+     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+    	<property name="jndiName" value="java:comp/env/jdbc/simulationPool"/>
+	</bean>
+	 -->
     <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>

@@ -108,8 +108,8 @@ public class RegionalModelTestUtils {
 			DefaultServerVariable outVariable = new DefaultServerVariable(toAggregate.iterator().next());
 			outVariable.setName(outputToAggregateEntry.getKey());
 			outVariable.setExternalName(outputToAggregateEntry.getKey());
-			outVariable.setLabels("Year;GHG Emissions");
-			outVariable.setUnits("Time;GHG emissions (Gigatons)");
+			outVariable.setLabels("GHG Emissions");
+			outVariable.setUnits("GHG emissions (Gigatons)");
 			aggregateOutputsSimulation.getOutputs().add(outVariable);
 
 		}

@@ -61,10 +61,12 @@ public class RunSimulationForm  {
     @Transactional()
     public String processSubmit(@PathVariable("simid") long simId, RunSimulationForm form, Model model, HttpServletRequest request) throws SimulationException {
 
+    	log.debug(String.format("Processing, simid: %d, form: %s", simId, form));
         Map<String,Long> remap = new HashMap<String,Long>();
         DefaultSimulation sim = null;
         Map<String,String> linputs;
         String userid = null;
+        log.debug("Got parameters: " + request.getParameterMap());
         if (this.simid == null) {
             sim = DefaultServerSimulation.findDefaultServerSimulation(simId);
             linputs = new HashMap<String,String>();
@@ -102,6 +104,7 @@ public class RunSimulationForm  {
         }
 
 
+        log.debug(String.format("Running simulation with inputs: (%s)", simInputs));
         Scenario s = sim.run(simInputs);
         s.setUser(userid);
         ((DefaultServerScenario)s).persist();

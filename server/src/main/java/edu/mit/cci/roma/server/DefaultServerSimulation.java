@@ -203,7 +203,7 @@ public class DefaultServerSimulation extends DefaultSimulation {
             }
         }
         if (!mine.isEmpty()) {
-            throw new SimulationException("Missing input variables: " + mine);
+            throw new SimulationException(String.format("Missing input variables: [%s], got: [%s]", mine, siminputs));
         }
         String response = null;
         response = getRunStrategy().run(url, selectedinputs);
