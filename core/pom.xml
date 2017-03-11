@@ -4,7 +4,7 @@
 
     <groupId>edu.mit.cci.roma</groupId>
     <artifactId>roma-core</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>roma-core</name>
@@ -98,11 +98,12 @@
                 <artifactId>site-maven-plugin</artifactId>
                 <version>0.10</version>
                 <configuration>
-                    <message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
+                    <message>Maven artifacts for ${project.name} ${project.version}</message>  <!-- git commit message -->
                     <noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
                     <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory> <!-- matches distribution management repository url above -->
                     <branch>refs/heads/mvn-repo</branch>                       <!-- remote branch name -->
                     <includes><include>**/*</include></includes>
+                    <merge>true</merge>
                     <repositoryName>ROMA</repositoryName>
                     <repositoryOwner>CCI-MIT</repositoryOwner>
                 </configuration>
