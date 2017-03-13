@@ -6,7 +6,8 @@
     <release>1.4</release>
     <versions>
       <version>1.4</version>
+      <version>1.4-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20170311142208</lastUpdated>
+    <lastUpdated>20170313231041</lastUpdated>
   </versioning>
 </metadata>
