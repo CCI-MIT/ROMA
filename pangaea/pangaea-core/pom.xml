@@ -18,12 +18,12 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>edu.mit.cci</groupId>
-			<artifactId>testing-utils</artifactId>
-			<version>1.0-SNAPSHOT</version>
-			<scope>test</scope>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>edu.mit.cci</groupId>-->
+			<!--<artifactId>testing-utils</artifactId>-->
+			<!--<version>1.0-SNAPSHOT</version>-->
+			<!--<scope>test</scope>-->
+		<!--</dependency>-->
 
 		<dependency>
 			<groupId>log4j</groupId>

@@ -36,8 +36,8 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys \
 	F7DA48BB64BCB84ECBA7EE6935CD23C10D498E23
 	
 ENV TOMCAT_MAJOR 8
-ENV TOMCAT_VERSION 8.0.23
-ENV TOMCAT_TGZ_URL https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
+ENV TOMCAT_VERSION 8.5.14
+ENV TOMCAT_TGZ_URL https://archive.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
 
 RUN wget "$TOMCAT_TGZ_URL" -o /dev/null -O tomcat.tar.gz 
 RUN	wget -SL "$TOMCAT_TGZ_URL.asc" -O tomcat.tar.gz.asc -o /dev/null 
@@ -56,7 +56,7 @@ RUN mkdir $CATALINA_HOME/webapps/$PANGAEA_SERVLET
 run unzip /tmp/$PANGAEA_SERVLET_WAR -d $CATALINA_HOME/webapps/${PANGAEA_SERVLET}
 ADD pangaea.properties $CATALINA_HOME/webapps/${PANGAEA_SERVLET}/WEB-INF/classes/
 
-ADD vensim/ /vensim/
+ADD vensim /vensim
 ADD vensim/*vrf $CATALINA_HOME/bin/
 
 ENV LD_LIBRARY_PATH /vensim:$LD_LIBRARY_PATH

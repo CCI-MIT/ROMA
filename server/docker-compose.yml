@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  roma-mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=R0maR00tPassw0rd
+      - MYSQL_DATABASE=simulation
+      - MYSQL_USER=simulation
+      - MYSQL_PASSWORD=Simulati0n
+    volumes:
+     - "mysql-data:/var/lib/mysql"
+
+  roma-server:
+    image: roma/roma-server
+    ports:
+      - "8084:8080"
+    depends_on:
+      - roma-mysql
+
+  pangaea-server:
+    image: roma/pangaea-server
+    ports:
+      - "8886:8886"
+
+
+volumes:
+  mysql-data:
