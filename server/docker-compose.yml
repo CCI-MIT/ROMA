@@ -18,10 +18,10 @@ services:
     depends_on:
       - roma-mysql
 
-  pangaea-server:
-    image: roma/pangaea-server
+  pangaea-servlet:
+    image: roma/pangaea-servlet
     ports:
-      - "8886:8886"
+      - "8085:8080"
 
 
 volumes:
